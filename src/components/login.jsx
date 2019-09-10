@@ -12,6 +12,7 @@ import { Card } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
+// import {green } from '@material-ui/core/colors';
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -107,7 +108,7 @@ export default class Login extends React.Component {
                                 label="Email"
                                 type="email"
                                 name="Email"
-                                margin="normal"
+                                margin="normal" 
                                 placeholder="Enter your email"
                                 variant="outlined"
                                 onChange={this.handleChangeMail}
@@ -124,15 +125,16 @@ export default class Login extends React.Component {
                                 variant="outlined"
                                 onChange={this.handleChangePassword}
                                 value={this.state.password}
+                                
                             />
                         </div>
                         <div className="resetLogin">
-                            <Button color="primary">
-                                reset password
+                            <Button color="primary" id="sensitivity">
+                                Reset password
                          </Button>
                         </div>
                         <div className="button">
-                            <Button color="primary">
+                            <Button color="primary" id="sensitivity">
                                 Create account
                          </Button>
                             {/* </div>
