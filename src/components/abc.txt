@@ -1,0 +1,163 @@
+ <form >
+                    <Card className="card">
+                        <h1><span style={{ color: "blue" }}>F</span>
+                            <span style={{ color: "red" }}>u</span>
+                            <span style={{ color: "green" }}>n</span>
+                            <span style={{ color: "green" }}>d</span>
+                            <span style={{ color: "orange" }}>o</span>
+                            <span style={{ color: "red" }}>o</span></h1>
+                        <h1>Sign In</h1>
+                        <p>continue to your fundoo</p>
+                        <Snackbar
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            // open={true}
+                            open={this.state.openSnackBar}
+                            autoHideDuration={6000}
+                            onClose={this.snackbarClose}
+                            message={<span id="messege-id">{this.state.SnackBarMessage}</span>}
+                            action={[
+                                <IconButton
+                                    key="close"
+                                    arial-label="close"
+                                    color="inherit"
+                                    onClick={this.snackbarClose}
+                                >
+                                </IconButton>
+                            ]}
+                        />
+                        <div className="emailField">
+                            <TextField
+                                required
+                                id=""
+                                label="Email"
+                                type="email"
+                                name="Email"
+                                margin="normal"
+                                placeholder="Enter your email"
+                                variant="outlined"
+                                onChange={this.handleChangeMail}
+                                value={this.state.email}
+                            />
+                            <TextField
+                                required
+                                id=""
+                                type="password"
+                                label="Password"
+                                name="Password"
+                                margin="normal"
+                                placeholder="Enter your password"
+                                variant="outlined"
+                                onChange={this.handleChangePassword}
+                                value={this.state.password}
+                            />
+                        </div>
+                        <div className="resetLogin">
+                            <Button color="primary" id="sensitivity" onClick={this.handleForgotPassword}>
+                                forgot password?
+                            </Button>
+                        </div>
+                        <div className="button">
+                            <Button color="primary" id="sensitivity" onClick={this.handleCreate}>
+                                Create account
+                            </Button>
+                            {/* </div>
+                        <div className="button"> */}
+                            <Button variant="contained" color="primary" className="submit" onClick={this.handleSubmit}>
+                                Submit
+                            </Button>
+                        </div>
+                    </Card>
+                </form>
+
+
+
+                #sensitivity {
+  text-transform: none;
+}
+
+
+  .signinCss{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    align-content: center;
+}
+/* ---------------------------------------------------Login------------------------------------------------------ */
+@media only screen and (min-width: 320px) and (max-width: 375px), only screen and (min-width: 425px) and (max-width:768px), only screen and (min-width: 600px) {
+  /* .main {
+    margin-top: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  } */
+  #cardText {
+    text-align: center;
+  }
+  .button {
+    margin-left: 600px;
+  }
+  .outerCard{
+    height: 200px;
+    max-width: 250px;
+  }
+}
+.App {
+  width: 100%;
+}
+.main {
+  margin-top: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.cards {
+  display: flex;
+  width: 100%;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.innerCard {
+  width: 106%;
+  height: 94%;
+  margin-left: -25%;
+  margin-top: -21%;
+}
+.btnSign{
+  margin-left: 550px;}
+/* ------------------------------------------------------------------------------------------------------------------ */
+.text {
+  margin-top: 105px;
+  justify-content: space-between;
+  border-radius: 25px;
+  margin-bottom: 12px;
+}
+
+.registerCss {
+  background-size: cover;
+  text-align: center;
+}
+/* ---------------------------------------------------Registration------------------------------------------------------ */
+
+.forgotText {
+  margin-top: 25px;
+}
+.forgotPasswordCss {
+  justify-content: center;
+  margin-top: 197px;
+  margin: auto;
+  text-align: center;
+}
+.forgotcard {
+  justify-content: center;
+  width: 323px;
+  margin-top: 167px;
+  border: 1px solid #f5f5f5;
+  margin: auto;
+  height: auto;
+}
+---------------------------------------------------Forgot------------------------------------------------------

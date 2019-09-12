@@ -1,22 +1,26 @@
+/******************************************************************************
+* @Purpose : Fundoo 
+* @file : forgotPassword.js
+* @overview : Fundoo FrontEnd
+* @author : BISATI SAI VENKATA VIKAS
+* @version : v8.15.0
+* @since : 26/09/2019
+******************************************************************************/
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import { Card } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import { Card } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar'
 import IconButton from '@material-ui/core/IconButton'
-//class Login extends React.Component or we can use React.createClass
-export default class Login extends React.Component {
-    //states are just like the variables and props are shorthand for properties that are passed to the constructor
+export default class ForgotPassword extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             email: "",
-            password: "",
             openSnackBar: false,
             SnackBarMessage: ""
         }
     }
-    //snackbar is used for displaying the error messages 
     snackbarClose = (e) => {
         this.setState({ openSnackBar: false });
     }
@@ -25,18 +29,7 @@ export default class Login extends React.Component {
         this.setState({
             email: email
         })
-    }
-    handleChangePassword = (event) => {
-        var password = event.target.value;
-        this.setState({
-            password: password
-        })
-    }
-    handleCreateAccout = () => {
-        this.props.history.push('/register')
-    }
-    handleForgotPassword = () => {
-        this.props.history.push('/forgotPassword')
+        console.log('data---', email)
     }
     handleSubmit = () => {
         if (this.state.email === "") {
@@ -44,29 +37,18 @@ export default class Login extends React.Component {
                 openSnackBar: true,
                 SnackBarMessage: 'Email Cannot Be Empty'
             })
-        }
-        else if (this.state.password === "") {
-            this.setState({
-                openSnackBar: true,
-                SnackBarMessage: 'Password Cannot Be Empty'
-            })
-        }
-        else if (!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(this.state.email)) {
-            this.setState({
-                openSnackBar: true,
-                SnackBarMessage: 'Email format is wrong'
-            })
-        }
-        else {
-            // console.log('first');
+        } else {
 
         }
     }
+    handleBack = () => {
+        this.props.history.push('/login')
+    }
     render() {
         return (
-            <div className="login-container">
-                <form className="login-form">
-                    <Card className="login-card">
+            <div className="forgot-container">
+                <form className="forgot-form">
+                    <Card className="forgot-card">
                         <h1><span style={{ color: "blue" }}>F</span>
                             <span style={{ color: "red" }}>u</span>
                             <span style={{ color: "green" }}>n</span>
@@ -74,7 +56,8 @@ export default class Login extends React.Component {
                             <span style={{ color: "orange" }}>o</span>
                             <span style={{ color: "red" }}>o</span></h1>
                         <h3>Sign In</h3>
-                        <p><b>continue to Your Email</b></p>
+                        <h1>Find Your Email</h1>
+                        <p>Enter your recovery email</p>
                         <Snackbar
                             anchorOrigin={{
                                 vertical: 'bottom',
@@ -95,7 +78,7 @@ export default class Login extends React.Component {
                                 </IconButton>
                             ]}
                         />
-                        <div>
+                        <div className="forgotText">
                             <TextField
                                 required
                                 id=""
@@ -109,32 +92,13 @@ export default class Login extends React.Component {
                                 value={this.state.email}
                             />
                         </div>
-                        <div>
-                            <TextField type="password"
-                                required
-                                id=""
-                                label="Password"
-                                name="Password"
-                                margin="normal"
-                                placeholder="Password"
-                                variant="outlined"
-                                onChange={this.handleChangePassword}
-                                value={this.state.password}
-                            />
-                        </div>
-                        <div className="login-button1">
-                            <Button variant="contained" color="primary" className="text" onClick={this.handleSubmit}>
-                                Login
+                        <div className="forgot-buttons">
+                            <Button color="primary" varaint="contained" className="text" onClick={this.handleBack}>
+                                Back
                          </Button>
-                        </div>
-                        <div className="login-button2">
-                            <Button color="secondary" id="sensitivity" onClick={this.handleForgotPassword}>
-                                ForgotPassword?
+                            <Button color="primary" varaint="contained" className="text" onClick={this.handleSubmit}>
+                                Submit
                          </Button>
-                            <Button color="primary" id="sensitivity" onClick={this.handleCreateAccout}>
-                                CreatAccount
-                         </Button>
-
                         </div>
                     </Card>
                 </form>

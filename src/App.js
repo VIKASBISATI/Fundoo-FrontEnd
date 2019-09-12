@@ -12,18 +12,24 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from './components/login';
 import CardComponent from './components/card';
 import './App.css';
+import Register from './components/registration.jsx';
+import Forgot from './components/forgotPassword'
 //App class extends React.Component this can also be done by React.CreatClass this also serves the same functionality
 //Here in react component is nothing but a class
-class App extends React.Component { 
+import ServiceCard from './components/serviceCard'
+class App extends React.Component {
   render() {
     return (
-      <div>
+      
         <Router>
           <Route path="/login" component={Login}></Route>
+          <Route path="/registration" component={Register}></Route>
+          <Route path="/forgotPassword" component={Forgot}></Route>
           <Route path="/card" component={CardComponent}></Route>
-          <Route path="/" exact component={CardComponent}></Route>
+          <Route path="/" exact component={ServiceCard}></Route>
+          <Route path="/serviceCard" component={ServiceCard}></Route>
         </Router>
-      </div>
+      
     );
   }
 }
