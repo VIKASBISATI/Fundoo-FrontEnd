@@ -1,46 +1,22 @@
 import React, { Component } from 'react'
-import { service } from '../services/userService';
-import { Card, Button } from '@material-ui/core';
+import { service, addToCart } from '../services/userService';
+import { Card } from '@material-ui/core';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
-import Typography from '@material-ui/core/Typography';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import { Tab, Tabs } from '@material-ui/core/';
-function TabContainer(props) {
-    return (
-        <Typography component="div" style={{ padding: 8 * 3 }}>
-            {props.children}
-        </Typography>
-    );
-}
+import { withRouter } from 'react-router-dom'
 const theme = createMuiTheme({
     overrides: {
         MuiAppBar: {
             colorPrimary: {
                 color: "black",
-                backgroundColor: "green",
+                backgroundColor: "orange",
             }
         },
         MuiCard: {
             root: {
                 overflow: "visible",
             }
-        },
-        MuiDialogContent: {
-            root: {
-                padding: "0px",
-                "root:first": {
-                    child: {
-                        paddingTop: "0px"
-
-                    }
-                }
-
-            }
-        },
-
+        }
     }
 })
 class ServiceCard extends Component {
@@ -52,12 +28,17 @@ class ServiceCard extends Component {
             price: 0,
             value: 0,
             mouseEnter: false,
-            cartId: ''
+            cartId: '',
+            cart: '',
+            pId: '',
+            name: '',
+            id: ''
         }
     }
     componentDidMount() {
         service()
             .then(res => {
+                console.log('data', res)
                 this.setState({
                     serviceData: res.data.data.data
                 })
@@ -82,9 +63,9 @@ class ServiceCard extends Component {
     handleChange = (event, value) => {
         this.setState({ value });
     };
-    handleProceed = () => {
-        this.props.history.push('/registration');
-    }
+    // handleProceed = () => {
+    //     this.props.history.push('/registration');
+    // }
     handleMouseEntry = (id) => {
         this.setState({
             mouseEnter: true,
@@ -96,16 +77,43 @@ class ServiceCard extends Component {
             mouseEnter: false
         })
     }
+    getRegId(cart) {
+        var data = {
+            productId: cart
+        }
+        addToCart(data)
+            .then((res) => {
+                console.log("response after add to cart ", res);
+                this.setState({
+                    pId: res.data.data.details.productId,
+                    name: res.data.data.details.product.name,
+                    id: res.data.data.details.id
+                })
+                console.log("service name", this.state.name);
+
+                var cartData = {
+                    pIdCart: this.state.pId,
+                    cartName: this.state.name,
+                    idCart: this.state.id
+                }
+                console.log("service data before sending to registaer", cartData);
+                this.props.history.push("/register", cartData);
+            }).catch((err) => {
+                console.log(err);
+            })
+    }
     render() {
-        const { value } = this.state;
+        // const { value } = this.state;
         const cardColor = this.state.mouseEnter ? "orange" : "grey";
         const serviceArr = this.state.serviceData.map(key => {
             return (
                 <div className='cards'>
                     <MuiThemeProvider theme={theme}>
-                        <Card className='innerCard' onMouseEnter={() => this.handleMouseEntry(key.id)} onMouseLeave={this.handleMouseExit}
-                            style={{ backgroundColor: (this.state.cartId === key.id) ? cardColor : "gray" }} onClick={this.handleCardOpen}>
-                            <Card className='outerCard' onMouseEnter={() => this.handleMouseEntry(key.id)} onMouseLeave={this.handleMouseExit}
+                        <Card className='innerCard'
+                            style={{ backgroundColor: (this.state.cartId === key.id) ? cardColor : "grey" &&
+                                    (this.props.cartIdd === key.id) ? "orange" : "grey"
+                            }}>
+                            <Card className='outerCard' onClick={() => this.getRegId(key.id)} onMouseEnter={() => this.handleMouseEntry(key.id)} onMouseLeave={this.handleMouseExit}
                             >
                                 <p ><b>Price : ${key.price} per month</b><div style={{ marginLeft: "20px", color: "blue" }}><b>{key.name}</b></div>
                                     <ul >
@@ -118,11 +126,13 @@ class ServiceCard extends Component {
                                     </ul>
                                 </p>
                             </Card>
-                            ADD TO CART
+                            <div>
+                                {(this.props.cartIdd === key.id) ? <b>{this.props.status}</b> : <b>ADDTOCART</b>}
+                            </div>
                         </Card>
                     </MuiThemeProvider>
                     <div>
-                        <Dialog position="static"
+                        {/* <Dialog position="static"
                             onClose={this.handleRemove}
                             open={this.state.open}
                             aria-labelledby="alert-dialog-title"
@@ -156,31 +166,38 @@ class ServiceCard extends Component {
                                     </Button>
                                 </div>
                             </DialogActions>
-                        </Dialog>
+                        </Dialog> */}
                     </div>
                 </div>
             )
         })
         return (
-            <div className="container">
-                <div>
-                    <MuiThemeProvider theme={theme}>
-                        <AppBar position="static" color="primary">
-                            <h2 className='fundooNotes'>Fundoo Notes</h2>
-                        </AppBar>
-                    </MuiThemeProvider>
-                </div>
-                <div className="head">
-                    <h2 style={{ textAlign: "center" }}>
-                        FundooNotes offered. Choose below service to Register.
-                    </h2>
-                </div>
-                <div className="keyDetails">
+            (this.props.cartProps) ?
+                <div className="keyDetails1">
                     {serviceArr}
                 </div>
-                <div className="serviceLogin" onClick={this.handleSignIn}>Sign in instead</div>
-            </div>
+                :
+                <div>
+                    <div>
+                        <MuiThemeProvider theme={theme}>
+                            <AppBar position="static" color="primary">
+                                <h2 className='fundooNotes'>Fundoo Notes</h2>
+                            </AppBar>
+                        </MuiThemeProvider>
+                    </div>
+                    <div className="head">
+                        <h2 style={{ textAlign: "center" }}>
+                            FundooNotes offered. Choose below service to Register.
+                    </h2>
+                    </div>
+                    <div className="keyDetails2">
+                        {serviceArr}
+
+                    </div>
+                    <div className="serviceLogin" onClick={this.handleSignIn}>Sign in instead</div>
+                </div>
+
         )
     }
 }
-export default ServiceCard
+export default withRouter(ServiceCard)

@@ -38,7 +38,9 @@ export default class ForgotPassword extends React.Component {
                 SnackBarMessage: 'Email Cannot Be Empty'
             })
         } else {
-
+            var forgotDetails = {
+                'email': this.state.email
+            }
         }
     }
     handleBack = () => {

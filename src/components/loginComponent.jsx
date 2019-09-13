@@ -3,7 +3,8 @@ import TextField from '@material-ui/core/TextField';
 import { Card } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar'
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from '@material-ui/core/IconButton';
+import { userLogin } from '../services/shoppingService'
 //class Login extends React.Component or we can use React.createClass
 export default class Login extends React.Component {
     //states are just like the variables and props are shorthand for properties that are passed to the constructor
@@ -33,10 +34,10 @@ export default class Login extends React.Component {
         })
     }
     handleCreateAccout = () => {
-        this.props.history.push('/register')
+        this.props.props.history.push('/register');
     }
     handleForgotPassword = () => {
-        this.props.history.push('/forgotPassword')
+        this.props.props.history.push('/forgotPassword')
     }
     handleSubmit = () => {
         if (this.state.email === "") {
@@ -59,7 +60,23 @@ export default class Login extends React.Component {
         }
         else {
             // console.log('first');
+            var loginDetails = {
+                'email': this.state.email,
+                'password': this.state.password
+            }
+            userLogin(loginDetails).then((res) => {
+                this.setState({
+                    openSnackBar: true,
+                    SnackBarMessage: 'Login Success'
+                })
 
+            }).catch((err) => {
+                this.setState({
+                    openSnackBar: true,
+                    SnackBarMessage: 'Login Failure'
+                })
+                console.log('login error', err);
+            })
         }
     }
     render() {
@@ -134,7 +151,6 @@ export default class Login extends React.Component {
                             <Button color="primary" id="sensitivity" onClick={this.handleCreateAccout}>
                                 CreatAccount
                          </Button>
-
                         </div>
                     </Card>
                 </form>

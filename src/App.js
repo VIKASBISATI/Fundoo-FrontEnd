@@ -9,27 +9,24 @@
 import React from 'react';
 //React Router Dom contains Router Route and switch
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Login from './components/login';
-import CardComponent from './components/card';
+import Login from './pages/login';
 import './App.css';
-import Register from './components/registration.jsx';
-import Forgot from './components/forgotPassword'
+import Register from './pages/register';
+import Forgot from './pages/fogotPassword'
 //App class extends React.Component this can also be done by React.CreatClass this also serves the same functionality
 //Here in react component is nothing but a class
-import ServiceCard from './components/serviceCard'
+import ServiceCard from './pages/serviceCard'
 class App extends React.Component {
   render() {
     return (
-      
-        <Router>
-          <Route path="/login" component={Login}></Route>
-          <Route path="/registration" component={Register}></Route>
-          <Route path="/forgotPassword" component={Forgot}></Route>
-          <Route path="/card" component={CardComponent}></Route>
-          <Route path="/" exact component={ServiceCard}></Route>
-          <Route path="/serviceCard" component={ServiceCard}></Route>
-        </Router>
-      
+      <Router>
+        <Route path="/login" component={Login}></Route>
+        <Route path="/register" component={Register}></Route>
+        <Route path="/forgotPassword" component={Forgot}></Route>
+        {/* <Route path="/card" component={CardComponent}></Route> */}
+        <Route path="/" exact component={ServiceCard}></Route>
+        <Route path="/serviceCard" component={ServiceCard}></Route>
+      </Router>
     );
   }
 }
