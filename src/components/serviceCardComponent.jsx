@@ -109,25 +109,33 @@ class ServiceCard extends Component {
             return (
                 <div className='cards'>
                     <MuiThemeProvider theme={theme}>
-                        <Card className='innerCard'
-                            style={{ backgroundColor: (this.state.cartId === key.id) ? cardColor : "grey" &&
-                                    (this.props.cartIdd === key.id) ? "orange" : "grey"
+                        <Card className='innerCard' id={cardColor}
+                            style={{
+                                backgroundColor: (this.state.cartId === key.id) ? cardColor : "grey" &&
+                                    (this.props.cartIdd === key.id) ? this.props.changeColor : "grey",
                             }}>
-                            <Card className='outerCard' onClick={() => this.getRegId(key.id)} onMouseEnter={() => this.handleMouseEntry(key.id)} onMouseLeave={this.handleMouseExit}
+                            <Card className='outerCard' onClick={() => this.getRegId(key.id)}
+                                onMouseEnter={(this.props.cartProps) ? null :
+                                    () => this.handleMouseEntry(key.id)} onMouseLeave={(this.props.cartProps) ?
+                                        (null) : this.handleMouseExit}
                             >
-                                <p ><b>Price : ${key.price} per month</b><div style={{ marginLeft: "20px", color: "blue" }}><b>{key.name}</b></div>
-                                    <ul >
-                                        <li>
-                                            ${key.price}/month
+                                <b>Price : ${key.price} per month</b>
+                                <div style={{ marginLeft: "20px", color: "blue" }}>
+                                    <b>{key.name}</b>
+                                </div>
+                                {/* <ul > */}
+                                <div style={{ maxWidth: "220px" }}>
+                                    <li>
+                                        ${key.price}/month
                                         </li>
-                                        <li>
-                                            {key.description}
-                                        </li>
-                                    </ul>
-                                </p>
+                                    <li>
+                                        {key.description}
+                                    </li>
+                                </div>
+                                {/* </ul> */}
                             </Card>
                             <div>
-                                {(this.props.cartIdd === key.id) ? <b>{this.props.status}</b> : <b>ADDTOCART</b>}
+                                {(this.props.cartIdd === key.id) ? <b>{this.props.status}</b> : <b>ADD TO CART</b>}
                             </div>
                         </Card>
                     </MuiThemeProvider>
@@ -173,7 +181,11 @@ class ServiceCard extends Component {
         })
         return (
             (this.props.cartProps) ?
-                <div className="keyDetails1">
+                <div style={{
+                    'display': 'flex',
+                    'max-height': '200px',
+                    marginTop: "30px"
+                }}>
                     {serviceArr}
                 </div>
                 :
@@ -186,15 +198,15 @@ class ServiceCard extends Component {
                         </MuiThemeProvider>
                     </div>
                     <div className="head">
-                        <h2 style={{ textAlign: "center" }}>
-                            FundooNotes offered. Choose below service to Register.
-                    </h2>
+                        <h1 style={{ textAlign: "center", fontFamily: "Times New Roman", wordSpacing: "25px" }}>
+                            Fundoo Notes offered. Choose below service to Register.
+                    </h1>
                     </div>
                     <div className="keyDetails2">
                         {serviceArr}
 
                     </div>
-                    <div className="serviceLogin" onClick={this.handleSignIn}>Sign in instead</div>
+                    <div className="serviceLogin" onClick={this.handleSignIn} style={{ color: "blue" }}>Sign in instead</div>
                 </div>
 
         )

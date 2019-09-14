@@ -13,6 +13,7 @@ import Login from './pages/login';
 import './App.css';
 import Register from './pages/register';
 import Forgot from './pages/fogotPassword'
+import DashBoard   from '../src/pages/dashboard'
 //App class extends React.Component this can also be done by React.CreatClass this also serves the same functionality
 //Here in react component is nothing but a class
 import ServiceCard from './pages/serviceCard'
@@ -26,6 +27,7 @@ class App extends React.Component {
         {/* <Route path="/card" component={CardComponent}></Route> */}
         <Route path="/" exact component={ServiceCard}></Route>
         <Route path="/serviceCard" component={ServiceCard}></Route>
+        <Route path="/dashboard" component={DashBoard}></Route>
       </Router>
     );
   }

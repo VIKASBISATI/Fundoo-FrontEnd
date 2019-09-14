@@ -103,7 +103,7 @@ class RegisterComponent extends React.Component {
             })
         }
     }
-    handlelogin = (changeColor, cartIdd, cart, status) => {
+    signInInstead = (changeColor, cartIdd, cart, status) => {
         var loginData = {
             changeColor: changeColor,
             cartIdd: cartIdd,
@@ -211,17 +211,17 @@ class RegisterComponent extends React.Component {
                         />
                     </div>
                     <div>
-                        <ServiceCard cartProps={true} 
-                        cartIdd={cartIdd}
-                        status={status}
-                        changeColor={changeColor}
-                         />
+                        <ServiceCard cartProps={true}
+                            cartIdd={cartIdd}
+                            status={status}
+                            changeColor={changeColor}
+                        />
                     </div>
-                    <div className="button">
+                    <div style={{ marginBottom: "100px", alignItems: "center", display: "flex", justifyContent: "space-around", height: "inherit" }}>
                         <Button variant="contained" color="primary" id="regbutton" onClick={this.handleSubmit}>
                             signup
                         </Button>
-                        <Button variant="contained" color="primary" id="regbutton" onClick={() => this.handleSubmit(changeColor, cartIdd, cart, status)}>
+                        <Button variant="contained" color="primary" id="regbutton" onClick={() => this.signInInstead(changeColor, cartIdd, cart, status)}>
                             sign in instead
                         </Button>
                     </div>

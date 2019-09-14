@@ -11,7 +11,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Card } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar'
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from '@material-ui/core/IconButton';
+import {userForgotPassword} from '../services/shoppingService'
 export default class ForgotPassword extends React.Component {
     constructor(props) {
         super(props);
@@ -37,14 +38,33 @@ export default class ForgotPassword extends React.Component {
                 openSnackBar: true,
                 SnackBarMessage: 'Email Cannot Be Empty'
             })
-        } else {
+        }
+        else if (!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(this.state.email)) {
+            this.setState({
+                openSnackBar: true,
+                SnackBarMessage: 'Email format is wrong'
+            })
+        }
+        else {
             var forgotDetails = {
                 'email': this.state.email
             }
+            userForgotPassword(forgotDetails).then((res)=>{
+                this.setState({
+                    openSnackBar: true,
+                    SnackBarMessage: 'Message sent successfully'
+                })
+            }).catch((err)=>{
+                console.log('error',err);
+                this.setState({
+                    openSnackBar: true,
+                    SnackBarMessage: 'Email id is wrong'
+                })
+            })
         }
     }
     handleBack = () => {
-        this.props.history.push('/login')
+        this.props.props.history.push('/login')
     }
     render() {
         return (
