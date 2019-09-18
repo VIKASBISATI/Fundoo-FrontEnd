@@ -127,7 +127,7 @@ class ServiceCard extends Component {
                                 <div style={{ maxWidth: "220px" }}>
                                     <li>
                                         ${key.price}/month
-                                        </li>
+                                            </li>
                                     <li>
                                         {key.description}
                                     </li>
@@ -141,40 +141,40 @@ class ServiceCard extends Component {
                     </MuiThemeProvider>
                     <div>
                         {/* <Dialog position="static"
-                            onClose={this.handleRemove}
-                            open={this.state.open}
-                            aria-labelledby="alert-dialog-title"
-                            aria-describedby="alert-dialog-description"
-                        >
-                            <MuiThemeProvider theme={theme}>
-                                <DialogContent  >
+                                onClose={this.handleRemove}
+                                open={this.state.open}
+                                aria-labelledby="alert-dialog-title"
+                                aria-describedby="alert-dialog-description"
+                            >
+                                <MuiThemeProvider theme={theme}>
+                                    <DialogContent  >
 
-                                    <AppBar position="static" color="primary">
-                                        <h2>Advanced pack details</h2>
+                                        <AppBar position="static" color="primary">
+                                            <h2>Advanced pack details</h2>
 
-                                    </AppBar>
-                                    <Tabs value={value} onChange={this.handleChange}>
-                                        <Tab label="Feature One" />
-                                        <Tab label="Feature Two" />
-                                        <Tab label="Feature Three" />
-                                    </Tabs>
+                                        </AppBar>
+                                        <Tabs value={value} onChange={this.handleChange}>
+                                            <Tab label="Feature One" />
+                                            <Tab label="Feature Two" />
+                                            <Tab label="Feature Three" />
+                                        </Tabs>
 
-                                    {value === 0 && <TabContainer>Feature1</TabContainer>}
-                                    {value === 1 && <TabContainer>Feature2</TabContainer>}
-                                    {value === 2 && <TabContainer>Feature3</TabContainer>}
-                                </DialogContent>
-                            </MuiThemeProvider>
-                            <DialogActions>
-                                <div className="dialogButton">
-                                    <Button onClick={this.handleRemove} color="primary">
-                                        Remove
-                                    </Button>
-                                    <Button onClick={this.handleProceed} color="primary" autoFocus>
-                                        Proceed to checkout
-                                    </Button>
-                                </div>
-                            </DialogActions>
-                        </Dialog> */}
+                                        {value === 0 && <TabContainer>Feature1</TabContainer>}
+                                        {value === 1 && <TabContainer>Feature2</TabContainer>}
+                                        {value === 2 && <TabContainer>Feature3</TabContainer>}
+                                    </DialogContent>
+                                </MuiThemeProvider>
+                                <DialogActions>
+                                    <div className="dialogButton">
+                                        <Button onClick={this.handleRemove} color="primary">
+                                            Remove
+                                        </Button>
+                                        <Button onClick={this.handleProceed} color="primary" autoFocus>
+                                            Proceed to checkout
+                                        </Button>
+                                    </div>
+                                </DialogActions>
+                            </Dialog> */}
                     </div>
                 </div>
             )
@@ -200,7 +200,7 @@ class ServiceCard extends Component {
                     <div className="head">
                         <h1 style={{ textAlign: "center", fontFamily: "Times New Roman", wordSpacing: "25px" }}>
                             Fundoo Notes offered. Choose below service to Register.
-                    </h1>
+                        </h1>
                     </div>
                     <div className="keyDetails2">
                         {serviceArr}

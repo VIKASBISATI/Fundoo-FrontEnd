@@ -73,7 +73,7 @@ class Login extends React.Component {
                     SnackBarMessage: 'Login Success'
                 })
                 console.log('res in login', res)
-                localStorage.setItem('Id', res.data.id);
+                localStorage.setItem('token', res.data.id);
                 localStorage.setItem('FirstName', res.data.firstName);
                 localStorage.setItem('LastName', res.data.lastName);
                 localStorage.setItem('Email', res.data.email);

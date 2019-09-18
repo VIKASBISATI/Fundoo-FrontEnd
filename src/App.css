@@ -192,3 +192,148 @@
   height: 550px;
   width: 450px;
 }
+
+/* ---------------------------------------------------Dashboard--------------------------------------------------------- */
+
+.dashboard-card1 {
+  border: 1px white;
+  height: 80px;
+  width: 500px;
+}
+
+.dashboard-card2 {
+  border: 1px solid white;
+  height: 160px;
+  width: 500px;
+}
+
+.dashboard-appbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.dashboard-logo {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex: 0.2;
+}
+
+.dashboard-card-div {
+  display: flex;
+  flex-direction: row;
+  flex: 0.7;
+  justify-content: space-between;
+  background-color: #f0f0f0;
+  border-radius: 1em;
+  align-items: center;
+}
+
+.dashboard-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-evenly;
+  padding-bottom: 3%;
+}
+
+.dashboard-refresh {
+  display: flex;
+  flex-direction: row;
+}
+
+/* ------------------------------------------------------CreateNotes----------------------------------------------------- */
+
+.create-container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 3%;
+}
+
+.create-card2 {
+  width: 600px;
+  height: auto;
+  border: 1px solid whitesmoke;
+  border-radius: 1em;
+}
+
+.create-card1 {
+  width: 600px;
+  height: 46px;
+  border: 1px solid whitesmoke;
+  border-radius: 1em;
+}
+
+.in1 {
+  width: 100%;
+}
+
+.in2 {
+  width: 100%;
+}
+
+.in3 {
+  width: 100%;
+}
+
+.input1 {
+  padding-left: 3%;
+  padding-top: 2%
+}
+
+.input2 {
+  padding-left: 3%;
+  padding-top: 2%
+}
+
+.notes-icons {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 3%;
+  padding-top: 2%
+}
+
+.notes-icon-div {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+}
+
+/* ------------------------------------------------getNotes--------------------------------------------------------------- */
+
+.get-card1 {
+  min-width: auto;
+  min-height: auto;
+  border: 1px solid whitesmoke;
+  border-radius: 1em;
+}
+
+.get-in1 {
+  width: auto;
+}
+
+.get-in2 {
+  width: auto;
+}
+
+.get-container {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+}
+
+.get-page {
+  width: 100%;
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: center;
+}
+
+.get-contents {
+  padding-bottom: 3%;
+}
