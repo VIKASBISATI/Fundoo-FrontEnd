@@ -25,13 +25,19 @@ export default class dashboardComponent extends Component {
             bgColor: '',
             searchText: '',
             clr: false,
-            menu: true
+            menu: true,
+            slideCards: false
         }
     }
     handleNotes = (e) => {
         const notes = e.target.value;
         this.setState({
             notes: notes
+        })
+    }
+    handleSlideCard = () => {
+        this.setState({
+            slideCards: !this.state.slideCards
         })
     }
 
@@ -77,8 +83,9 @@ export default class dashboardComponent extends Component {
         })
     }
     render() {
+        const slidingCards = this.state.slideCards ? "before" : "after"
         return (
-            <div>
+            <div className={slidingCards}>
                 <div className="dashboard-container">
                     <MuiThemeProvider theme={theme}>
                         <AppBar position="fixed">
@@ -89,7 +96,9 @@ export default class dashboardComponent extends Component {
                                             <MenuIcon onClick={this.handleMenu} />
                                         </Tooltip>
                                     </IconButton>
-                                    <DrawerComponent menuSelect={this.state.menu} />
+                                    <DrawerComponent menuSelect={this.state.menu}
+                                        slideCards={this.slideCards}
+                                    />
                                     <IconButton color="inherit" aria-label="Open drawer">
                                     </IconButton>
                                     <img src={require("../assets/images/keep.png")} alt="" width="30px" height="30px" />

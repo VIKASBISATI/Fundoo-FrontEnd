@@ -11,10 +11,16 @@ import { MenuItem, MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 const theme = createMuiTheme({
     overrides: {
         MuiDrawer: {
-            paper: {
-                top: "9.6%"
-            }, paperAnchorLeft: {
-                    width: "15%"
+            // paper: {
+            //     top: "9.6%"
+            // }, 
+            paperAnchorLeft: {
+                width: 300,
+                top: 65,
+                background: 'white'
+            },
+            paperAnchorDockedLeft: {
+                borderColor: "white"
             }
         }
     }
@@ -30,7 +36,9 @@ class DrawerComponent extends Component {
         return (
             <div className="drawer-container">
                 <MuiThemeProvider theme={theme}>
-                    <Drawer variant="persistent" overflow="auto" open={this.props.menuSelect} className="drawer-css">
+                    <Drawer variant="persistent" overflow="auto"
+                        open={this.props.menuSelect}
+                        className="drawer-css">
                         <MenuItem id="note">
                             <EmojiObjectsIcon />
                             Notes

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { getAllNotes } from '../services/userService'
-import { Card, InputBase } from '@material-ui/core';
+import { getAllNotes, updateNotes, colorChange } from '../services/userService'
+import { Card, InputBase, Button } from '@material-ui/core';
 import { Tooltip } from '@material-ui/core';
 import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
@@ -8,9 +8,10 @@ import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import ColorPaletteComponent from './colorPaletteComponent';
-import colorChange from '../services/userService'
 import Dialog from '@material-ui/core/Dialog';
-import updateNotes from '../services/userService'
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
 export default class GetAllNoteComponent extends Component {
     constructor(props) {
         super(props);
@@ -18,13 +19,14 @@ export default class GetAllNoteComponent extends Component {
             notes: [],
             color: '',
             open: false,
-            id:'',
-            title:'',
-            description:'',
-            noteId:''
+            id: '',
+            title: '',
+            colorUpdated: '',
+            description: '',
+            noteId: ''
         }
     }
-    componentWillMount() {
+    componentDidMount() {
         this.getNotes();
     }
     getNotes = () => {
@@ -45,7 +47,8 @@ export default class GetAllNoteComponent extends Component {
         }
         console.log('data in get', data);
 
-        colorChange(data).then((res) => {
+        colorChange(data)
+        .then((res) => {
             console.log(res);
             this.getNotes();
         }).catch((err) => {
@@ -67,27 +70,42 @@ export default class GetAllNoteComponent extends Component {
             open: true
         })
     }
-    handleUpdate=(id,oldTitle,oldDescription)=>{
-            this.setState({
-                noteId:id,
-                title:oldTitle,
-                description:oldDescription,
-                open:!this.state.open
-            })
-            var data={
-                noteId:this.state.noteId,
-                title:this.state.title,
-                description:this.state.description
-            }
-            updateNotes(data).then((res)=>{
-                this.getNotes();
-                console.log('response in get notes is',res)
-            }).catch((err)=>{
-                console.log('err in get all notes update is ',err);    
-            })
+    handleUpdateTitle = (e) => {
+        var title = e.target.value;
+        this.setState({
+            title: title
+        })
+    }
+    handleUpdateDescription = (e) => {
+        var description = e.target.value;
+        this.setState({
+            description: description
+        })
+    }
+    handleUpdate = (id, oldTitle, oldDescription, colorUpdated) => {
+        this.setState({
+            noteId: id,
+            title: oldTitle,
+            description: oldDescription,
+            open: !this.state.open,
+            colorUpdated: colorUpdated
+        })
+        var data = {
+            noteId: this.state.noteId,
+            title: this.state.title,
+            description: this.state.description
+        }
+        updateNotes(data).then((res) => {
+            this.getNotes();
+            console.log('response in get notes is', res)
+        }).catch((err) => {
+            console.log('err in get all notes update is ', err);
+        })
     }
     render() {
         const allNotes = this.state.notes.map((key) => {
+            console.log('keyid ',key.id);
+            
             return (
 
                 <div className="get-contents">
@@ -97,7 +115,7 @@ export default class GetAllNoteComponent extends Component {
                                 multiline
                                 placeholder="Title"
                                 id="title"
-                                onClick={() => this.handleUpdate(key.id, key.title, key.description)}
+                                onClick={() => this.handleUpdate(key.id, key.title, key.description, key.color)}
                                 value={key.title}
                             />
                         </div>
@@ -106,7 +124,7 @@ export default class GetAllNoteComponent extends Component {
                                 multiline
                                 placeholder="Take a note ...."
                                 id="description"
-                                onClick={() => this.handleupdate(key.id, key.title, key.description)}
+                                onClick={() => this.handleUpdate(key.id, key.title, key.description, key.color)}
                                 value={key.description}
                             />
                         </div>
@@ -138,14 +156,65 @@ export default class GetAllNoteComponent extends Component {
                         open={this.state.open}
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
+                        bodyStyle={{ backgroundColor: 'transparent' }}
                     >
-                       
+                        <Card className="get-card2" style={{ backgroundColor: this.state.colorUpdated }}>
+                            <DialogTitle>
+                                <div className="input1">
+                                    <InputBase className="get-in2"
+                                        multiline
+                                        placeholder="Title"
+                                        id="title"
+                                        value={this.state.title}
+                                        onChange={this.handleUpdateTitle}
+                                    />
+                                </div>
+                            </DialogTitle>
+                            <DialogContent>
+                                <div className="input2">
+                                    <InputBase className="get-in1"
+                                        multiline
+                                        placeholder="Take a note ...."
+                                        id="description"
+                                        value={this.state.description}
+                                        onChange={this.handleUpdateDescription}
+                                    />
+                                </div>
+                            </DialogContent>
+                            <DialogActions>
+                                <div className="notes-icon-div2">
+                                    <Tooltip title="Remind me">
+                                        <AddAlertOutlinedIcon />
+                                    </Tooltip>
+                                    <Tooltip title="collaborator">
+                                        <PersonAddOutlinedIcon />
+                                    </Tooltip>
+                                    <Tooltip title="Change color">
+                                        <ColorPaletteComponent
+                                            paletteProps={this.handleColor}
+                                            notesId={this.state.noteId} />
+                                    </Tooltip>
+                                    <Tooltip title="Add image">
+                                        <ImageOutlinedIcon />
+                                    </Tooltip>
+                                    <Tooltip title="Archive">
+                                        <ArchiveOutlinedIcon />
+                                    </Tooltip> 
+                                    <Tooltip title="More    ">
+                                        <MoreVertOutlinedIcon />
+                                    </Tooltip>
+                                    <Button onClick={() => this.handleUpdate(this.state.noteId, this.state.title, this.state.description, this.state.color)}>
+                                        close
+                                    </Button>
+                                </div>
+                            </DialogActions>
+                        </Card>
                     </Dialog>
-                </div>
+                </div >
             )
         })
         return (
-            <div className="get-container">
+            <div className="get-container" >
                 {allNotes}
             </div>
         )

@@ -244,6 +244,15 @@
   flex-direction: row;
 }
 
+.before {
+  transition: 0.25s;
+}
+
+.after {
+  margin-left: 50px;
+  transition: margin-left 0.25s;
+}
+
 /* ------------------------------------------------------CreateNotes----------------------------------------------------- */
 
 .create-container {
@@ -314,10 +323,27 @@
   visibility: visible;
 }
 
+.get-card2 {
+  min-width: 40vw;
+  min-height: auto;
+  border: 1px solid whitesmoke;
+}
+
+.get-ca rd2:hover .notes-icon-div2 {
+  visibility: visible;
+}
+
 .notes-icon-div1 {
   display: flex;
   justify-content: space-between;
   visibility: hidden;
+}
+
+.notes-icon-div2 {
+  display: flex;
+  min-width: 40vw;
+  visibility: visible;
+  justify-content: space-around;
 }
 
 .get-in1 {
@@ -354,6 +380,7 @@
   display: flex;
   align-items: center;
 }
+
 .drawer-css {
   width: 32%;
   transition: 0.4s;
@@ -382,7 +409,7 @@
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
-  position: absolute;
+  position: fixed;
   width: 9%;
   height: 10%;
 }

@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { Tooltip, IconButton, Card } from '@material-ui/core'
 import ColorLensOutlinedIcon from '@material-ui/icons/ColorLensOutlined';
 const colorPalette = [{ name: "default", colorCode: "#FDFEFE" },
-{ name: "Red", colorCode: "#FF0000" },
+{ name: "Salmon", colorCode: "#FA8072" },
 { name: "Cyan", colorCode: "#00FFFF" },
-{ name: "Blue", colorCode: "#0000FF" },
-{ name: "DarkBlue", colorCode: "#0000A0" },
+{ name: "Purple", colorCode: "#800080" },
+{ name: "Teal", colorCode: "#008080" },
 { name: "LightBlue", colorCode: "#ADD8E6" },
 { name: "Purple", colorCode: "#800080" },
 { name: "Yellow", colorCode: "#FFFF00" },

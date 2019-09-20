@@ -21,7 +21,8 @@ export function getAllNotes() {
         }
     })   
 }
-export default function colorChange(data) {
+export  function colorChange(data) {
+    
     return axios.post(baseURL + '/notes/changesColorNotes',data,{
         headers: {
             Authorization: localStorage.getItem('token')
@@ -29,6 +30,8 @@ export default function colorChange(data) {
     })   
 }
 export  function updateNotes(data) {
+    console.log('data in update notes is',data);
+    
     return axios.post(baseURL + '/notes/updateNotes',data,{
         headers: {
             Authorization: localStorage.getItem('token')

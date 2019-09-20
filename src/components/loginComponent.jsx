@@ -62,12 +62,12 @@ class Login extends React.Component {
                 SnackBarMessage: 'Email cannot be empty'
             })
         }
-        else if (this.state.password.length >= 8 && this.state.password.length <= 15) {
-            this.setState({
-                openSnackBar: true,
-                SnackBarMessage: 'Enter correct password'
-            })
-        }
+        // else if (this.state.) {
+        //     this.setState({
+        //         openSnackBar: true,
+        //         SnackBarMessage: 'Enter correct password'
+        //     })
+        // }
         else {
             // console.log('first');
             var loginDetails = {
