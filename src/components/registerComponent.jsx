@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import '../App.css'
 import ServiceCard from './serviceCardComponent';
 import { withRouter } from 'react-router-dom';
+import ClearIcon from '@material-ui/icons/Clear';
 import { userRegister } from '../services/shoppingService'
 class RegisterComponent extends React.Component {
     constructor(props) {
@@ -153,6 +154,7 @@ class RegisterComponent extends React.Component {
                                 color="inherit"
                                 onClick={this.snackbarClose}
                             >
+                                      <ClearIcon />
                             </IconButton>
                         ]}
                     />

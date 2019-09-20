@@ -8,6 +8,7 @@ import { userLogin } from '../services/shoppingService'
 import ServiceCard from './serviceCardComponent';
 import { withRouter } from 'react-router-dom'
 // import { ServiceComponent } from '../components/serviceCardComponent'
+import ClearIcon from '@material-ui/icons/Clear';
 //class Login extends React.Component or we can use React.createClass
 class Login extends React.Component {
     //states are just like the variables and props are shorthand for properties that are passed to the constructor
@@ -25,15 +26,15 @@ class Login extends React.Component {
         this.setState({ openSnackBar: false });
     }
     handleChangeMail = (event) => {
-        var email = event.target.value;
+        const Email = event.target.value;
         this.setState({
-            email: email
+            email: Email
         })
     }
     handleChangePassword = (event) => {
-        var password = event.target.value;
+        const Password = event.target.value;
         this.setState({
-            password: password
+            password: Password
         })
     }
     handleCreateAccout = () => {
@@ -49,16 +50,22 @@ class Login extends React.Component {
                 SnackBarMessage: 'Email Cannot Be Empty'
             })
         }
-        else if (this.state.password === "") {
-            this.setState({
-                openSnackBar: true,
-                SnackBarMessage: 'Password Cannot Be Empty'
-            })
-        }
         else if (!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(this.state.email)) {
             this.setState({
                 openSnackBar: true,
                 SnackBarMessage: 'Email format is wrong'
+            })
+        }
+        else if (this.state.password === "") {
+            this.setState({
+                openSnackBar: true,
+                SnackBarMessage: 'Email cannot be empty'
+            })
+        }
+        else if (this.state.password.length >= 8 && this.state.password.length <= 15) {
+            this.setState({
+                openSnackBar: true,
+                SnackBarMessage: 'Enter correct password'
             })
         }
         else {
@@ -81,10 +88,17 @@ class Login extends React.Component {
             }).catch((err) => {
                 this.setState({
                     openSnackBar: true,
-                    SnackBarMessage: 'Login Failure'
+                    SnackBarMessage: 'Email or password incorrect'
                 })
                 console.log('login error', err);
             })
+        }
+    }
+
+    handleEnter = event => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            this.handleSubmit(event);
         }
     }
     render() {
@@ -118,20 +132,23 @@ class Login extends React.Component {
                         onClose={this.snackbarClose}
                         message={<span id="messege-id">{this.state.SnackBarMessage}</span>}
                         action={[
+
                             <IconButton
                                 key="close"
                                 arial-label="close"
                                 color="inherit"
+
                                 onClick={this.snackbarClose}
                             >
+                                <ClearIcon />
                             </IconButton>
                         ]}
                     />
                     <div>
                         <TextField
                             required
-                            id=""
-                            label="Email"
+                            id="email"
+                            label={"Email"}
                             type="email"
                             name="Email"
                             margin="normal"
@@ -139,12 +156,13 @@ class Login extends React.Component {
                             variant="outlined"
                             onChange={this.handleChangeMail}
                             value={this.state.email}
+                            onKeyPress={this.handleEnter}
                         />
                     </div>
                     <div>
                         <TextField type="password"
                             required
-                            id=""
+                            id="password"
                             label="Password"
                             name="Password"
                             margin="normal"
@@ -152,6 +170,7 @@ class Login extends React.Component {
                             variant="outlined"
                             onChange={this.handleChangePassword}
                             value={this.state.password}
+                            onKeyPress={this.handleEnter}
                         />
                     </div>
                     <div className="login-button1">

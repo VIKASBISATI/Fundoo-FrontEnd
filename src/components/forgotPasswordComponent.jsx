@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import { Card } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar'
 import IconButton from '@material-ui/core/IconButton';
+import ClearIcon from '@material-ui/icons/Clear';
 import {userForgotPassword} from '../services/shoppingService'
 export default class ForgotPassword extends React.Component {
     constructor(props) {
@@ -97,6 +98,7 @@ export default class ForgotPassword extends React.Component {
                                     color="inherit"
                                     onClick={this.snackbarClose}
                                 >
+                                          <ClearIcon />
                                 </IconButton>
                             ]}
                         />

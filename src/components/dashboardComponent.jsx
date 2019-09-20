@@ -4,6 +4,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ClearIcon from '@material-ui/icons/Clear';
 import React, { Component } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
+import DrawerComponent from '../components/drawerComponent'
 const theme = createMuiTheme({
     overrides: {
         MuiAppBar: {
@@ -23,7 +24,8 @@ export default class dashboardComponent extends Component {
             noteOpen: false,
             bgColor: '',
             searchText: '',
-            clr: false
+            clr: false,
+            menu: true
         }
     }
     handleNotes = (e) => {
@@ -69,19 +71,25 @@ export default class dashboardComponent extends Component {
             clr: true
         })
     }
+    handleMenu = () => {
+        this.setState({
+            menu: !this.state.menu
+        })
+    }
     render() {
         return (
             <div>
                 <div className="dashboard-container">
                     <MuiThemeProvider theme={theme}>
-                        <AppBar position="static">
+                        <AppBar position="fixed">
                             <Toolbar>
                                 <div className="dashboard-logo">
                                     <IconButton>
                                         <Tooltip title="Menu">
-                                            <MenuIcon />
+                                            <MenuIcon onClick={this.handleMenu} />
                                         </Tooltip>
                                     </IconButton>
+                                    <DrawerComponent menuSelect={this.state.menu} />
                                     <IconButton color="inherit" aria-label="Open drawer">
                                     </IconButton>
                                     <img src={require("../assets/images/keep.png")} alt="" width="30px" height="30px" />
@@ -116,8 +124,7 @@ export default class dashboardComponent extends Component {
                             </Toolbar>
                         </AppBar>
                     </MuiThemeProvider>
-
-                </div>       
+                </div>
             </div>
         )
     }

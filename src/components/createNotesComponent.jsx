@@ -4,6 +4,7 @@ import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ColorLensOutlinedIcon from '@material-ui/icons/ColorLensOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
+import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import { addNotes } from '../services/userService'
 export default class createNotes extends Component {
@@ -32,9 +33,9 @@ export default class createNotes extends Component {
             console.log(err);
         })
         this.setState({
-            noteClick:false,
-            title:'',
-            desc:''
+            noteClick: false,
+            title: '',
+            desc: ''
         })
     }
     handleTitle = (e) => {
@@ -77,6 +78,9 @@ export default class createNotes extends Component {
                                 <Tooltip title="Remind me">
                                     <AddAlertOutlinedIcon />
                                 </Tooltip>
+                                <Tooltip title="collaborator">
+                                    <PersonAddOutlinedIcon />
+                                </Tooltip>
                                 <Tooltip title="Change color">
                                     <ColorLensOutlinedIcon />
                                 </Tooltip>
@@ -105,6 +109,7 @@ export default class createNotes extends Component {
                                     placeholder="Take a note ...."
                                     id="description"
                                     onChange={this.handleDescription}
+                                    value={this.state.desc}
                                 />
                             </div>
                         </Card>

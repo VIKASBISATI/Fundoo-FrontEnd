@@ -1,73 +1,66 @@
 import React, { Component } from 'react';
-import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import Drawer from '@material-ui/core/Drawer';
-import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import EditIcon from '@material-ui/icons/Edit';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import DeleteIcon from '@material-ui/icons/Delete';
-export default class drawerComponent extends Component {
+import { withRouter } from 'react-router-dom'
+import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
+import { MenuItem, MuiThemeProvider, createMuiTheme } from '@material-ui/core';
+const theme = createMuiTheme({
+    overrides: {
+        MuiDrawer: {
+            paper: {
+                top: "9.6%"
+            }, paperAnchorLeft: {
+                    width: "15%"
+            }
+        }
+    }
+})
+class DrawerComponent extends Component {
     constructor() {
         super();
         this.state = {
-            open: false
+            open: true
         }
     }
-    handleToggleDrawer = (side, open) => () => {
-        this.setState({
-            [side]: open,
-        });
-    };
     render() {
-        const contents = (
-
-            <div>
-                <List>
-                    {['Notes', 'Reminders'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
-                </List>
-                <Divider />
-                <List>
-                    {['Edit Labels', 'Archive'].map((text, index) => (
-                        <ListItem button key={text}
-                        >
-                            <ListItemIcon>{}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
-                </List>
-                <Divider />
-                <List>
-                    {['Archive', 'Bin'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
-                </List>
-
-            </div>
-        );
         return (
-            <div>
-                <Drawer open={this.state.left} onClose={this.handleToggleDrawer('left', false)}>
-                    <div
-                        tabIndex={0}
-                        role="button"
-                        onClick={this.handleToggleDrawer('left', false)}
-                        onKeyDown={this.handleToggleDrawer('left', false)}
-                    >
-                        {contents}
-                    </div>
-                </Drawer>
+            <div className="drawer-container">
+                <MuiThemeProvider theme={theme}>
+                    <Drawer variant="persistent" overflow="auto" open={this.props.menuSelect} className="drawer-css">
+                        <MenuItem id="note">
+                            <EmojiObjectsIcon />
+                            Notes
+                     </MenuItem>
+                        <MenuItem id="note">
+                            <NotificationsNoneOutlinedIcon />
+                            Reminders
+                     </MenuItem>
+                        <Divider />
+                        <div>
+                            <b>Labels</b>
+                            <MenuItem id="note">
+                                <EditIcon />
+                                EditLabels
+                    </MenuItem>
+                            <Divider />
+                        </div>
+                        <MenuItem id="note">
+                            <ArchiveIcon />
+                            Archive
+                     </MenuItem>
+                        <MenuItem id="note">
+                            <DeleteIcon />
+                            Bin
+                     </MenuItem>
+                        <Divider />
+                    </Drawer>
+                </MuiThemeProvider>
             </div>
         )
     }
 }
+export default withRouter(DrawerComponent);

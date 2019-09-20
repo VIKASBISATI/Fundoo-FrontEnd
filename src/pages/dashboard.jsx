@@ -9,6 +9,7 @@ export default class Dashboard extends Component {
             <DashBoardPage props={this.props} />
             <CreateNotesComponent />
          <div className="get-page">   <GetAllNoteComponent/></div>
+
             </div>
         )
     }

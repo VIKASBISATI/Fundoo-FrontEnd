@@ -236,7 +236,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-evenly;
-  padding-bottom: 3%;
+  padding-bottom: 7%;
 }
 
 .dashboard-refresh {
@@ -310,6 +310,16 @@
   border-radius: 1em;
 }
 
+.get-card1:hover .notes-icon-div1 {
+  visibility: visible;
+}
+
+.notes-icon-div1 {
+  display: flex;
+  justify-content: space-between;
+  visibility: hidden;
+}
+
 .get-in1 {
   width: auto;
 }
@@ -336,4 +346,99 @@
 
 .get-contents {
   padding-bottom: 3%;
+}
+
+/* ------------------------------------------------------Drawer------------------------------------------------------------ */
+
+.drawer-container {
+  display: flex;
+  align-items: center;
+}
+.drawer-css {
+  width: 32%;
+  transition: 0.4s;
+}
+
+#note {
+  border-top-right-radius: 50px 50px;
+  border-bottom-right-radius: 50px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* --------------------------------------------------------------colorpalette------------------------------------------------ */
+
+.color-styles {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.colorpalette-card {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  position: absolute;
+  width: 9%;
+  height: 10%;
+}
+
+/* ----------------------------------------------card---------------------------------------------------------------------- */
+
+.card-container {
+  display: flex;
+  background-color: orange;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 10vh;
+}
+
+.middle-card {
+  width: 80%;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+.first-card {
+  width: 20%;
+  height: 40vh;
+  border: 1px solid black;
+  box-shadow: 15px 15px grey;
+  transition: transform .2s;
+}
+
+.first-card:hover {
+  height: 200px;
+  transform: scale(1.5);
+  box-shadow: 15px 15px orange;
+}
+
+.second-card:hover {
+  height: 200px;
+  transform: scale(1.5);
+  box-shadow: 15px 15px orange;
+}
+
+.second-card {
+  width: 20%;
+  height: 40vh;
+  border: 1px solid black;
+  box-shadow: 15px 15px grey;
+  /* transition: width 1s;
+  transition: height 1s; */
+  transition: transform .2s;
 }
