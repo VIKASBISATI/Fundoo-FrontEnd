@@ -326,3 +326,475 @@ export default class CardComponent extends React.Component {
         )
     }
 }
+
+---------------------------------------------------css-------------------------------------------------------------
+#sensitivity {
+  text-transform: none;
+}
+
+/* ----------------------------------------------------------------------------------------------------- */
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cards {
+  display: flex;
+  width: 100%;
+  line-height: 2rem;
+  justify-content: center;
+}
+
+.outerCard {
+  width: 97%;
+  margin-left: -5%;
+  margin-top: -20%;
+  height: 214px;
+}
+
+.innerCard {
+  width: 42%;
+  height: 100%;
+}
+
+#orange {
+  background-color: orange;
+}
+
+#orange:hover {
+  transition: width 1s;
+  transition: height 1s;
+  width: 50%;
+  height: 100%
+}
+
+.keyDetails1 {
+  display: flex;
+  margin-top: 9%;
+  justify-content: center;
+}
+
+.keyDetails2 {
+  display: flex;
+  margin-top: 9%;
+  width: 100%;
+  justify-content: center;
+}
+
+.fundooNotes {
+  margin-left: 80px;
+  font-size: 30px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: normal;
+}
+
+.serviceLogin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 230px;
+}
+
+.dialogButton {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* -----------------------------------------------------Reg------------------------------------------------------------- */
+
+.register-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.registrationFields {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-container {
+  width: 68%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  height: 100%;
+}
+
+.register-card {
+  /* padding-top: 5%; */
+  display: flex;
+  width: 100%;
+  height: 900px;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.register-fields1 {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 25px;
+}
+
+.register-fields2 {
+  display: flex;
+  padding-left: 100px;
+  padding-right: 100px;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.register-fields3 {
+  display: flex;
+  justify-content: space-around;
+}
+
+.register-heading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* -------------------------------------------------forgot------------------------------------------------------------- */
+
+.forgot-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.forgot-card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 500px;
+  width: 450px;
+  justify-content: center;
+}
+
+.forgot-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.forgot-buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* -------------------------------------------------login------------------------------------------------------------- */
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.login-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 550px;
+  width: 450px;
+  flex-direction: column;
+}
+
+.login-card2 {
+  align-content: center;
+  align-items: center;
+  height: 550px;
+  width: 450px;
+}
+
+/* ---------------------------------------------------Dashboard--------------------------------------------------------- */
+
+.dashboard-card1 {
+  border: 1px white;
+  height: 80px;
+  width: 500px;
+}
+
+.dashboard-card2 {
+  border: 1px solid white;
+  height: 160px;
+  width: 500px;
+}
+
+.dashboard-appbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.dashboard-logo {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex: 0.2;
+}
+
+.dashboard-card-div {
+  display: flex;
+  flex-direction: row;
+  flex: 0.7;
+  justify-content: space-between;
+  background-color: #f0f0f0;
+  border-radius: 1em;
+  align-items: center;
+}
+
+.dashboard-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-evenly;
+  padding-bottom: 7%;
+}
+
+.dashboard-refresh {
+  display: flex;
+  flex-direction: row;
+}
+
+.before {
+  transition: 0.25s;
+}
+
+.after {
+  margin-left: 50px;
+  transition: margin-left 0.25s;
+}
+
+/* ------------------------------------------------------CreateNotes----------------------------------------------------- */
+
+.create-container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 3%;
+}
+
+.create-card2 {
+  width: 600px;
+  height: auto;
+  border: 1px solid whitesmoke;
+  border-radius: 1em;
+}
+
+.create-card1 {
+  width: 600px;
+  height: 46px;
+  border: 1px solid whitesmoke;
+  border-radius: 1em;
+}
+
+.in1 {
+  width: 100%;
+}
+
+.in2 {
+  width: 100%;
+}
+
+.in3 {
+  width: 100%;
+}
+
+.input1 {
+  padding-left: 3%;
+  padding-top: 2%
+}
+
+.input2 {
+  padding-left: 3%;
+  padding-top: 2%
+}
+
+.notes-icons {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 3%;
+  padding-top: 2%
+}
+
+.notes-icon-div {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+}
+
+/* ------------------------------------------------getNotes--------------------------------------------------------------- */
+
+.get-card1 {
+  min-width: auto;
+  min-height: auto;
+  border: 1px solid whitesmoke;
+  border-radius: 1em;
+}
+
+.get-card1:hover .notes-icon-div1 {
+  visibility: visible;
+}
+
+.get-card2 {
+  min-width: 40vw;
+  min-height: auto;
+  border: 1px solid whitesmoke;
+}
+
+.get-ca rd2:hover .notes-icon-div2 {
+  visibility: visible;
+}
+
+.notes-icon-div1 {
+  display: flex;
+  justify-content: space-between;
+  visibility: hidden;
+}
+
+.notes-icon-div2 {
+  display: flex;
+  min-width: 40vw;
+  visibility: visible;
+  justify-content: space-around;
+}
+
+.get-in1 {
+  width: auto;
+}
+
+.get-in2 {
+  width: auto;
+}
+
+.get-container {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+}
+
+.get-page {
+  width: 100%;
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: center;
+}
+
+.get-contents {
+  padding-bottom: 3%;
+}
+/* ------------------------------------------------------Drawer------------------------------------------------------------ */
+
+.drawer-container {
+  display: flex;
+  align-items: center;
+}
+
+.drawer-css {
+  width: 32%;
+  transition: 0.4s;
+}
+
+#note {
+  border-top-right-radius: 50px 50px;
+  border-bottom-right-radius: 50px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* --------------------------------------------------------------colorpalette------------------------------------------------ */
+
+.color-styles {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.colorpalette-card {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  position: fixed;
+  width: 9%;
+  height: 10%;
+}
+
+/* ----------------------------------------------card---------------------------------------------------------------------- */
+
+.card-container {
+  display: flex;
+  background-color: orange;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 10vh;
+}
+
+.middle-card {
+  width: 80%;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+.first-card {
+  width: 20%;
+  height: 40vh;
+  border: 1px solid black;
+  box-shadow: 15px 15px grey;
+  transition: transform .2s;
+}
+
+.first-card:hover {
+  height: 200px;
+  transform: scale(1.5);
+  box-shadow: 15px 15px orange;
+}
+
+.second-card:hover {
+  height: 200px;
+  transform: scale(1.5);
+  box-shadow: 15px 15px orange;
+}
+
+.second-card {
+  width: 20%;
+  height: 40vh;
+  border: 1px solid black;
+  box-shadow: 15px 15px grey;
+  /* transition: width 1s;
+  transition: height 1s; */
+  transition: transform .2s;
+}

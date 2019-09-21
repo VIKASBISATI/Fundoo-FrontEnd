@@ -1,0 +1,28 @@
+.trash-card {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    position: fixed;
+    width: 9%;
+    height: 10%;
+  }
+  .account-card {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    position: fixed;
+    width: 20%;
+    height: 20%;
+  }
+  .slidingCards{
+    transition:2s;
+  }
+  .slidingCards{
+    margin-left:25px;
+  }
+  .account-buttons{
+    display:flex;
+    justify-content: space-between;
+  }

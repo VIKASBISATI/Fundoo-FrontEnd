@@ -1,7 +1,8 @@
-import { AppBar, createMuiTheme, IconButton, MuiThemeProvider, Toolbar, Tooltip, InputBase } from '@material-ui/core';
+import { AppBar, createMuiTheme, IconButton, Button, MuiThemeProvider, Toolbar, Tooltip, InputBase, Card } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import MenuIcon from '@material-ui/icons/Menu';
 import ClearIcon from '@material-ui/icons/Clear';
+import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import React, { Component } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import DrawerComponent from '../components/drawerComponent'
@@ -26,7 +27,8 @@ export default class dashboardComponent extends Component {
             searchText: '',
             clr: false,
             menu: true,
-            slideCards: false
+            slideCards: false,
+            accountCard: false
         }
     }
     handleNotes = (e) => {
@@ -82,6 +84,11 @@ export default class dashboardComponent extends Component {
             menu: !this.state.menu
         })
     }
+    handleAccount = () => {
+        this.setState({
+            accountCard: !this.state.accountCard
+        })
+    }
     render() {
         const slidingCards = this.state.slideCards ? "before" : "after"
         return (
@@ -102,7 +109,7 @@ export default class dashboardComponent extends Component {
                                     <IconButton color="inherit" aria-label="Open drawer">
                                     </IconButton>
                                     <img src={require("../assets/images/keep.png")} alt="" width="30px" height="30px" />
-                                    <h4 style={{ fontFamily: "TimesNewRoman" }}><span>FundooNotes</span></h4>
+                                    <h3 ><span>Fundoo</span></h3>
                                 </div>
                                 <div className="dashboard-card-div">
                                     <IconButton>
@@ -129,10 +136,25 @@ export default class dashboardComponent extends Component {
                                             <RefreshIcon onClick={this.handleReload} />
                                         </Tooltip>
                                     </IconButton>
+                                    <IconButton>
+                                        <Tooltip title="SignIn">
+                                            <AccountCircleRoundedIcon onClick={this.handleAccount} />
+                                        </Tooltip>
+                                    </IconButton>
                                 </div>
                             </Toolbar>
                         </AppBar>
                     </MuiThemeProvider>
+                    <div>
+                        {this.state.accountCard ? <div>
+                            <Card className="account-card">
+                                <div className="account-buttons">
+                                    <Button >Add Account</Button>
+                                    <Button >SignOut</Button>
+                                </div>
+                            </Card>
+                        </div> : (null)}
+                    </div>
                 </div>
             </div>
         )

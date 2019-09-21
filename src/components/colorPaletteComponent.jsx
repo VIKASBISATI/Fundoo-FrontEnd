@@ -63,7 +63,7 @@ export default class ColorPaletteComponent extends Component {
                     <div className="colorpalette-card">
                         <Card className="color-styles">
                             {colorChange}
-                        </Card>
+                        </Card> 
                     </div>
                     : null}
             </div>

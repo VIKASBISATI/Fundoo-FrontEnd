@@ -15,26 +15,42 @@ export function addNotes(data) {
         })
 }
 export function getAllNotes() {
-    return axios.get(baseURL + '/notes/getNotesList',        {
+    return axios.get(baseURL + '/notes/getNotesList', {
         headers: {
             Authorization: localStorage.getItem('token')
         }
-    })   
+    })
 }
-export  function colorChange(data) {
-    
-    return axios.post(baseURL + '/notes/changesColorNotes',data,{
+export function colorChange(data) {
+
+    return axios.post(baseURL + '/notes/changesColorNotes', data, {
         headers: {
             Authorization: localStorage.getItem('token')
         }
-    })   
+    })
 }
-export  function updateNotes(data) {
-    console.log('data in update notes is',data);
-    
-    return axios.post(baseURL + '/notes/updateNotes',data,{
+export function updateNotes(data) {
+    console.log('data in update notes is', data);
+
+    return axios.post(baseURL + '/notes/updateNotes', data, {
         headers: {
             Authorization: localStorage.getItem('token')
         }
-    })   
+    })
+}
+export function archive(data) {
+    console.log('data in archive notes is', data);
+    return axios.post(baseURL + '/notes/archiveNotes', data, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}
+export function trash(data){
+    console.log('data in trash notes is',data);
+    return axios.post(baseURL+'/notes/trashNotes',data,{
+        headers:{
+            Authorization:localStorage.getItem('token')
+        }
+    })
 }

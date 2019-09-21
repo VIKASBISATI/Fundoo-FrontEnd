@@ -86,6 +86,8 @@ class Login extends React.Component {
                 localStorage.setItem('Email', res.data.email);
                 this.props.history.push('/dashboard');
             }).catch((err) => {
+                console.log(err);
+                
                 this.setState({
                     openSnackBar: true,
                     SnackBarMessage: 'Email or password incorrect'

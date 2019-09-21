@@ -11,8 +11,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from './pages/login';
 import './App.css';
+import './App.scss';
 import Register from './pages/register';
-import Forgot from './pages/fogotPassword';
+import Forgot from './pages/forgotPassword';
 import DashBoard from '../src/pages/dashboard';
 import CreateNotes from '../src/pages/createNotes';
 import GetAllNotesPage from '../src/pages/getAllNotes'
