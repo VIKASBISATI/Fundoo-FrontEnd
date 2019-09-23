@@ -1,9 +1,11 @@
-import { AppBar, createMuiTheme, IconButton, Button, MuiThemeProvider, Toolbar, Tooltip, InputBase, Card } from '@material-ui/core';
+import { AppBar, createMuiTheme, IconButton, Button, MuiThemeProvider, Toolbar, Tooltip, InputBase } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import MenuIcon from '@material-ui/icons/Menu';
 import ClearIcon from '@material-ui/icons/Clear';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import React, { Component } from 'react';
+import Popper from '@material-ui/core/Popper';
+import Paper from '@material-ui/core/Paper';
 import SearchIcon from '@material-ui/icons/Search';
 import DrawerComponent from '../components/drawerComponent'
 const theme = createMuiTheme({
@@ -26,7 +28,7 @@ export default class dashboardComponent extends Component {
             bgColor: '',
             searchText: '',
             clr: false,
-            menu: true,
+            menu: false,
             slideCards: false,
             accountCard: false
         }
@@ -89,6 +91,14 @@ export default class dashboardComponent extends Component {
             accountCard: !this.state.accountCard
         })
     }
+    handleOpenPopper(e) {
+        this.setState({
+            anchorEl: this.state.anchorEl ? false : e.target
+        });
+    }
+    handleSignOut = () => {
+        this.props.props.history.push('/login')
+    }
     render() {
         const slidingCards = this.state.slideCards ? "before" : "after"
         return (
@@ -138,23 +148,19 @@ export default class dashboardComponent extends Component {
                                     </IconButton>
                                     <IconButton>
                                         <Tooltip title="SignIn">
-                                            <AccountCircleRoundedIcon onClick={this.handleAccount} />
+                                            <AccountCircleRoundedIcon onClick={(e) => this.handleOpenPopper(e)} />
                                         </Tooltip>
                                     </IconButton>
                                 </div>
                             </Toolbar>
                         </AppBar>
                     </MuiThemeProvider>
-                    <div>
-                        {this.state.accountCard ? <div>
-                            <Card className="account-card">
-                                <div className="account-buttons">
-                                    <Button >Add Account</Button>
-                                    <Button >SignOut</Button>
-                                </div>
-                            </Card>
-                        </div> : (null)}
-                    </div>
+                    <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} >
+                        <Paper>
+                            <Button>Add Account</Button>
+                            <Button onClick={this.handleSignOut}>Signout</Button>
+                        </Paper>
+                    </Popper>
                 </div>
             </div>
         )

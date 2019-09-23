@@ -26,3 +26,13 @@
     display:flex;
     justify-content: space-between;
   }
+
+.color-map{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100px;
+  align-items: center;
+  justify-content: center;
+  height: 82px;
+}

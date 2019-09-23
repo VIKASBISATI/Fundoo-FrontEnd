@@ -15,7 +15,7 @@ const theme = createMuiTheme({
             //     top: "9.6%"
             // }, 
             paperAnchorLeft: {
-                width: 300,
+                width: 250,
                 top: 65,
                 background: 'white'
             },
@@ -40,28 +40,28 @@ class DrawerComponent extends Component {
                         open={this.props.menuSelect}
                         className="drawer-css">
                         <MenuItem id="note">
-                            <EmojiObjectsIcon />
+                            <EmojiObjectsIcon style={{paddingRight:"15%"}}/>
                             Notes
                      </MenuItem>
                         <MenuItem id="note">
-                            <NotificationsNoneOutlinedIcon />
+                            <NotificationsNoneOutlinedIcon style={{paddingRight:"15%"}}/>
                             Reminders
                      </MenuItem>
                         <Divider />
                         <div>
-                            <b>Labels</b>
+                        <h6 style={{paddingLeft:"20px"}}>LABLES</h6>
                             <MenuItem id="note">
-                                <EditIcon />
+                                <EditIcon style={{paddingRight:"15%"}}/>
                                 EditLabels
                     </MenuItem>
                             <Divider />
                         </div>
                         <MenuItem id="note">
-                            <ArchiveIcon />
+                            <ArchiveIcon style={{paddingRight:"15%"}}/>
                             Archive
                      </MenuItem>
                         <MenuItem id="note">
-                            <DeleteIcon />
+                            <DeleteIcon style={{paddingRight:"15%"}}/>
                             Bin
                      </MenuItem>
                         <Divider />

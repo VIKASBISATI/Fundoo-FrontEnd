@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Tooltip, IconButton, Card } from '@material-ui/core'
+import { Tooltip, IconButton } from '@material-ui/core';
+import Popper from '@material-ui/core/Popper';
+import Paper from '@material-ui/core/Paper';
 import ColorLensOutlinedIcon from '@material-ui/icons/ColorLensOutlined';
 const colorPalette = [{ name: "default", colorCode: "#FDFEFE" },
 { name: "Salmon", colorCode: "#FA8072" },
@@ -14,18 +16,13 @@ const colorPalette = [{ name: "default", colorCode: "#FDFEFE" },
 { name: "Silver", colorCode: "#C0C0C0" },
 { name: "Brown", colorCode: "#A52A2A" },
 ]
-
 export default class ColorPaletteComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: false
+            open: false,
+            anchorEl: false
         }
-    }
-    handleOpenPopper = () => {
-        this.setState({
-            open: !this.state.open
-        })
     }
     handleChangeColor = (e) => {
         try {
@@ -34,17 +31,17 @@ export default class ColorPaletteComponent extends Component {
             console.log(err);
         }
     }
-    handleToggle = () => {
+    handleOpenPopper(e) {
         this.setState({
-            open: !this.state.open
-        })
-    }
+            anchorEl: this.state.anchorEl ? false : e.target
+        });
+    };
     render() {
         const colorChange = colorPalette.map((key) => {
             return (
-                <div className="color-map">
+                <div>
                     <Tooltip title={key.name}>
-                        <IconButton style={{ backgroundColor: key.colorCode}}
+                        <IconButton style={{ backgroundColor: key.colorCode }}
                             value={key.colorCode}
                             onClick={this.handleChangeColor}>
                         </IconButton>
@@ -56,16 +53,14 @@ export default class ColorPaletteComponent extends Component {
             <div>
                 <Tooltip title="Change Color">
                     <ColorLensOutlinedIcon
-                        onClick={this.handleToggle}
+                        onClick={(e) => this.handleOpenPopper(e)}
                     />
                 </Tooltip>
-                {this.state.open ?
-                    <div className="colorpalette-card">
-                        <Card className="color-styles">
-                            {colorChange}
-                        </Card> 
-                    </div>
-                    : null}
+                <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} >
+                    <Paper>
+                      <div className="color-map">  {colorChange}</div>
+                    </Paper>
+                </Popper>
             </div>
         )
     }

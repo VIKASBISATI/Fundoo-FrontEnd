@@ -1,44 +1,51 @@
 import React, { Component } from 'react'
-import { Tooltip, Card, MenuItem } from '@material-ui/core';
+import { Tooltip, Button } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
+import Popper from '@material-ui/core/Popper';
+import Paper from '@material-ui/core/Paper';
 import { trash } from '../services/userService';
 class TrashComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isDeleted: false,
+            anchorEl: false,
             cardOpen: false
         }
     }
-    handleMore = () => {
+    handleOpenPopper(e) {
         this.setState({
-            cardOpen: !this.state.cardOpen
+            anchorEl: this.state.anchorEl ? false : e.target
         })
+    }
+    handleButton = () => {
+
         var trashNoteId = this.props.trashNoteId;
         var data = {
             noteIdList: [trashNoteId],
             isDeleted: true
         }
+        console.log('data in trash', data);
+
         trash(data).then((res) => {
             console.log('res in trash after hitting', res);
         }).catch((err) => {
             console.log('error in trash ', err);
-
         })
     }
     render() {
         return (
             <div>
                 <Tooltip title="More">
-                    <MoreVertOutlinedIcon onClick={this.handleMore} />
+                    <MoreVertOutlinedIcon onClick={(e) => this.handleOpenPopper(e)} />
                 </Tooltip>
-                {this.state.cardOpen ?
-                    (<Card className="trash-card">
-                        <MenuItem>
-                            Delete Notes
-                    </MenuItem>
-                    </Card>) : (null)}
+                <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} >
+                    <Paper className="colorpalette-popper">
+                        <Button onClick={this.handleButton}>Delete</Button>
+                        <Button>Add Label</Button>
+                    </Paper>
+                </Popper>
             </div>
         )
     }
