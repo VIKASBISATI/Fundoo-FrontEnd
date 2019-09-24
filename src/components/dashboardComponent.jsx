@@ -62,6 +62,7 @@ export default class dashboardComponent extends Component {
         this.setState({
             searchText: searchText
         })
+        // this.props.getSearchText(e.target.value)
     }
     handleReload = () => {
         window.location.reload();

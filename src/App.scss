@@ -1,3 +1,4 @@
+// -------------------------------------------------trash--------------------------------------------------------------
 .trash-card {
     display: flex;
     align-items: center;
@@ -7,6 +8,18 @@
     width: 9%;
     height: 10%;
   }
+  .label-popper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    position: fixed;
+    min-width: 225px;
+    overflow: hidden;
+    max-width: 225px;
+    height: auto;
+  }
+  // ---------------------------------------------------account----------------------------------------------------------
   .account-card {
     display: flex;
     align-items: center;
@@ -26,7 +39,7 @@
     display:flex;
     justify-content: space-between;
   }
-
+// --------------------------------------------------------colorpalette----------------------------------------------------
 .color-map{
   display: flex;
   flex-wrap: wrap;
@@ -35,4 +48,15 @@
   align-items: center;
   justify-content: center;
   height: 82px;
+}
+// -----------------------------------------edit---------------------------------------------------------------------
+#edit-button{
+  display: flex;
+  flex-direction: row-reverse;
+}
+.edit-input{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
 }

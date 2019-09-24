@@ -82,6 +82,7 @@ class Login extends React.Component {
                 console.log('res in login', res)
                 localStorage.setItem('token', res.data.id);
                 localStorage.setItem('FirstName', res.data.firstName);
+                localStorage.setItem('userId', res.data.userId);
                 localStorage.setItem('LastName', res.data.lastName);
                 localStorage.setItem('Email', res.data.email);
                 this.props.history.push('/dashboard');
@@ -200,7 +201,6 @@ class Login extends React.Component {
                         />
                     </Card> : (null)
                 }
-
             </div>
         )
     }

@@ -21,7 +21,6 @@ class ArchiveComponent extends Component {
         }
         archive(data).then((res) => {
             console.log('res in archive component', res);
-
         }).catch((err) => {
             console.log(err);
         })

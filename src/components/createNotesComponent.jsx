@@ -7,7 +7,7 @@ import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import { addNotes } from '../services/userService';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 export default class createNotes extends Component {
     intervalID;
     constructor(props) {
@@ -15,7 +15,8 @@ export default class createNotes extends Component {
         this.state = {
             noteClick: false,
             title: '',
-            desc: ''
+            desc: '',
+            note: {}
         }
     }
     handleNoteClick = () => {
@@ -28,16 +29,13 @@ export default class createNotes extends Component {
             title: this.state.title,
             description: this.state.desc
         }
-        this.add(data);
-        this.intervalID = setInterval(this.add.bind(this), 5000);
-    }
-    componentWillMount() {
-        clearInterval(this.intervalID);
-    }
-    add = (data) => {
         console.log(data)
         addNotes(data).then((res) => {
             console.log(res);
+            this.setState({
+                note: res.data.status.details
+            });
+            this.props.getNew(this.state.note);
         }).catch((err) => {
             console.log(err);
         })
@@ -112,9 +110,7 @@ export default class createNotes extends Component {
                                     </Tooltip>
                                 </div>
                                 <div>
-
-                                    <Button onClick={this.handleClose}
-                                    >
+                                    <Button onClick={this.handleClose}>
                                         close
                             </Button>
                                 </div>

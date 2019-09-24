@@ -54,3 +54,18 @@ export function trash(data){
         }
     })
 }
+export function label(data){
+    console.log('data in label notes is',data);
+    return axios.post(baseURL+'/noteLabels',data,{
+        headers:{
+            Authorization:localStorage.getItem('token')
+        }
+    })
+}
+export function getLabel(){
+    return axios.get(baseURL+'/noteLabels/getNoteLabelList',{
+        headers:{
+            Authorization:localStorage.getItem('token')
+        }
+    })
+}

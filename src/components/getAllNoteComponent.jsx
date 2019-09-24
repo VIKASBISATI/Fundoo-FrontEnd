@@ -26,6 +26,7 @@ export default class GetAllNoteComponent extends Component {
         super(props);
         this.state = {
             notes: [],
+            newNotes: [],
             color: '',
             open: false,
             id: '',
@@ -38,14 +39,22 @@ export default class GetAllNoteComponent extends Component {
     componentDidMount() {
         this.getNotes();
     }
-    getNotes = () => {
-        getAllNotes().then((res) => {
+
+   getNotes =  () => {
+          getAllNotes().then((res) => {
             console.log('response is', res);
             this.setState({
                 notes: res.data.data.data
             })
         })
     }
+
+    updatedCard(upCard) {
+        this.setState({
+            notes: [...this.state.notes, upCard]
+        })
+    }
+
     handleColor = (col, noteid) => {
         var data = {
             noteIdList: [noteid],
@@ -105,7 +114,7 @@ export default class GetAllNoteComponent extends Component {
     }
     render() {
         const allNotes = this.state.notes.map((key) => {
-            console.log('keyid ', key.id);
+            // console.log('keyid ', key.id);
             return (
                 (((key.isArchived === false)
                     && (key.isDeleted === false))
@@ -162,7 +171,7 @@ export default class GetAllNoteComponent extends Component {
                                 onClose={this.handleRemove}
                                 open={this.state.open}
                             >
-                                <Card className="get-card2" style={{ backgroundColor: this.state.colorUpdated }} >
+                                <Card className="get-card2"  style={{ backgroundColor: this.state.colorUpdated }} >
                                     <DialogTitle>
                                         <div className="input1">
                                             <InputBase className="get-in2"
@@ -201,8 +210,8 @@ export default class GetAllNoteComponent extends Component {
                                             <Tooltip title="Add image">
                                                 <ImageOutlinedIcon />
                                             </Tooltip>
-                                            <Tooltip title="Archive">
-                                                <ArchiveComponent archiveNoteId={key.id} />
+                                            <Tooltip title="Archive"> 
+                                                <ArchiveComponent getAllNotes={this.getNotes}  archiveNoteId={key.id} />
                                             </Tooltip>
                                             <Tooltip title="More">
                                                 <TrashComponent trashNoteId={key.id} />

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import EditPage from '../components/editComponent'
+import EditPage from '../components/editLabelComponent'
 export default class Edit extends Component {
     render() {
         return (

@@ -12,7 +12,7 @@ const colorPalette = [{ name: "default", colorCode: "#FDFEFE" },
 { name: "Purple", colorCode: "#800080" },
 { name: "Yellow", colorCode: "#FFFF00" },
 { name: "Lime", colorCode: "#00FF00" },
-{ name: "Magenta", colorCode: "	#FF00FF" },
+{ name: "Magenta", colorCode: "#FF00FF" },
 { name: "Silver", colorCode: "#C0C0C0" },
 { name: "Brown", colorCode: "#A52A2A" },
 ]
@@ -58,7 +58,7 @@ export default class ColorPaletteComponent extends Component {
                 </Tooltip>
                 <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} >
                     <Paper>
-                      <div className="color-map">  {colorChange}</div>
+                        <div className="color-map">  {colorChange}</div>
                     </Paper>
                 </Popper>
             </div>
