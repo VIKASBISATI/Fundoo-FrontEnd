@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { Card, InputBase, Tooltip, Button } from '@material-ui/core';
 import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
-import ColorLensOutlinedIcon from '@material-ui/icons/ColorLensOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import { addNotes } from '../services/userService';
+import ColorPaletteComponent from './colorPaletteComponent';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 export default class createNotes extends Component {
     intervalID;
@@ -96,9 +96,7 @@ export default class createNotes extends Component {
                                     <Tooltip title="collaborator">
                                         <PersonAddOutlinedIcon />
                                     </Tooltip>
-                                    <Tooltip title="Change color">
-                                        <ColorLensOutlinedIcon />
-                                    </Tooltip>
+                                    <ColorPaletteComponent />
                                     <Tooltip title="Add image">
                                         <ImageOutlinedIcon />
                                     </Tooltip>

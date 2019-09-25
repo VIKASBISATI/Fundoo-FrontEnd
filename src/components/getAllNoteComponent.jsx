@@ -18,9 +18,19 @@ const theme = createMuiTheme({
             root: {
                 backgroundColor: "rgba(0,0,0, 0.18)",
             }
+        },
+        MuiPaper: {
+            elevation24: {
+                boxShadow: "none"
+            }
         }
     }
 })
+function titleDescSearch(searchText) {
+    return function (val) {
+        return val.title.includes(searchText) || val.description.includes(searchText)
+    }
+}
 export default class GetAllNoteComponent extends Component {
     constructor(props) {
         super(props);
@@ -33,15 +43,16 @@ export default class GetAllNoteComponent extends Component {
             title: '',
             colorUpdated: '',
             description: '',
-            noteId: ''
+            noteId: '',
+            trashId: '',
+            archiveId: ''
         }
     }
     componentDidMount() {
         this.getNotes();
     }
-
-   getNotes =  () => {
-          getAllNotes().then((res) => {
+    getNotes = () => {
+        getAllNotes().then((res) => {
             console.log('response is', res);
             this.setState({
                 notes: res.data.data.data
@@ -61,7 +72,6 @@ export default class GetAllNoteComponent extends Component {
             color: col
         }
         console.log('data in get', data);
-
         colorChange(data)
             .then((res) => {
                 console.log(res);
@@ -112,12 +122,28 @@ export default class GetAllNoteComponent extends Component {
             console.log('err in get all notes update is ', err);
         })
     }
+    delUp = (trashNoteId) => {
+
+        this.setState({
+            trashId: trashNoteId
+        })
+    }
+    arcUp = (noteId) => {
+        console.log("noteid is in arcup", noteId);
+
+        this.setState({
+            archiveId: noteId
+        })
+    }
     render() {
-        const allNotes = this.state.notes.map((key) => {
+        console.log('delup props in get note component', this.state.trashId);
+        const allNotes = this.state.notes.filter(titleDescSearch(this.props.searchText)).map((key) => {
             // console.log('keyid ', key.id);
             return (
                 (((key.isArchived === false)
-                    && (key.isDeleted === false))
+                    && (key.isDeleted === false &&
+                        key.id !== this.state.trashId &&
+                        key.id !== this.state.archiveId))
                     &&
                     <div className="get-contents">
                         <Card className="get-card1" style={{
@@ -159,10 +185,13 @@ export default class GetAllNoteComponent extends Component {
                                     <ImageOutlinedIcon />
                                 </Tooltip>
                                 <Tooltip title="Archive">
-                                    <ArchiveComponent archiveNoteId={key.id} />
+                                    <ArchiveComponent archiveNoteId={key.id}
+                                        arcUp={this.arcUp} />
                                 </Tooltip>
                                 <Tooltip title="More">
-                                    <TrashComponent trashNoteId={key.id} />
+                                    <TrashComponent trashNoteId={key.id}
+                                        delUp={this.delUp}
+                                    />
                                 </Tooltip>
                             </div>
                         </Card>
@@ -171,7 +200,7 @@ export default class GetAllNoteComponent extends Component {
                                 onClose={this.handleRemove}
                                 open={this.state.open}
                             >
-                                <Card className="get-card2"  style={{ backgroundColor: this.state.colorUpdated }} >
+                                <Card className="get-card2" style={{ backgroundColor: this.state.colorUpdated }} >
                                     <DialogTitle>
                                         <div className="input1">
                                             <InputBase className="get-in2"
@@ -210,8 +239,8 @@ export default class GetAllNoteComponent extends Component {
                                             <Tooltip title="Add image">
                                                 <ImageOutlinedIcon />
                                             </Tooltip>
-                                            <Tooltip title="Archive"> 
-                                                <ArchiveComponent getAllNotes={this.getNotes}  archiveNoteId={key.id} />
+                                            <Tooltip title="Archive">
+                                                <ArchiveComponent getAllNotes={this.getNotes} archiveNoteId={key.id} />
                                             </Tooltip>
                                             <Tooltip title="More">
                                                 <TrashComponent trashNoteId={key.id} />

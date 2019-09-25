@@ -1,13 +1,15 @@
 import { AppBar, createMuiTheme, IconButton, Button, MuiThemeProvider, Toolbar, Tooltip, InputBase } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import MenuIcon from '@material-ui/icons/Menu';
-import ClearIcon from '@material-ui/icons/Clear';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import React, { Component } from 'react';
 import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
 import SearchIcon from '@material-ui/icons/Search';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import DrawerComponent from '../components/drawerComponent'
+import { withRouter } from "react-router-dom";
 const theme = createMuiTheme({
     overrides: {
         MuiAppBar: {
@@ -18,9 +20,9 @@ const theme = createMuiTheme({
         }
     }
 })
-export default class dashboardComponent extends Component {
-    constructor() {
-        super();
+class DashboardComponent extends Component {
+    constructor(props) {
+        super(props);
         this.state = {
             notes: '',
             title: '',
@@ -30,8 +32,10 @@ export default class dashboardComponent extends Component {
             clr: false,
             menu: false,
             slideCards: false,
-            accountCard: false
+            accountCard: false,
+            bgClr: " #f0f0f0"
         }
+        this.handleSearchText = this.handleSearchText.bind(this)
     }
     handleNotes = (e) => {
         const notes = e.target.value;
@@ -57,12 +61,11 @@ export default class dashboardComponent extends Component {
         })
     }
     handleSearchText = (e) => {
-        const searchText = e.target.value
-        console.log(searchText)
         this.setState({
-            searchText: searchText
+            searchText: e.target.value
         })
-        // this.props.getSearchText(e.target.value)
+        console.log("search text event value", this.state.searchText);
+        this.props.searchBar(this.state.searchText);
     }
     handleReload = () => {
         window.location.reload();
@@ -79,7 +82,9 @@ export default class dashboardComponent extends Component {
     }
     handleSearchClick = () => {
         this.setState({
-            clr: true
+            clr: true,
+            bgClr:"	#FFFAF0"
+
         })
     }
     handleMenu = () => {
@@ -98,9 +103,15 @@ export default class dashboardComponent extends Component {
         });
     }
     handleSignOut = () => {
-        this.props.props.history.push('/login')
+        this.props.history.push('/login')
     }
+    handleClose=()=>{
+        this.setState({
+            bgClr:"#f0f0f0"
+        })
+    }   
     render() {
+        console.log("search after setstate====>", this.state.searchText);
         const slidingCards = this.state.slideCards ? "before" : "after"
         return (
             <div className={slidingCards}>
@@ -120,9 +131,10 @@ export default class dashboardComponent extends Component {
                                     <IconButton color="inherit" aria-label="Open drawer">
                                     </IconButton>
                                     <img src={require("../assets/images/keep.png")} alt="" width="30px" height="30px" />
-                                    <h3 ><span>Fundoo</span></h3>
+                                    <h3 ><span>FundooNotes</span></h3>
                                 </div>
-                                <div className="dashboard-card-div">
+                                <ClickAwayListener onClickAway={this.handleClose}>
+                                <div className="dashboard-card-div" style={{ backgroundColor: this.state.bgClr }}>
                                     <IconButton>
                                         <Tooltip title="search">
                                             <SearchIcon />
@@ -131,16 +143,17 @@ export default class dashboardComponent extends Component {
                                     <InputBase style={{ width: "100%" }}
                                         autoComplete="off" placeholder="Search"
                                         onClick={this.handleSearchClick}
-                                        onKeyDown={this.handleKeyDown}
-                                        onChange={this.handleSearchText}
+                                        // onKeyDown={this.handleKeyDown}
                                         value={this.state.searchText}
+                                        onChange={this.handleSearchText}
                                     />
-                                    {(this.state.clr) ? (
+                                    {this.state.clr ? (
                                         <IconButton>
-                                            <ClearIcon onClick={this.handleClearText} />
+                                            <ClearOutlinedIcon onClick={this.handleClearText} />
                                         </IconButton>
                                     ) : (null)}
                                 </div>
+                                </ClickAwayListener>
                                 <div className="dashboard-refresh">
                                     <IconButton>
                                         <Tooltip title="Refresh">
@@ -148,15 +161,13 @@ export default class dashboardComponent extends Component {
                                         </Tooltip>
                                     </IconButton>
                                     <IconButton>
-                                        <Tooltip title="SignIn">
-                                            <AccountCircleRoundedIcon onClick={(e) => this.handleOpenPopper(e)} />
-                                        </Tooltip>
+                                        <AccountCircleRoundedIcon onClick={(e) => this.handleOpenPopper(e)} />
                                     </IconButton>
                                 </div>
                             </Toolbar>
                         </AppBar>
                     </MuiThemeProvider>
-                    <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} >
+                    <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} style={{ zIndex: 9999 }}>
                         <Paper>
                             <Button>Add Account</Button>
                             <Button onClick={this.handleSignOut}>Signout</Button>
@@ -167,3 +178,4 @@ export default class dashboardComponent extends Component {
         )
     }
 }
+export default withRouter(DashboardComponent)

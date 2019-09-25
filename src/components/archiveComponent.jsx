@@ -14,12 +14,15 @@ class ArchiveComponent extends Component {
         this.setState({
             isArchived: true
         })
-        const noteId = this.props.archiveNoteId;
+        var noteId = this.props.archiveNoteId;
+        console.log("note id in archive",noteId);
+        
         var data = {
             noteIdList: [noteId],
             isArchived: true
         }
         archive(data).then((res) => {
+            this.props.arcUp(noteId)
             console.log('res in archive component', res);
         }).catch((err) => {
             console.log(err);

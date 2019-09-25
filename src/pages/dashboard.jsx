@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
-import DashBoardPage from '../components/dashboardComponent'
+import DashboardComponent from '../components/dashboardComponent'
 import CreateNotesComponent from '../components/createNotesComponent'
 import GetAllNoteComponent from '../components/getAllNoteComponent'
-
-export default class Dashboard extends Component {
+import { withRouter } from "react-router-dom";
+class Dashboard extends Component {
     constructor(props) {
         super(props);
-        this.state={
-            searchText:''
+        this.state = {
+            searchText: ''
         }
         this.newNote = React.createRef()
+        // console.log("this.props in constructor",this.props);
     }
-    search=(searchText)=>{
-        console.log(('search text in dashboard page',searchText));
-        
+    searchBar = (searchText) => {
+        console.log('search text in dash', searchText);
         this.setState({
-            searchText:searchText
+            searchText: searchText
         })
     }
     display = (upCard) => {
@@ -23,14 +23,17 @@ export default class Dashboard extends Component {
         this.newNote.current.updatedCard(upCard)
     }
     render() {
+        // console.log("search porps",this.props);
         return (
             <div>
-                <DashBoardPage props={this.props} />
+                <DashboardComponent searchBar={this.searchBar} />
                 <CreateNotesComponent getNew={this.display} />
                 <div className="get-page">
                     <GetAllNoteComponent
-                        ref={this.newNote} 
-                        getSearchText={this.search}/></div>
+                        ref={this.newNote}
+                        searchText={this.state.searchText}
+                    /></div>
             </div>)
     }
 }
+export default withRouter(Dashboard)

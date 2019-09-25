@@ -7,7 +7,7 @@ import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
 import SearchIcon from '@material-ui/icons/Search';
 import { trash } from '../services/userService';
-import {label} from '../services/userService'
+import { label } from '../services/userService'
 class TrashComponent extends Component {
     constructor(props) {
         super(props);
@@ -17,26 +17,28 @@ class TrashComponent extends Component {
             cardOpen: false,
             label: false,
             create: false,
-            labelText:''
+            labelText: ''
         }
     }
     handleOpenPopper(e) {
         this.setState({
-            anchorEl: this.state.anchorEl ? false : e.target    
+            anchorEl: this.state.anchorEl ? false : e.target
         })
     }
-     handleButton =() => {
-        var trashNoteId = this.props.trashNoteId;
+    handleButton = () => {
+        var trashNoteId = this.props.trashNoteId; 
         var data = {
             noteIdList: [trashNoteId],
             isDeleted: true
         }
         console.log('data in trash', data);
-      trash(data).then((res) => {
-            console.log('res in trash after hitting', res);
-        }).catch((err) => {
-            console.log('error in trash ', err);
-        })
+        trash(data)
+            .then((res) => {
+                console.log('res in trash after hitting', res);
+                this.props.delUp(trashNoteId)       
+            }).catch((err) => {
+                console.log('error in trash ', err);
+            })
     }
     handleAddLabel = () => {
         this.setState({
@@ -54,22 +56,22 @@ class TrashComponent extends Component {
             create: true
         })
     }
-    handleLabelText=(e)=>{
+    handleLabelText = (e) => {
         this.setState({
-            labelText:e.target.value
+            labelText: e.target.value
         })
     }
-    handleLabel=()=>{
-        var data={
-            "label":this.state.labelText,
-            "isDeleted":false,
-            "userId":localStorage.getItem('userId')
+    handleLabel = () => {
+        var data = {
+            "label": this.state.labelText,
+            "isDeleted": false,
+            "userId": localStorage.getItem('userId')
         }
-        label(data).then((res)=>{
-            console.log('res after hitting api label',res);
-            
-        }).catch((err)=>{
-            console.log('err in hitting api label',err);      
+        label(data).then((res) => {
+            console.log('res after hitting api label', res);
+
+        }).catch((err) => {
+            console.log('err in hitting api label', err);
         })
     }
     render() {
