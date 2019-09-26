@@ -6,10 +6,11 @@ import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import { withRouter } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
+import LabelIcon from '@material-ui/icons/Label';
 import Divider from '@material-ui/core/Divider';
 import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
 import { getLabel } from '../services/userService'
-import { MuiThemeProvider, createMuiTheme, Card, IconButton, InputBase, Button, MenuItem } from '@material-ui/core';
+import { MuiThemeProvider, createMuiTheme, Card, InputBase, Button, MenuItem } from '@material-ui/core';
 const theme = createMuiTheme({
     overrides: {
         MuiDrawer: {
@@ -46,7 +47,6 @@ class EditLabelComponent extends Component {
             console.log("labels dtaa", this.state.labels);
         })
     }
-
     handleRemove = () => {
         this.setState({
             open: false
@@ -79,16 +79,15 @@ class EditLabelComponent extends Component {
     }
 
     render() {
-        // const labelMap = this.state.labels.map((key) => {
-        //     return (
-        //         <div>
-        //         <MenuItem id="note">
-        //             <LabelOutlinedIcon style={{ paddingRight: "15%" }} />
-        //                 {key.label}
-        //         </MenuItem>
-        //         </div>
-        //     )
-        //     })
+        const labelMap1 = this.state.labels.map((key) => {
+            return (
+                <div className="label1-map">
+                    <LabelIcon/>
+                    {key.label}
+                    <EditIcon/>
+                </div>
+            )
+        })
         const labelMap = this.state.labels.map((key) => {
             return (
                 <div>
@@ -102,9 +101,9 @@ class EditLabelComponent extends Component {
         })
         return (
             <div>
-            <div style={{}}>
-            {labelMap}
-            </div>
+                <div style={{}}>
+                    {labelMap}
+                </div>
                 <MenuItem id="note" onClick={this.handleEdit} className="labelData" >
                     <EditIcon style={{ paddingRight: "15%" }} />
                     EditLabels
@@ -121,21 +120,16 @@ class EditLabelComponent extends Component {
                             </DialogTitle>
                                 <DialogContent>
                                     <div className="edit-input">
-                                        <IconButton
-                                            onClick={this.handleDone}>
-                                            <DoneOutlinedIcon onClick={this.handleDone} />
-                                        </IconButton>
+                                        <DoneOutlinedIcon onClick={this.handleDone} />
                                         <InputBase className="get-in2"
                                             placeholder="Create new label"
                                             id="title"
                                             value={this.state.title}
                                             onChange={this.handleUpdateTitle}
                                         />
-                                        <IconButton
-                                            onClick={this.handleDone}>
-                                            <ClearOutlinedIcon onClick={this.handleClear} />
-                                        </IconButton>
+                                        <ClearOutlinedIcon onClick={this.handleClear} />
                                     </div>
+                                    <div className="edit-map">{labelMap1}</div>
                                     <Divider />
                                     <div id="edit-button">
                                         <Button>Done</Button>

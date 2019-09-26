@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Tooltip, Button, InputBase } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
@@ -6,8 +6,10 @@ import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
 import SearchIcon from '@material-ui/icons/Search';
+import { getLabel } from '../services/userService'
 import { trash } from '../services/userService';
-import { label } from '../services/userService'
+import Checkbox from '@material-ui/core/Checkbox';
+import { label } from '../services/userService';
 class TrashComponent extends Component {
     constructor(props) {
         super(props);
@@ -16,17 +18,33 @@ class TrashComponent extends Component {
             anchorEl: false,
             cardOpen: false,
             label: false,
+            check: false,
             create: false,
+            labels: [],
             labelText: ''
         }
     }
+    componentDidMount() {
+        this.getLabels();
+    }
+
+    getLabels = () => {
+        getLabel().then((res) => {
+            console.log('response from label', res);
+            this.setState({
+                labels: res.data.data.details
+            })
+            console.log("labels dtaa", this.state.labels);
+        })
+    }
     handleOpenPopper(e) {
+        console.log("yes");
         this.setState({
             anchorEl: this.state.anchorEl ? false : e.target
         })
     }
     handleButton = () => {
-        var trashNoteId = this.props.trashNoteId; 
+        var trashNoteId = this.props.trashNoteId;
         var data = {
             noteIdList: [trashNoteId],
             isDeleted: true
@@ -35,7 +53,7 @@ class TrashComponent extends Component {
         trash(data)
             .then((res) => {
                 console.log('res in trash after hitting', res);
-                this.props.delUp(trashNoteId)       
+                this.props.delUp(trashNoteId)
             }).catch((err) => {
                 console.log('error in trash ', err);
             })
@@ -45,10 +63,10 @@ class TrashComponent extends Component {
             label: !this.state.label
         })
     }
-    handleAway = () => {
+    handleAway = (e) => {
         console.log('yes key down');
         this.setState({
-            anchorEl: !this.state.anchorEl
+            label: false
         })
     }
     handleKeyDown = () => {
@@ -68,13 +86,27 @@ class TrashComponent extends Component {
             "userId": localStorage.getItem('userId')
         }
         label(data).then((res) => {
-            console.log('res after hitting api label', res);
-
+            console.log('res after hitting api label', res.data);
         }).catch((err) => {
             console.log('err in hitting api label', err);
         })
     }
+    handleCheck = () => {
+        this.setState({
+            check: !this.state.check
+        })
+    }
     render() {
+        const labelMap = this.state.labels.map((key) => {
+            return (
+                <div >
+                    <Checkbox checked={this.state.check}
+                        onChange={this.handleCheck}
+                    />
+                    {key.label}
+                </div>
+            )
+        })
         return (
             <div>
                 <Tooltip title="More">
@@ -101,13 +133,13 @@ class TrashComponent extends Component {
                                 <Tooltip title="search">
                                     <SearchIcon />
                                 </Tooltip>
+                                <div className="trash-checkbox">{labelMap}</div>
                                 {this.state.create ? (<p onClick={this.handleLabel}>+ create {this.state.labelText}</p>) : (null)}
                             </Paper>
                         </Popper>
                     </ClickAwayListener>
                     : (null)
                 }
-
             </div>
         )
     }
