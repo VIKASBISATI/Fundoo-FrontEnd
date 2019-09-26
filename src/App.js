@@ -22,7 +22,7 @@ import GetAllNotesPage from '../src/pages/getAllNotes'
 import ServiceCard from './pages/serviceCard'
 import Card from '../src/components/card'
 import ColorPaletteComponent from './components/colorPaletteComponent';
-import EditComponent from '../src/pages/edit'
+import EditComponent from '../src/pages/edit';
 class App extends React.Component {
   render() {
     return (
@@ -32,7 +32,7 @@ class App extends React.Component {
         <Route path="/forgotPassword" component={Forgot}></Route>
         <Route path="/" exact component={ServiceCard}></Route>
         <Route path="/serviceCard" component={ServiceCard}></Route>
-        <Route path="/dashboard"  component={DashBoard}></Route>
+        <Route path="/dashboard" component={DashBoard}></Route>
         <Route path="/create" component={CreateNotes}></Route>
         <Route path="/getAll" component={GetAllNotesPage}></Route>
         <Route path="/color" component={ColorPaletteComponent}></Route>

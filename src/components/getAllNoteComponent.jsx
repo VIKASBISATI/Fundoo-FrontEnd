@@ -10,6 +10,7 @@ import ColorPaletteComponent from './colorPaletteComponent';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
+import MoreOptionComponenent from './moreOptionComponenent'
 import DialogContent from '@material-ui/core/DialogContent';
 import ArchiveComponent from '../components/archiveComponent';
 const theme = createMuiTheme({
@@ -122,8 +123,7 @@ export default class GetAllNoteComponent extends Component {
             console.log('err in get all notes update is ', err);
         })
     }
-    delUp = (trashNoteId) => {
-
+    deleteUp = (trashNoteId) => {
         this.setState({
             trashId: trashNoteId
         })
@@ -189,8 +189,8 @@ export default class GetAllNoteComponent extends Component {
                                         arcUp={this.arcUp} />
                                 </Tooltip>
                                 <Tooltip title="More">
-                                    <TrashComponent trashNoteId={key.id}
-                                        delUp={this.delUp}
+                                    <MoreOptionComponenent noteId={key.id}
+                                    deleteUp={this.deleteUp}
                                     />
                                 </Tooltip>
                             </div>

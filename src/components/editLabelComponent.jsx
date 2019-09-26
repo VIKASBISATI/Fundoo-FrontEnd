@@ -77,25 +77,23 @@ class EditLabelComponent extends Component {
 
         })
     }
-
     render() {
-        const labelMap1 = this.state.labels.map((key) => {
-            return (
-                <div className="label1-map">
-                    <LabelIcon/>
-                    {key.label}
-                    <EditIcon/>
-                </div>
-            )
-        })
         const labelMap = this.state.labels.map((key) => {
             return (
                 <div>
                     <MenuItem id="note">
-
                         <LabelOutlinedIcon style={{ paddingRight: "15%" }} />
                         {key.label}
                     </MenuItem>
+                </div>
+            )
+        })
+        const labelMap1 = this.state.labels.map((key) => {
+            return (
+                <div className="label1-map">
+                    <LabelIcon />
+                    {key.label}
+                    <EditIcon />
                 </div>
             )
         })

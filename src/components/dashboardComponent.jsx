@@ -83,7 +83,7 @@ class DashboardComponent extends Component {
     handleSearchClick = () => {
         this.setState({
             clr: true,
-            bgClr:"	#FFFAF0"
+            bgClr: "	#FFFAF0"
 
         })
     }
@@ -105,11 +105,11 @@ class DashboardComponent extends Component {
     handleSignOut = () => {
         this.props.history.push('/login')
     }
-    handleClose=()=>{
+    handleClose = () => {
         this.setState({
-            bgClr:"#f0f0f0"
+            bgClr: "#f0f0f0"
         })
-    }   
+    }
     render() {
         console.log("search after setstate====>", this.state.searchText);
         const slidingCards = this.state.slideCards ? "before" : "after"
@@ -134,25 +134,25 @@ class DashboardComponent extends Component {
                                     <h3 ><span>FundooNotes</span></h3>
                                 </div>
                                 <ClickAwayListener onClickAway={this.handleClose}>
-                                <div className="dashboard-card-div" style={{ backgroundColor: this.state.bgClr }}>
-                                    <IconButton>
-                                        <Tooltip title="search">
-                                            <SearchIcon />
-                                        </Tooltip>
-                                    </IconButton>
-                                    <InputBase style={{ width: "100%" }}
-                                        autoComplete="off" placeholder="Search"
-                                        onClick={this.handleSearchClick}
-                                        // onKeyDown={this.handleKeyDown}
-                                        value={this.state.searchText}
-                                        onChange={this.handleSearchText}
-                                    />
-                                    {this.state.clr ? (
+                                    <div className="dashboard-card-div" style={{ backgroundColor: this.state.bgClr }}>
                                         <IconButton>
-                                            <ClearOutlinedIcon onClick={this.handleClearText} />
+                                            <Tooltip title="search">
+                                                <SearchIcon />
+                                            </Tooltip>
                                         </IconButton>
-                                    ) : (null)}
-                                </div>
+                                        <InputBase style={{ width: "100%" }}
+                                            autoComplete="off" placeholder="Search"
+                                            onClick={this.handleSearchClick}
+                                            // onKeyDown={this.handleKeyDown}
+                                            value={this.state.searchText}
+                                            onChange={this.handleSearchText}
+                                        />
+                                        {this.state.clr ? (
+                                            <IconButton>
+                                                <ClearOutlinedIcon onClick={this.handleClearText} />
+                                            </IconButton>
+                                        ) : (null)}
+                                    </div>
                                 </ClickAwayListener>
                                 <div className="dashboard-refresh">
                                     <IconButton>
