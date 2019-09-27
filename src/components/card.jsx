@@ -10,7 +10,6 @@ export default class card extends Component {
                 </div>
                 <div className="middle-card">
                     <div className="first-card">
-                    
                     </div>
                     <div className="second-card">
                     </div>

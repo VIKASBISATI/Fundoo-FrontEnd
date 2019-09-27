@@ -165,7 +165,8 @@ class RegisterComponent extends React.Component {
                             variant="outlined"
                             placeholder="FirstName"
                             type="text"
-                            id=""
+                            id="firstName"
+                            name="firstName"
                             onChange={this.handleChangeFirstName}
                             value={this.state.firstName}
                         />
@@ -174,7 +175,8 @@ class RegisterComponent extends React.Component {
                             label="LastName"
                             variant="outlined"
                             placeholder="LastName"
-                            id=""
+                            name="lastName"
+                            id="lastName"
                             onChange={this.handleChangeLastName}
                             value={this.state.lastName}
                         />
@@ -185,7 +187,8 @@ class RegisterComponent extends React.Component {
                             label="Email"
                             variant="outlined"
                             placeholder="Email"
-                            id=""
+                            name="email"
+                            id="email"
                             onChange={this.handleChangeMail}
                             value={this.state.email}
                         />
@@ -193,8 +196,9 @@ class RegisterComponent extends React.Component {
                     <div className="register-fields1">
                         <TextField
                             required
-                            id=""
+                            id="confirmpassword"
                             label="Password"
+                            name="confirmpassword"
                             variant="outlined"
                             placeholder="Password"
                             type="password"

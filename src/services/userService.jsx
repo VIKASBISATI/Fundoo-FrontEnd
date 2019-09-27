@@ -69,3 +69,12 @@ export function getLabel(){
         }
     })
 }
+export function noteLabel(data){
+    const noteId=data.noteId;
+    const labelId=data.labelId;
+    return axios.post(baseURL+`/notes/${noteId}/addLabelToNotes/${labelId}/add`,data,{
+        headers:{
+            Authorization:localStorage.getItem('token')
+        }
+    })
+}

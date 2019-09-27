@@ -6,9 +6,10 @@ import { Tooltip, InputBase, Button } from '@material-ui/core';
 import Popper from '@material-ui/core/Popper';
 import { label } from '../services/userService';
 import Paper from '@material-ui/core/Paper';
+import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
 import Checkbox from '@material-ui/core/Checkbox'
-
 import { getLabel } from '../services/userService';
+import { noteLabel } from '../services/userService'
 class CreateLabelComponenent extends Component {
     constructor(props) {
         super(props);
@@ -19,6 +20,7 @@ class CreateLabelComponenent extends Component {
             label: false,
             check: false,
             create: false,
+            editData: '',
             labels: [],
             labelText: '',
             openPop: false
@@ -78,22 +80,35 @@ class CreateLabelComponenent extends Component {
         }
         label(data).then((res) => {
             console.log('res after hitting api label', res.data);
+            this.setState({
+                editData: res.data
+            })
+            this.getLabels();
+            this.props.editUp(this.state.editData)
         }).catch((err) => {
             console.log('err in hitting api label', err);
         })
     }
-    handleCheck = () => {
-        this.setState({
-            check: !this.state.check
-        })
+    handleCheck = (labelId) => {
+        console.log("label in handle check", this.props.noteToLabel);
+        var data = {
+            "labelId": labelId,
+            "noteId": this.props.noteToLabel
+        }
+        console.log("id and label", data);
+        noteLabel(data)
+            .then((response) => {
+                console.log("response in note label", response);
+            }).catch((err) => {
+                console.log('err in hitting api label', err);
+            })
     }
     render() {
         const labelMap1 = this.state.labels.map((key) => {
             return (
-
                 <div >
                     <Checkbox checked={this.state.check}
-                        onChange={this.handleCheck}
+                        onChange={() => this.handleCheck(key.id)}
                     />
                     {key.label}
                 </div>
@@ -101,7 +116,10 @@ class CreateLabelComponenent extends Component {
         })
         return (
             <div>
-                <Button onClick={(event) => this.handleAddLabel(event)}>Add Label</Button>
+                <div className="label-button">
+                    <LabelOutlinedIcon />
+                    <Button onClick={(event) => this.handleAddLabel(event)}>Add Label</Button>
+                </div>
                 {this.state.label ? (
                     <ClickAwayListener onClickAway={this.handleAway}>
                         <Popper open={this.state.openPop} anchorEl={this.state.anchorEl}
@@ -123,7 +141,6 @@ class CreateLabelComponenent extends Component {
                         </Popper>
                     </ClickAwayListener>
                 )
-
                     : (null)
                 }
             </div>

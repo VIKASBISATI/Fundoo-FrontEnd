@@ -7,42 +7,49 @@ import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import { addNotes } from '../services/userService';
 import ColorPaletteComponent from './colorPaletteComponent';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 export default class createNotes extends Component {
-    intervalID;
     constructor(props) {
         super(props);
         this.state = {
             noteClick: false,
             title: '',
             desc: '',
-            note: {}
+            note: {},
+            color: ''
         }
     }
-    handleNoteClick = () => {
+    // handleClickAway = () => {
+    //     var data = {
+    //         title: this.state.title,
+    //         description: this.state.desc,
+    //         color: this.state.color,
+    //         isArchived: this.state.archive
+    //     }
+    //     console.log("create notes data", data)
+    //     addNotes(data).then((res) => {
+    //         console.log(res);
+    //         this.setState({
+    //             note: res.data.status.details
+    //         });
+    //         this.props.getNew(this.state.note)
+    //         this.setState({
+    //             noteClick: false,
+    //             title: '',
+    //             desc: '',
+    //             color:''
+    //         })
+    //     }).catch((err) => {
+    //         console.log(err);
+    //     })
+    //     this.setState({
+    //         noteClick: false,
+    //         title: '',
+    //         desc: ''
+    //     })
+    // }
+    handleCards = () => {
         this.setState({
             noteClick: true
-        })
-    }
-    handleClose = () => {
-        var data = {
-            title: this.state.title,
-            description: this.state.desc
-        }
-        console.log(data)
-        addNotes(data).then((res) => {
-            console.log(res);
-            this.setState({
-                note: res.data.status.details
-            });
-            this.props.getNew(this.state.note);
-        }).catch((err) => {
-            console.log(err);
-        })
-        this.setState({
-            noteClick: false,
-            title: '',
-            desc: ''
         })
     }
     handleTitle = (e) => {
@@ -57,6 +64,41 @@ export default class createNotes extends Component {
             desc: desc
         })
     }
+    handleClose = () => {
+        var data = {
+            title: this.state.title,
+            description: this.state.desc,
+            color: this.state.color,
+            isArchived: this.state.archive
+        }
+        console.log("create notes data", data)
+        addNotes(data).then((res) => {
+            console.log(res);
+            this.setState({
+                note: res.data.status.details
+            });
+            this.props.getNew(this.state.note)
+            this.setState({
+                noteClick: false,
+                title: '',
+                desc: '',
+                color:''
+            })
+        }).catch((err) => {
+            console.log(err);
+        })
+        this.setState({
+            noteClick: false,
+            title: '',
+            description: ''
+        })
+    }
+    handleColor = async (col) => {
+        console.log('col', col);
+        await this.setState({
+            color: col
+        })
+    }
     // handleEnter=(e)=>{
     //     if(e.key==='Enter'){
     //         e.preventDefault();
@@ -68,8 +110,7 @@ export default class createNotes extends Component {
         return (
             <div className="create-container">
                 {this.state.noteClick ? (
-                    <ClickAwayListener onClickAway={this.handleClose}>
-                        <Card className="create-card2" style={{ boxShadow: "3px 3px 3px grey" }} >
+                        <Card className="create-card2" style={{ boxShadow: "3px 3px 3px grey" ,backgroundColor:this.state.color}} >
                             <div className="input1">
                                 <InputBase className="in2"
                                     multiline
@@ -96,7 +137,10 @@ export default class createNotes extends Component {
                                     <Tooltip title="collaborator">
                                         <PersonAddOutlinedIcon />
                                     </Tooltip>
-                                    <ColorPaletteComponent />
+                                    <ColorPaletteComponent
+                                        paletteProps={this.handleColor}
+                                        notesId={""}
+                                    />
                                     <Tooltip title="Add image">
                                         <ImageOutlinedIcon />
                                     </Tooltip>
@@ -110,11 +154,10 @@ export default class createNotes extends Component {
                                 <div>
                                     <Button onClick={this.handleClose}>
                                         close
-                            </Button>
+                                    </Button>
                                 </div>
                             </div>
                         </Card>
-                    </ClickAwayListener>
                 ) : (
                         <Card className="create-card1" onClick={this.handleNoteClick} style={{ boxShadow: "0.5px 0.5px 0.5px 0.5px grey" }}>
                             <div className="input2">
@@ -123,6 +166,7 @@ export default class createNotes extends Component {
                                     placeholder="Take a note ...."
                                     id="description"
                                     onChange={this.handleDescription}
+                                    onClick={this.handleCards}
                                     value={this.state.desc}
                                 />
                             </div>

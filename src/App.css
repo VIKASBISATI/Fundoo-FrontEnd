@@ -242,6 +242,7 @@
 .dashboard-refresh {
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
 }
 
 .before {
@@ -251,6 +252,11 @@
 .after {
   margin-left: 50px;
   transition: margin-left 0.25s;
+}
+#dashboard-cont{
+  display: flex;
+  justify-content: space-evenly;
+  width:100%
 }
 
 /* ------------------------------------------------------CreateNotes----------------------------------------------------- */

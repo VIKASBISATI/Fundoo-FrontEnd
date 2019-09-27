@@ -36,7 +36,7 @@ class MoreOptionComponenent extends Component {
                     <Paper className="colorpalette-popper">
                         <TrashComponent trashProps={this.props.noteId} 
                         delUp={this.delUp}/>
-                        <CreateLabelComponenent />
+                        <CreateLabelComponenent noteToLabel={this.props.noteId}/>
                     </Paper>
                 </Popper>
             </div>

@@ -8,7 +8,7 @@
 ******************************************************************************/
 import React from 'react';
 //React Router Dom contains Router Route and switch
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from './pages/login';
 import './App.css';
 import './App.scss';
@@ -27,17 +27,19 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <Route path="/login" component={Login}></Route>
-        <Route path="/register" component={Register}></Route>
-        <Route path="/forgotPassword" component={Forgot}></Route>
-        <Route path="/" exact component={ServiceCard}></Route>
-        <Route path="/serviceCard" component={ServiceCard}></Route>
-        <Route path="/dashboard" component={DashBoard}></Route>
-        <Route path="/create" component={CreateNotes}></Route>
-        <Route path="/getAll" component={GetAllNotesPage}></Route>
-        <Route path="/color" component={ColorPaletteComponent}></Route>
-        <Route path="/card" component={Card}></Route>
-        <Route path="/edit" component={EditComponent}></Route>
+        <Switch>
+          <Route path="/login" component={Login}></Route>
+          <Route path="/register" component={Register}></Route>
+          <Route path="/forgotPassword" component={Forgot}></Route>
+          <Route path="/" exact component={ServiceCard}></Route>
+          <Route path="/serviceCard" component={ServiceCard}></Route>
+          <Route path="/dashboard" component={DashBoard}></Route>
+          <Route path="/create" component={CreateNotes}></Route>
+          <Route path="/getAll" component={GetAllNotesPage}></Route>
+          <Route path="/color" component={ColorPaletteComponent}></Route>
+          <Route path="/card" component={Card}></Route>
+          <Route path="/edit" component={EditComponent}></Route>
+        </Switch>
       </Router>
     );
   }

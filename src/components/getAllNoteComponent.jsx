@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { getAllNotes, updateNotes, colorChange } from '../services/userService'
-import { Card, InputBase, Button, createMuiTheme, MuiThemeProvider } from '@material-ui/core';
+import { Card, InputBase, Button, createMuiTheme, MuiThemeProvider, Chip } from '@material-ui/core';
 import { Tooltip } from '@material-ui/core';
 import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
-import TrashComponent from '../components/trashComponent'
 import ColorPaletteComponent from './colorPaletteComponent';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -39,6 +38,7 @@ export default class GetAllNoteComponent extends Component {
             notes: [],
             newNotes: [],
             color: '',
+            
             open: false,
             id: '',
             title: '',
@@ -72,10 +72,14 @@ export default class GetAllNoteComponent extends Component {
             noteIdList: [noteid],
             color: col
         }
+           this.setState({
+                    colorUpdated:col
+                })
         console.log('data in get', data);
         colorChange(data)
             .then((res) => {
-                console.log(res);
+                console.log("ytydydyhegy",res);
+             
                 this.getNotes();
             }).catch((err) => {
                 console.log(err);
@@ -130,7 +134,6 @@ export default class GetAllNoteComponent extends Component {
     }
     arcUp = (noteId) => {
         console.log("noteid is in arcup", noteId);
-
         this.setState({
             archiveId: noteId
         })
@@ -169,6 +172,15 @@ export default class GetAllNoteComponent extends Component {
                                     value={key.description}
                                 />
                             </div>
+                            <div>
+                                {key.noteLabels.map(data => {
+                                    return (
+                                        <Chip onDelete={this.handleDelete}
+                                            label={data.label}>
+                                        </Chip>
+                                    );
+                                })}
+                            </div>
                             <div className="notes-icon-div1">
                                 <Tooltip title="Remind me">
                                     <AddAlertOutlinedIcon />
@@ -190,7 +202,7 @@ export default class GetAllNoteComponent extends Component {
                                 </Tooltip>
                                 <Tooltip title="More">
                                     <MoreOptionComponenent noteId={key.id}
-                                    deleteUp={this.deleteUp}
+                                        deleteUp={this.deleteUp}
                                     />
                                 </Tooltip>
                             </div>
@@ -240,24 +252,25 @@ export default class GetAllNoteComponent extends Component {
                                                 <ImageOutlinedIcon />
                                             </Tooltip>
                                             <Tooltip title="Archive">
-                                                <ArchiveComponent getAllNotes={this.getNotes} archiveNoteId={key.id} />
+                                                <ArchiveComponent archiveNoteId={key.id}
+                                                    arcUp={this.arcUp} />
                                             </Tooltip>
-                                            <Tooltip title="More">
-                                                <TrashComponent trashNoteId={key.id} />
-                                            </Tooltip>
+                                            <MoreOptionComponenent noteId={key.id}
+                                                deleteUp={this.deleteUp}
+                                            />
                                             <Button onClick={() => this.handleUpdate(this.state.noteId, this.state.title, this.state.description, this.state.color)}>
                                                 close
-                                    </Button>
+                                            </Button>
                                         </div>
                                     </DialogActions>
                                 </Card>
                             </Dialog>
                         </MuiThemeProvider>
-                    </div>
+                    </div >
                 ))
         })
         return (
-            <div className="get-container">
+            <div className="get-container" >
                 {allNotes}
             </div>
         )

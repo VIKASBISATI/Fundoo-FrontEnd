@@ -2,12 +2,17 @@ import React, { Component } from 'react'
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import { withRouter } from 'react-router-dom';
 import { Tooltip } from '@material-ui/core';
+import Snackbar from '@material-ui/core/Snackbar'
+import IconButton from '@material-ui/core/IconButton';
+import ClearIcon from '@material-ui/icons/Clear';
 import { archive } from '../services/userService'
 class ArchiveComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isArchived: false
+            isArchived: false,
+            openSnackBar: false,
+            SnackBarMessage: "",
         }
     }
     handleArchive = () => {
@@ -15,8 +20,8 @@ class ArchiveComponent extends Component {
             isArchived: true
         })
         var noteId = this.props.archiveNoteId;
-        console.log("note id in archive",noteId);
-        
+        console.log("note id in archive", noteId);
+
         var data = {
             noteIdList: [noteId],
             isArchived: true
@@ -35,6 +40,29 @@ class ArchiveComponent extends Component {
                     <ArchiveOutlinedIcon onClick={this.handleArchive}
                     />
                 </Tooltip >
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                    }}
+                    // open={true}
+                    open={this.state.openSnackBar}
+                    autoHideDuration={6000}
+                    onClose={this.snackbarClose}
+                    message={<span id="messege-id">{this.state.SnackBarMessage}</span>}
+                    action={[
+
+                        <IconButton
+                            key="close"
+                            arial-label="close"
+                            color="inherit"
+
+                            onClick={this.snackbarClose}
+                        >
+                            <ClearIcon />
+                        </IconButton>
+                    ]}
+                />
             </div>
         )
     }

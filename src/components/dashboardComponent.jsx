@@ -1,7 +1,7 @@
 import { AppBar, createMuiTheme, IconButton, Button, MuiThemeProvider, Toolbar, Tooltip, InputBase } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
+import Avatar from '@material-ui/core/Avatar';
 import React, { Component } from 'react';
 import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
@@ -16,6 +16,13 @@ const theme = createMuiTheme({
             colorPrimary: {
                 color: "black",
                 backgroundColor: "white"
+            }
+        },
+        MuiToolbar:{
+            regular:{
+                width:"100%",
+                display:"flex",
+                justifyContent:"space-between"
             }
         }
     }
@@ -33,9 +40,17 @@ class DashboardComponent extends Component {
             menu: false,
             slideCards: false,
             accountCard: false,
-            bgClr: " #f0f0f0"
+            bgClr: " #f0f0f0",
+            name: ''
         }
         this.handleSearchText = this.handleSearchText.bind(this)
+    }
+    componentDidMount = () => {
+        var name = localStorage.getItem('FirstName')
+        name = name.toUpperCase();
+        this.setState({
+            name: name.charAt(0)
+        })
     }
     handleNotes = (e) => {
         const notes = e.target.value;
@@ -83,7 +98,7 @@ class DashboardComponent extends Component {
     handleSearchClick = () => {
         this.setState({
             clr: true,
-            bgClr: "	#FFFAF0"
+            bgClr: "#FFFAF0"
 
         })
     }
@@ -118,53 +133,53 @@ class DashboardComponent extends Component {
                 <div className="dashboard-container">
                     <MuiThemeProvider theme={theme}>
                         <AppBar position="fixed">
-                            <Toolbar>
-                                <div className="dashboard-logo">
-                                    <IconButton>
-                                        <Tooltip title="Menu">
-                                            <MenuIcon onClick={this.handleMenu} />
-                                        </Tooltip>
-                                    </IconButton>
-                                    <DrawerComponent menuSelect={this.state.menu}
-                                        slideCards={this.slideCards}
-                                    />
-                                    <IconButton color="inherit" aria-label="Open drawer">
-                                    </IconButton>
-                                    <img src={require("../assets/images/keep.png")} alt="" width="30px" height="30px" />
-                                    <h3 ><span>FundooNotes</span></h3>
-                                </div>
-                                <ClickAwayListener onClickAway={this.handleClose}>
-                                    <div className="dashboard-card-div" style={{ backgroundColor: this.state.bgClr }}>
+                            <div id="dashboard-cont">
+                                <Toolbar>
+                                    <div className="dashboard-logo">
                                         <IconButton>
-                                            <Tooltip title="search">
-                                                <SearchIcon />
+                                            <Tooltip title="Menu">
+                                                <MenuIcon onClick={this.handleMenu} />
                                             </Tooltip>
                                         </IconButton>
-                                        <InputBase style={{ width: "100%" }}
-                                            autoComplete="off" placeholder="Search"
-                                            onClick={this.handleSearchClick}
-                                            // onKeyDown={this.handleKeyDown}
-                                            value={this.state.searchText}
-                                            onChange={this.handleSearchText}
+                                        <DrawerComponent menuSelect={this.state.menu}
+                                            slideCards={this.slideCards}
                                         />
-                                        {this.state.clr ? (
-                                            <IconButton>
-                                                <ClearOutlinedIcon onClick={this.handleClearText} />
-                                            </IconButton>
-                                        ) : (null)}
+                                        <IconButton color="inherit" aria-label="Open drawer">
+                                        </IconButton>
+                                        <img src={require("../assets/images/keep.png")} alt="" width="30px" height="30px" />
+                                        <h3 ><span>FundooNotes</span></h3>
                                     </div>
-                                </ClickAwayListener>
-                                <div className="dashboard-refresh">
-                                    <IconButton>
-                                        <Tooltip title="Refresh">
-                                            <RefreshIcon onClick={this.handleReload} />
-                                        </Tooltip>
-                                    </IconButton>
-                                    <IconButton>
-                                        <AccountCircleRoundedIcon onClick={(e) => this.handleOpenPopper(e)} />
-                                    </IconButton>
-                                </div>
-                            </Toolbar>
+                                    <ClickAwayListener onClickAway={this.handleClose}>
+                                        <div className="dashboard-card-div" style={{ backgroundColor: this.state.bgClr }}>
+                                            <IconButton>
+                                                <Tooltip title="search">
+                                                    <SearchIcon />
+                                                </Tooltip>
+                                            </IconButton>
+                                            <InputBase style={{ width: "100%" }}
+                                                autoComplete="off" placeholder="Search"
+                                                onClick={this.handleSearchClick}
+                                                // onKeyDown={this.handleKeyDown}
+                                                value={this.state.searchText}
+                                                onChange={this.handleSearchText}
+                                            />
+                                            {this.state.clr ? (
+                                                <IconButton>
+                                                    <ClearOutlinedIcon onClick={this.handleClearText} />
+                                                </IconButton>
+                                            ) : (null)}
+                                        </div>
+                                    </ClickAwayListener>
+                                    <div className="dashboard-refresh">
+                                        <IconButton>
+                                            <Tooltip title="Refresh">
+                                                <RefreshIcon onClick={this.handleReload} />
+                                            </Tooltip>
+                                        </IconButton>
+                                        <Avatar onClick={(e) => this.handleOpenPopper(e)}>{this.state.name}</Avatar>
+                                    </div>
+                                </Toolbar>
+                            </div>
                         </AppBar>
                     </MuiThemeProvider>
                     <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} style={{ zIndex: 9999 }}>

@@ -9,7 +9,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import LabelIcon from '@material-ui/icons/Label';
 import Divider from '@material-ui/core/Divider';
 import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
-import { getLabel } from '../services/userService'
+import { getLabel } from '../services/userService';
+import { label } from '../services/userService';
 import { MuiThemeProvider, createMuiTheme, Card, InputBase, Button, MenuItem } from '@material-ui/core';
 const theme = createMuiTheme({
     overrides: {
@@ -69,7 +70,21 @@ class EditLabelComponent extends Component {
         })
     }
     handleDone = () => {
+        var data = {
+            "label": this.state.title,
+            "isDeleted": false,
+            "userId": localStorage.getItem('userId')
+        }
+        label(data).then((res) => {
+            console.log('res after hitting api label', res.data);
+            this.setState({
+                title: ''
 
+            })
+            this.getLabels();
+        }).catch((err) => {
+            console.log('err in hitting api label', err);
+        })
     }
     handleClose = () => {
         this.setState({
@@ -130,7 +145,7 @@ class EditLabelComponent extends Component {
                                     <div className="edit-map">{labelMap1}</div>
                                     <Divider />
                                     <div id="edit-button">
-                                        <Button>Done</Button>
+                                        <Button onClick={this.handleDone}>Done</Button>
                                     </div>
                                 </DialogContent>
                             </Card>
