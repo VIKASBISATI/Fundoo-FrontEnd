@@ -154,7 +154,7 @@ class RegisterComponent extends React.Component {
                                 color="inherit"
                                 onClick={this.snackbarClose}
                             >
-                                      <ClearIcon />
+                                <ClearIcon />
                             </IconButton>
                         ]}
                     />
@@ -196,9 +196,9 @@ class RegisterComponent extends React.Component {
                     <div className="register-fields1">
                         <TextField
                             required
-                            id="confirmpassword"
+                            id="password"
                             label="Password"
-                            name="confirmpassword"
+                            name="password"
                             variant="outlined"
                             placeholder="Password"
                             type="password"
@@ -207,9 +207,10 @@ class RegisterComponent extends React.Component {
                         />
                         <TextField
                             required
-                            id=""
+                            id="confirmPassword"
                             label="confirm password"
                             variant="outlined"
+                            name="confirmPasssword"
                             placeholder="confirm password"
                             type="password"
                             onChange={this.handleChangeConfirmPassword}

@@ -32,7 +32,7 @@ describe('Login Component', () => {
             wrapper.find('#email')
                 .simulate('change', {
                     target: {
-                        name: 'email',
+                        name: 'Email',
                         value: 'abcde@gmail.com'
                     }
                 });
@@ -45,7 +45,7 @@ describe('Login Component', () => {
             wrapper.find('#password')
                 .simulate('change', {
                     target: {
-                        name: 'password',
+                        name: 'Password',
                         value: '12345678'
                     }
                 });

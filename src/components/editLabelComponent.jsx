@@ -79,7 +79,6 @@ class EditLabelComponent extends Component {
             console.log('res after hitting api label', res.data);
             this.setState({
                 title: ''
-
             })
             this.getLabels();
         }).catch((err) => {

@@ -40,7 +40,7 @@ export default class ColorPaletteComponent extends Component {
         const colorChange = colorPalette.map((key) => {
             return (
                 <div>
-                    <Tooltip title={key.name}  >
+                    <Tooltip title={key.name} style={{zIndex: "1111"}} >
                         <IconButton style={{ backgroundColor: key.colorCode }}
                             value={key.colorCode}
                             onClick={this.handleChangeColor}>
@@ -51,12 +51,12 @@ export default class ColorPaletteComponent extends Component {
         })
         return (
             <div>
-                <Tooltip title="Change Color">
+                <Tooltip title="Change Color" style={{zIndex: "1111"}}>
                     <ColorLensOutlinedIcon
                         onClick={(e) => this.handleOpenPopper(e)}
                     />
                 </Tooltip>
-                <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl}  style={{zIndex: "1111"}}>
+                <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl}  style={{zIndex: "9999"}}>
                     <Paper>
                         <div className="color-map">  {colorChange}</div>
                     </Paper>

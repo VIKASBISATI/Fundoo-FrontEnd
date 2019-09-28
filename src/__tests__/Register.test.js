@@ -2,7 +2,7 @@ import React from 'react';
 import {
     shallow
 } from 'enzyme';
-import Register from '../components/registerComponent.jsx';
+import Register from '../components/registerComponent';
 import '../setupTest'
 /**
 * describe what we are testing
@@ -30,7 +30,7 @@ describe('Register Component', () => {
         expect(shallow(< Register />).find('#password').length).toEqual(1)
     })
     it('renders a confirmpassword input', () => {
-        expect(shallow(< Register />).find('#confirmpassword').length).toEqual(1)
+        expect(shallow(< Register />).find('#confirmPassword').length).toEqual(1)
     })
     /**
     * within the Register components describe function
@@ -91,14 +91,14 @@ describe('Register Component', () => {
     describe('Confirm Password input', () => {
         it('should respond to change event and change the state of the Register Component', () => {
             const wrapper = shallow(< Register />);
-            wrapper.find('#confirmpassword')
+            wrapper.find('#confirmPassword')
                 .simulate('change', {
                     target: {
-                        name: 'confirmpassword',
+                        name: 'confirmPassword',
                         value: '12345678'
                     }
                 });
-            expect(wrapper.state('confirmpassword')).toEqual('12345678');
+            expect(wrapper.state('confirmPassword')).toEqual('12345678');
         })
     })
 })

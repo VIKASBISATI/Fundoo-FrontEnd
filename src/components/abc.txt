@@ -821,3 +821,65 @@ export default class CardComponent extends React.Component {
         // this.setState({
         //     notes:newArr
         // })
+            componentWillMount() {
+        const mediaQuery = window.matchMedia(`(max-width: 360px)`)
+        if (mediaQuery.matches) {
+            this.setState({
+                miniSearch: true
+            })
+
+        }
+        else {
+            this.setState({
+                miniSearch: false
+            })
+        }
+        mediaQuery.addListener((media) => {
+            if (media.matches) {
+                this.setState({
+                    miniSearch: true
+                })
+            }
+            else {
+                this.setState({
+                    miniSearch: false
+                })
+            }
+        })
+    }
+        handleMini = () => {
+        this.setState({
+            miniOpen:!this.state.miniOpen
+        })
+    }
+    handleBack=()=>{
+
+    }
+                             {this.state.miniSearch ?
+                                            <ClickAwayListener onClickAway={this.handleClose}>
+                                                <IconButton>
+                                                    <Tooltip title="search">
+                                                        <SearchIcon onClick={this.handleMini} />
+                                                    </Tooltip>
+                                                </IconButton>
+                                                {this.state.miniOpen ?
+                                                    <div className="dashboard-card-div1" 
+                                                    style={{ backgroundColor: "#FFFAF0" }}>
+                                                        <IconButton>
+                                                            <Tooltip title="Back">
+                                                                <ArrowBackIcon onClick={this.handleBack}/>
+                                                            </Tooltip>
+                                                        </IconButton>
+                                                        <InputBase style={{ width: "100%" }}
+                                                            autoComplete="off" placeholder="Search"
+                                                            onClick={this.handleSearchClick}
+                                                            // onKeyDown={this.handleKeyDown}
+                                                            value={this.state.searchText}
+                                                            onChange={this.handleSearchText}
+                                                        />
+                                                        {this.state.clr ? (
+                                                            <IconButton>
+                                                                <ClearOutlinedIcon onClick={this.handleClearText} />
+                                                            </IconButton>
+                                                        ) : (null)}
+                                                    </div> : (null)}

@@ -18,11 +18,11 @@ const theme = createMuiTheme({
                 backgroundColor: "white"
             }
         },
-        MuiToolbar:{
-            regular:{
-                width:"100%",
-                display:"flex",
-                justifyContent:"space-between"
+        MuiToolbar: {
+            regular: {
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between"
             }
         }
     }
@@ -40,10 +40,13 @@ class DashboardComponent extends Component {
             menu: false,
             slideCards: false,
             accountCard: false,
+           
             bgClr: " #f0f0f0",
-            name: ''
+            name: '',
+            a:''
         }
         this.handleSearchText = this.handleSearchText.bind(this)
+        this.changeToArchive=this.changeToArchive.bind(this);
     }
     componentDidMount = () => {
         var name = localStorage.getItem('FirstName')
@@ -125,7 +128,39 @@ class DashboardComponent extends Component {
             bgClr: "#f0f0f0"
         })
     }
+    changeToTrash = async (trashed) => {
+        console.log("yes trashed enterd", trashed);
+        if (trashed) {
+            console.log("yes trashed enterd", trashed);
+           await this.setState({
+                dashboardNameVariant: 'Trash'
+            })
+            console.log("dashboard varaint name is ", this.state.dashboardNameVariant);
+        }
+    }
+    changeToNote =  (noted) => {
+        console.log("yes notes enterd", noted);
+        if (noted) {
+            console.log("yes notes enterd", noted);
+         this.setState({
+                dashboardNameVariant: "FundooNotes"
+            })
+            console.log("dashboard varaint name is ", this.state.dashboardNameVariant);
+
+        }
+    }
+    changeToArchive =  async (arc) => {
+        console.log("yes archived enterd", arc);
+        if (arc) {
+            console.log("yes archived enterd", arc);
+         await  this.setState({
+                dashboardNameVariant: "Archive"
+            })
+            console.log("dashboard varaint name is ", this.state.dashboardNameVariant);
+        }
+    }
     render() {
+        
         console.log("search after setstate====>", this.state.searchText);
         const slidingCards = this.state.slideCards ? "before" : "after"
         return (
@@ -142,12 +177,12 @@ class DashboardComponent extends Component {
                                             </Tooltip>
                                         </IconButton>
                                         <DrawerComponent menuSelect={this.state.menu}
-                                            slideCards={this.slideCards}
+                                            changeToNote={this.changeToNote}
+                                            changeToTrash={this.changeToTrash}
+                                            changeToArchive={this.changeToArchive}
                                         />
-                                        <IconButton color="inherit" aria-label="Open drawer">
-                                        </IconButton>
                                         <img src={require("../assets/images/keep.png")} alt="" width="30px" height="30px" />
-                                        <h3 ><span>FundooNotes</span></h3>
+                                        <h3 ><span>{this.state.dashboardNameVariant===''?"Fundoonotes":this.state.dashboardNameVariant}</span></h3>
                                     </div>
                                     <ClickAwayListener onClickAway={this.handleClose}>
                                         <div className="dashboard-card-div" style={{ backgroundColor: this.state.bgClr }}>
@@ -182,7 +217,7 @@ class DashboardComponent extends Component {
                             </div>
                         </AppBar>
                     </MuiThemeProvider>
-                    <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} style={{ zIndex: 9999 }}>
+                    <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} style={{ zIndex: "9999" }}>
                         <Paper>
                             <Button>Add Account</Button>
                             <Button onClick={this.handleSignOut}>Signout</Button>

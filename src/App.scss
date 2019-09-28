@@ -1,85 +1,110 @@
 // -------------------------------------------------trash--------------------------------------------------------------
-.trash-card {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    position: fixed;
-    width: 9%;
-    height: 10%;
-  }
-  .label-popper {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    position: fixed;
-    min-width: 225px;
-    overflow: hidden;
-    max-width: 225px;
-    height: auto;
-  }
-  .trash-checkbox{
-    overflow-y: auto;
-    max-height: 170px;
-    width: 100%;
-  }
-  // ---------------------------------------------------account----------------------------------------------------------
-  .account-card {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    position: fixed;
-    width: 20%;
-    height: 20%;
-  }
-  .slidingCards{
-    transition:2s;
-  }
-  .slidingCards{
-    margin-left:25px;
-  }
-  .account-buttons{
-    display:flex;
-    justify-content: space-between;
-  }
-// --------------------------------------------------------colorpalette----------------------------------------------------
-.color-map{
+@mixin flexCenter {
   display: flex;
+  align-items: center;
+}
+$justifySpace: space-between;
+.trash-card {
+  @include flexCenter();
+  flex-wrap: wrap;
+  justify-content: $justifySpace;
+  position: fixed;
+  width: 9%;
+  height: 10%;
+}
+.label-popper {
+  @include flexCenter();
+  flex-wrap: wrap;
+  justify-content: $justifySpace;
+  position: fixed;
+  min-width: 225px;
+  overflow: hidden;
+  max-width: 225px;
+  height: auto;
+}
+.trash-checkbox {
+  overflow-y: auto;
+  max-height: 170px;
+  width: 100%;
+}
+// ---------------------------------------------------account----------------------------------------------------------
+.account-card {
+  @include flexCenter();
+  flex-wrap: wrap;
+  justify-content: $justifySpace;
+  position: fixed;
+  width: 20%;
+  height: 20%;
+}
+.slidingCards {
+  transition: 2s;
+}
+.slidingCards {
+  margin-left: 25px;
+}
+.account-buttons {
+  display: flex;
+  justify-content: $justifySpace;
+}
+// --------------------------------------------------------colorpalette----------------------------------------------------
+.color-map {
+  @include flexCenter();
   flex-wrap: wrap;
   flex-direction: row;
   width: 100px;
-  align-items: center;
   justify-content: center;
   height: 82px;
 }
 // -----------------------------------------edit---------------------------------------------------------------------
-#edit-button{
+#edit-button {
   display: flex;
   flex-direction: row-reverse;
 }
-.edit-input{
+.edit-input {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: $justifySpace;
 }
-.edit-map{
+.edit-map {
   overflow-y: auto;
   max-height: 170px;
   width: 103%;
 }
-.label1-map{
-display: flex;
-justify-content: space-between;
+.label1-map {
+  display: flex;
+  justify-content: $justifySpace;
 }
 // -----------------------------------------------------createlabel----------------------------------------------------
-.label-button{
-  display: flex;
-  align-items: center;
+.label-button {
+  @include flexCenter();
 }
-.trash-del{
+.trash-del {
+  @include flexCenter();
+}
+// --------------------------------------------------------getArchive------------------------------------------------------
+
+.getArchive-container {
+  width: 60%;
+  @include flexCenter();
+  justify-content: space-between;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+}
+.get-archive {
+  width: 100%;
   display: flex;
-  align-items:center;
+  justify-content: center;
+}
+.getDeleted-container {
+  width: 60%;
+  @include flexCenter();
+  justify-content: space-between;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+}
+.get-deleted {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

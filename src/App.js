@@ -23,6 +23,8 @@ import ServiceCard from './pages/serviceCard'
 import Card from '../src/components/card'
 import ColorPaletteComponent from './components/colorPaletteComponent';
 import EditComponent from '../src/pages/edit';
+import GetArchiveComponent from '../src/pages/getArchive';
+import GetDeletedComponent from '../src/pages/getDeleted';
 class App extends React.Component {
   render() {
     return (
@@ -39,6 +41,8 @@ class App extends React.Component {
           <Route path="/color" component={ColorPaletteComponent}></Route>
           <Route path="/card" component={Card}></Route>
           <Route path="/edit" component={EditComponent}></Route>
+          <Route path="/getArchive" component={GetArchiveComponent}></Route>
+          <Route path="/getTrash" component={GetDeletedComponent}></Route>
         </Switch>
       </Router>
     );

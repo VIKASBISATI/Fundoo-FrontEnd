@@ -35,20 +35,50 @@ class DrawerComponent extends Component {
         this.state = {
             open: true,
             dialogOpen: false,
+            arc: true,
+            noted: true,
+            trashed: true,
             title: ''
         }
+        this.handleArchive=this.handleArchive.bind(this)
     }
     handleEdit = () => {
         this.setState({
             dialogOpen: !this.state.dialogOpen
         })
     }
-
-    handleUpdateTitle = (e) => {
+    
+    handleUpdateTitle = (e) => {    
         var title = e.target.value;
         this.setState({
             title: title
         })
+    }
+    handleNotes = async() => {
+        console.log("yes handle trash");
+        await this.setState({
+            noted: this.state.noted
+        })
+        console.log("yes handle trash", this.state.noted);
+        this.props.changeToNote(this.state.noted);
+        this.props.history.push('/dashboard')
+    }
+    handleArchive =() => {
+         this.setState({
+            arc: true
+        })
+        console.log("yes handle trash", this.state.arc);
+        this.props.changeToArchive(this.state.arc);
+     this.props.history.push('/getArchive')
+    }
+    handleTrash = async() => {
+        console.log("yes handle trash");
+       await this.setState({
+            trashed: this.state.trashed
+        })
+        console.log("yes handle trash", this.state.trashed);
+        this.props.changeToTrash(this.state.trashed);
+        this.props.history.push('/getTrash')
     }
     render() {
         return (
@@ -57,7 +87,7 @@ class DrawerComponent extends Component {
                     <Drawer variant="persistent"
                         open={this.props.menuSelect}
                         className="drawer-css">
-                        <MenuItem id="note">
+                        <MenuItem id="note" onClick={this.handleNotes}>
                             <EmojiObjectsIcon style={{ paddingRight: "15%" }} />
                             Notes
                      </MenuItem>
@@ -71,13 +101,13 @@ class DrawerComponent extends Component {
                             <EditLabelComponent />
                             <Divider />
                         </div>
-                        <MenuItem id="note">
+                        <MenuItem id="note" onClick={this.handleArchive}>
                             <ArchiveIcon style={{ paddingRight: "15%" }} />
                             Archive
                      </MenuItem>
-                        <MenuItem id="note">
+                        <MenuItem id="note" onClick={this.handleTrash}>
                             <DeleteIcon style={{ paddingRight: "15%" }} />
-                            Bin
+                            Trash
                      </MenuItem>
                         <Divider />
                     </Drawer>

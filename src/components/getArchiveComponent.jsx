@@ -11,6 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import MoreOptionComponenent from './moreOptionComponenent'
 import DialogContent from '@material-ui/core/DialogContent';
+import { withRouter } from 'react-router-dom';
 import ArchiveComponent from '../components/archiveComponent';
 const theme = createMuiTheme({
     overrides: {
@@ -26,12 +27,7 @@ const theme = createMuiTheme({
         }
     }
 })
-function titleDescSearch(searchText) {
-    return function (val) {
-        return val.title.includes(searchText) || val.description.includes(searchText)
-    }
-}
-export default class GetAllNoteComponent extends Component {
+class GetArchiveComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -60,7 +56,6 @@ export default class GetAllNoteComponent extends Component {
             })
         })
     }
-
     updatedCard(upCard) {
         this.setState({
             notes: [...this.state.notes, upCard]
@@ -127,57 +122,6 @@ export default class GetAllNoteComponent extends Component {
             console.log('err in get all notes update is ', err);
         })
     }
-    deleteUp = (trashNoteId) => {
-        console.log("note in delUp", this.state.notes);
-        var delId = trashNoteId;
-        var newArr = this.state.notes;
-        console.log("trashnotes id is ", delId);
-        console.log("new array is ", newArr);
-        console.log('yes or not', newArr[0].id === "5d88951ca0a6a900185be37c");
-        newArr[37].isDeleted = true;
-        for (let i = 0; i < newArr.length; i++) {
-            console.log("yes entered");
-            if (newArr[i].id === delId) {
-                console.log("yes ", delId);
-                newArr[i].isDeleted = true;
-                newArr[i].isArchived = false;
-                newArr[i].isPinned = false;
-            }
-        }
-        this.setState({
-            notes: newArr
-        })
-        this.setState({
-            trashId: trashNoteId,
-            open: !this.state.open
-        })
-    }
-    arcUp = (noteId) => {
-        console.log("note in delUp", this.state.notes);
-        var arcId = noteId;
-        var newArr1 = this.state.notes;
-        console.log("trashnotes id is ", arcId);
-        for (let i = 0; i < newArr1.length; i++) {
-            console.log("yes entered");
-            if (newArr1[i].id === arcId) {
-                console.log("yes ", arcId);
-                newArr1[i].isDeleted = false;
-                newArr1[i].isArchived = true;
-                newArr1[i].isPinned = false;
-            }
-        }
-        this.setState({
-            notes: newArr1
-        })
-        this.setState({
-            archiveId: noteId
-        })
-        console.log("noteid is in arcup", noteId);
-        this.setState({
-            archiveId: noteId,
-            open: !this.state.open
-        })
-    }
     handleChipDelete = () => {
         console.log("delete chip");
         this.setState({
@@ -187,14 +131,11 @@ export default class GetAllNoteComponent extends Component {
     }
     render() {
         console.log('delup props in get note component', this.state.trashId);
-        const allNotes = this.state.notes.filter(titleDescSearch(this.props.searchText)).map((key) => {
-            // console.log('keyid ', key.id);
+        const allNotes = this.state.notes.map((key) => {
+            // console.log('    keyid ', key.id);
             return (
-                (((key.isArchived === false)
-                    && (key.isDeleted === false &&
-                        key.id !== this.state.trashId &&
-                        key.id !== this.state.archiveId))
-                    &&
+                (((key.isArchived === true))
+                    && (key.isDeleted === false) &&
                     <div className="get-contents">
                         <Card className="get-card1" style={{
                             backgroundColor: key.color,
@@ -243,9 +184,9 @@ export default class GetAllNoteComponent extends Component {
                                 <Tooltip title="Add image">
                                     <ImageOutlinedIcon />
                                 </Tooltip>
-                                <Tooltip title="Archive">
+                                <Tooltip title="Unarchive">
                                     <ArchiveComponent archiveNoteId={key.id}
-                                        arcUp={this.arcUp} />
+                                    />
                                 </Tooltip>
                                 <Tooltip title="More">
                                     <MoreOptionComponenent noteId={key.id}
@@ -298,9 +239,9 @@ export default class GetAllNoteComponent extends Component {
                                             <Tooltip title="Add image">
                                                 <ImageOutlinedIcon />
                                             </Tooltip>
-                                            <Tooltip title="Archive">
+                                            <Tooltip title="Unarchive">
                                                 <ArchiveComponent archiveNoteId={key.id}
-                                                    arcUp={this.arcUp} />
+                                                />
                                             </Tooltip>
                                             <MoreOptionComponenent noteId={key.id}
                                                 deleteUp={this.deleteUp}
@@ -317,9 +258,10 @@ export default class GetAllNoteComponent extends Component {
                 ))
         })
         return (
-            <div className="get-container" >
+            <div className="getArchive-container" >
                 {allNotes}
             </div>
         )
     }
 }
+export default withRouter(GetArchiveComponent);
