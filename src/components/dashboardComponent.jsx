@@ -8,7 +8,9 @@ import Paper from '@material-ui/core/Paper';
 import SearchIcon from '@material-ui/icons/Search';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
-import DrawerComponent from '../components/drawerComponent'
+import DrawerComponent from '../components/drawerComponent';
+import AppsOutlinedIcon from '@material-ui/icons/AppsOutlined';
+import DnsOutlinedIcon from '@material-ui/icons/DnsOutlined';
 import { withRouter } from "react-router-dom";
 const theme = createMuiTheme({
     overrides: {
@@ -39,14 +41,15 @@ class DashboardComponent extends Component {
             clr: false,
             menu: false,
             slideCards: false,
+            dashboardNameVariant: '',
             accountCard: false,
-           
             bgClr: " #f0f0f0",
             name: '',
-            a:''
+            view: false,
+            a: ''
         }
         this.handleSearchText = this.handleSearchText.bind(this)
-        this.changeToArchive=this.changeToArchive.bind(this);
+        this.changeToArchive = this.changeToArchive.bind(this);
     }
     componentDidMount = () => {
         var name = localStorage.getItem('FirstName')
@@ -132,35 +135,54 @@ class DashboardComponent extends Component {
         console.log("yes trashed enterd", trashed);
         if (trashed) {
             console.log("yes trashed enterd", trashed);
-           await this.setState({
+            await this.setState({
                 dashboardNameVariant: 'Trash'
             })
             console.log("dashboard varaint name is ", this.state.dashboardNameVariant);
         }
     }
-    changeToNote =  (noted) => {
+    changeToNote = (noted) => {
         console.log("yes notes enterd", noted);
         if (noted) {
             console.log("yes notes enterd", noted);
-         this.setState({
+            this.setState({
                 dashboardNameVariant: "FundooNotes"
             })
             console.log("dashboard varaint name is ", this.state.dashboardNameVariant);
 
         }
     }
-    changeToArchive =  async (arc) => {
+    changeToArchive = async (arc) => {
         console.log("yes archived enterd", arc);
         if (arc) {
             console.log("yes archived enterd", arc);
-         await  this.setState({
+            await this.setState({
                 dashboardNameVariant: "Archive"
             })
             console.log("dashboard varaint name is ", this.state.dashboardNameVariant);
         }
     }
-    render() {
+
+    handleListView=async()=>
+    {
+   await     this.setState({
+            view:!this.state.view
+        })
+        console.log("this.state.0",this.state.view);
         
+        this.props.listview(this.state.view)
+    }
+    handleGridView=async()=>
+    {
+        await this.setState({
+            view:!this.state.view
+        })
+        console.log("this.state.view in handle grid",this.state.view);
+        
+        this.props.listview(this.state.view)
+
+    }
+    render() {
         console.log("search after setstate====>", this.state.searchText);
         const slidingCards = this.state.slideCards ? "before" : "after"
         return (
@@ -182,7 +204,7 @@ class DashboardComponent extends Component {
                                             changeToArchive={this.changeToArchive}
                                         />
                                         <img src={require("../assets/images/keep.png")} alt="" width="30px" height="30px" />
-                                        <h3 ><span>{this.state.dashboardNameVariant===''?"Fundoonotes":this.state.dashboardNameVariant}</span></h3>
+                                        <h3 ><span>{this.state.dashboardNameVariant === '' ? "Fundoonotes" : this.state.dashboardNameVariant}</span></h3>
                                     </div>
                                     <ClickAwayListener onClickAway={this.handleClose}>
                                         <div className="dashboard-card-div" style={{ backgroundColor: this.state.bgClr }}>
@@ -211,6 +233,19 @@ class DashboardComponent extends Component {
                                                 <RefreshIcon onClick={this.handleReload} />
                                             </Tooltip>
                                         </IconButton>
+                                        {this.state.view ? (
+                                            <IconButton>
+                                                <Tooltip title="GridView">
+                                                    <AppsOutlinedIcon onClick={this.handleGridView} />
+                                                </Tooltip>
+                                            </IconButton>
+                                        ) : (
+                                            <IconButton>
+                                            <Tooltip title="ListView">
+                                                <DnsOutlinedIcon onClick={this.handleListView} />
+                                                </Tooltip>
+                                            </IconButton>
+                                            )}
                                         <Avatar onClick={(e) => this.handleOpenPopper(e)}>{this.state.name}</Avatar>
                                     </div>
                                 </Toolbar>
@@ -219,6 +254,7 @@ class DashboardComponent extends Component {
                     </MuiThemeProvider>
                     <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} style={{ zIndex: "9999" }}>
                         <Paper>
+                        <Avatar alt="Vikas Bisati" src="/static/images/avatar/1.jpg" />
                             <Button>Add Account</Button>
                             <Button onClick={this.handleSignOut}>Signout</Button>
                         </Paper>

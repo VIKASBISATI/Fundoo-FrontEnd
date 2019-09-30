@@ -186,6 +186,12 @@ export default class GetAllNoteComponent extends Component {
 
     }
     render() {
+        const list = this.props.list ? "get-container1" : "get-container";
+        const list1 = this.props.list ? "get-contents1" : "get-contents"
+        const list2 = this.props.list ? "get-card1" : "get-card"
+        console.log("props in getall notes is ", this.props.list);
+        console.log("list is ", list);
+
         console.log('delup props in get note component', this.state.trashId);
         const allNotes = this.state.notes.filter(titleDescSearch(this.props.searchText)).map((key) => {
             // console.log('keyid ', key.id);
@@ -195,12 +201,12 @@ export default class GetAllNoteComponent extends Component {
                         key.id !== this.state.trashId &&
                         key.id !== this.state.archiveId))
                     &&
-                    <div className="get-contents">
-                        <Card className="get-card1" style={{
-                            backgroundColor: key.color,
-                            boxShadow: "5px 5px 5px grey", borderRadius: "18px",
-                            width: "225px"
-                        }}>
+                    <div className={list1} >
+                        <Card className={list2} style={{
+                            backgroundColor: key.color, boxShadow: "5px 5px 5px grey",
+                            borderRadius: "18px"
+                        }}
+                        >
                             <div className="input1">
                                 <InputBase className="get-in2"
                                     multiline
@@ -317,7 +323,7 @@ export default class GetAllNoteComponent extends Component {
                 ))
         })
         return (
-            <div className="get-container" >
+            <div className={list} >
                 {allNotes}
             </div>
         )

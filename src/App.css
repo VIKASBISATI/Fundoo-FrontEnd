@@ -230,10 +230,10 @@
   border-radius: 1em;
   align-items: center;
 }
+
 .dashboard-card-div1 {
   display: none;
 }
-
 
 .dashboard-container {
   display: flex;
@@ -258,10 +258,11 @@
   margin-left: 50px;
   transition: margin-left 0.25s;
 }
-#dashboard-cont{
+
+#dashboard-cont {
   display: flex;
   justify-content: space-evenly;
-  width:100%
+  width: 100%
 }
 
 /* ------------------------------------------------------CreateNotes----------------------------------------------------- */
@@ -278,7 +279,8 @@
   border: 1px solid whitesmoke;
   border-radius: 1em;
 }
-@media screen and (min-width:320px) and (max-width:360px){
+
+@media screen and (min-width:320px) and (max-width:360px) {
   .create-card1 {
     display: flex;
     width: 55%;
@@ -287,6 +289,7 @@
     border-radius: 1em;
   }
 }
+
 .create-card1 {
   display: flex;
   width: 600px;
@@ -332,11 +335,21 @@
 
 /* ------------------------------------------------getNotes--------------------------------------------------------------- */
 
+.get-card {
+  min-width: auto;
+  min-height: auto;
+  border-radius: 1em;
+  width: 225px;
+  box-shadow: 5px 5px 5px grey;
+  border-radius: 18px
+}
+
 .get-card1 {
   min-width: auto;
   min-height: auto;
-  border: 1px solid whitesmoke;
   border-radius: 1em;
+  box-shadow: 5px 5px 5px grey;
+  border-radius: 18px
 }
 
 .get-card1:hover .notes-icon-div1 {
@@ -383,6 +396,15 @@
   flex-wrap: wrap;
 }
 
+.get-container1 {
+  width: 47%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+}
+
 .get-page {
   width: 100%;
   display: flex;
@@ -391,6 +413,11 @@
 }
 
 .get-contents {
+  padding-bottom: 3%;
+}
+
+.get-contents1 {
+  width: 100%;
   padding-bottom: 3%;
 }
 
@@ -411,7 +438,6 @@
   /* overflow-y: hidden; */
   /* height: scroll; */
   /* overflow:visible; */
-
 }
 
 #note {
@@ -464,6 +490,7 @@
 
 .main-container {
   display: flex;
+  align-items: center;
   flex-direction: column;
   width: 100%;
   height: 100vh;
