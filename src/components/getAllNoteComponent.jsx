@@ -16,7 +16,7 @@ const theme = createMuiTheme({
     overrides: {
         MuiBackdrop: {
             root: {
-                backgroundColor: "rgba(0,0,0, 0.18)",
+                backgroundColor: "rgba(0,0,0, 0.01)",
             }
         },
         MuiPaper: {
@@ -65,8 +65,8 @@ export default class GetAllNoteComponent extends Component {
         this.setState({
             notes: [...this.state.notes, upCard]
         })
+        console.log("new updated array is ", this.state.notes);
     }
-
     handleColor = (col, noteid) => {
         var data = {
             noteIdList: [noteid],
@@ -183,7 +183,6 @@ export default class GetAllNoteComponent extends Component {
         this.setState({
             delChip: true
         })
-
     }
     render() {
         const list = this.props.list ? "get-container1" : "get-container";
@@ -191,9 +190,8 @@ export default class GetAllNoteComponent extends Component {
         const list2 = this.props.list ? "get-card1" : "get-card"
         console.log("props in getall notes is ", this.props.list);
         console.log("list is ", list);
-
         console.log('delup props in get note component', this.state.trashId);
-        const allNotes = this.state.notes.filter(titleDescSearch(this.props.searchText)).map((key) => {
+        const allNotes = this.state.notes.slice(0).reverse().filter(titleDescSearch(this.props.searchText)).map((key) => {
             // console.log('keyid ', key.id);
             return (
                 (((key.isArchived === false)
@@ -204,7 +202,9 @@ export default class GetAllNoteComponent extends Component {
                     <div className={list1} >
                         <Card className={list2} style={{
                             backgroundColor: key.color, boxShadow: "5px 5px 5px grey",
-                            borderRadius: "18px"
+                            borderRadius: "18px",
+                            transform: (this.props.menu) ? "translate(80px,0) rotate(360deg)" : (null),
+                            transition: (this.props.menu) ? ("300ms") : (null)
                         }}
                         >
                             <div className="input1">
@@ -311,7 +311,8 @@ export default class GetAllNoteComponent extends Component {
                                             <MoreOptionComponenent noteId={key.id}
                                                 deleteUp={this.deleteUp}
                                             />
-                                            <Button onClick={() => this.handleUpdate(this.state.noteId, this.state.title, this.state.description, this.state.color)}>
+                                            <Button onClick={() => this.handleUpdate(this.state.noteId,
+                                                this.state.title, this.state.description, this.state.color)}>
                                                 close
                                             </Button>
                                         </div>

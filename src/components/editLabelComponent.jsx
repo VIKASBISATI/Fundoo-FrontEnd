@@ -113,7 +113,7 @@ class EditLabelComponent extends Component {
         })
         return (
             <div>
-                <div style={{}}>
+                <div style={{ overflowY: "auto", maxHeight: "250px" }}>
                     {labelMap}
                 </div>
                 <MenuItem id="note" onClick={this.handleEdit} className="labelData" >

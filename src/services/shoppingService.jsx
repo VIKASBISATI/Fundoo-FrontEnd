@@ -1,6 +1,9 @@
 import axios from 'axios';
-const baseURL = "http://fundoonotes.incubation.bridgelabz.com/api"
+require('dotenv').config();
+const baseURL =process.env.REACT_APP_BASE_URL;
 export function userRegister(regDetails) {
+    console.log("base"+baseURL);
+    
     return axios.post(baseURL + '/user/userSignUp', regDetails)
 }
 export function userLogin(loginData) {

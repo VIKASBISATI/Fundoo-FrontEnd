@@ -1,5 +1,6 @@
 import axios from 'axios';
-const baseURL = "http://fundoonotes.incubation.bridgelabz.com/api"
+require('dotenv').config();
+const baseURL = process.env.REACT_APP_BASE_URL
 export function service() {
     return axios.get(baseURL + '/user/service')
 }
@@ -46,35 +47,35 @@ export function archive(data) {
         }
     })
 }
-export function trash(data){
-    console.log('data in trash notes is',data);
-    return axios.post(baseURL+'/notes/trashNotes',data,{
-        headers:{
-            Authorization:localStorage.getItem('token')
+export function trash(data) {
+    console.log('data in trash notes is', data);
+    return axios.post(baseURL + '/notes/trashNotes', data, {
+        headers: {
+            Authorization: localStorage.getItem('token')
         }
     })
 }
-export function label(data){
-    console.log('data in label notes is',data);
-    return axios.post(baseURL+'/noteLabels',data,{
-        headers:{
-            Authorization:localStorage.getItem('token')
+export function label(data) {
+    console.log('data in label notes is', data);
+    return axios.post(baseURL + '/noteLabels', data, {
+        headers: {
+            Authorization: localStorage.getItem('token')
         }
     })
 }
-export function getLabel(){
-    return axios.get(baseURL+'/noteLabels/getNoteLabelList',{
-        headers:{
-            Authorization:localStorage.getItem('token')
+export function getLabel() {
+    return axios.get(baseURL + '/noteLabels/getNoteLabelList', {
+        headers: {
+            Authorization: localStorage.getItem('token')
         }
     })
 }
-export function noteLabel(data){
-    const noteId=data.noteId;
-    const labelId=data.labelId;
-    return axios.post(baseURL+`/notes/${noteId}/addLabelToNotes/${labelId}/add`,data,{
-        headers:{
-            Authorization:localStorage.getItem('token')
+export function noteLabel(data) {
+    const noteId = data.noteId;
+    const labelId = data.labelId;
+    return axios.post(baseURL + `/notes/${noteId}/addLabelToNotes/${labelId}/add`, data, {
+        headers: {
+            Authorization: localStorage.getItem('token')
         }
     })
 }

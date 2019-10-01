@@ -40,21 +40,21 @@ class DrawerComponent extends Component {
             trashed: true,
             title: ''
         }
-        this.handleArchive=this.handleArchive.bind(this)
+        this.handleArchive = this.handleArchive.bind(this)
     }
     handleEdit = () => {
         this.setState({
             dialogOpen: !this.state.dialogOpen
         })
     }
-    
-    handleUpdateTitle = (e) => {    
+
+    handleUpdateTitle = (e) => {
         var title = e.target.value;
         this.setState({
             title: title
         })
     }
-    handleNotes = async() => {
+    handleNotes = async () => {
         console.log("yes handle trash");
         await this.setState({
             noted: this.state.noted
@@ -63,17 +63,17 @@ class DrawerComponent extends Component {
         this.props.changeToNote(this.state.noted);
         this.props.history.push('/dashboard')
     }
-    handleArchive =() => {
-         this.setState({
+    handleArchive = () => {
+        this.setState({
             arc: true
         })
         console.log("yes handle trash", this.state.arc);
         this.props.changeToArchive(this.state.arc);
-     this.props.history.push('/getArchive')
+        this.props.history.push('/getArchive')
     }
-    handleTrash = async() => {
+    handleTrash = async () => {
         console.log("yes handle trash");
-       await this.setState({
+        await this.setState({
             trashed: this.state.trashed
         })
         console.log("yes handle trash", this.state.trashed);
@@ -96,7 +96,7 @@ class DrawerComponent extends Component {
                             Reminders
                      </MenuItem>
                         <Divider />
-                        <div style={{ overflowY: "auto", maxHeight: "319px" }}>
+                        <div>
                             <h6 style={{ paddingLeft: "20px" }}>LABLES</h6>
                             <EditLabelComponent />
                             <Divider />

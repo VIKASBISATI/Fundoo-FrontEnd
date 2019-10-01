@@ -8,7 +8,8 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             searchText: '',
-            list:false
+            list: false,
+            menu: false
         }
         this.newNote = React.createRef()
         // console.log("this.props in constructor",this.props);
@@ -23,23 +24,31 @@ class Dashboard extends Component {
         console.log('upcard', upCard);
         this.newNote.current.updatedCard(upCard)
     }
-    listview=(value)=>{
+    listView = (value) => {
         this.setState({
-            list:value
+            list: value
+        })
+    }
+    menuGet = (menu) => {
+        this.setState({
+            menu: menu
         })
     }
     render() {
         // console.log("search porps",this.props);
         return (
             <div>
-                <DashboardComponent searchBar={this.searchBar} 
-                listview={this.listview}/>
+                <DashboardComponent searchBar={this.searchBar}
+                    listView={this.listView}
+                    menuGet={this.menuGet}
+                />
                 <CreateNotesComponent getNew={this.display} />
                 <div className="get-page">
                     <GetAllNoteComponent
                         ref={this.newNote}
                         searchText={this.state.searchText}
                         list={this.state.list}
+                        menu={this.state.menu}
                     /></div>
             </div>)
     }

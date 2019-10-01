@@ -17,6 +17,7 @@ export default class createNotes extends Component {
             note: {},
             color: ''
         }
+        this.inputRef = React.createRef();
     }
     // handleClickAway = () => {
     //     var data = {
@@ -47,6 +48,10 @@ export default class createNotes extends Component {
     //         desc: ''
     //     })
     // }
+    componentDidMount() {
+        this.inputRef.current.focus()
+        console.log("this.input current", this.inputRef);
+    }
     handleCards = () => {
         this.setState({
             noteClick: true
@@ -82,7 +87,7 @@ export default class createNotes extends Component {
                 noteClick: false,
                 title: '',
                 desc: '',
-                color:''
+                color: ''
             })
         }).catch((err) => {
             console.log(err);
@@ -110,61 +115,63 @@ export default class createNotes extends Component {
         return (
             <div className="create-container">
                 {this.state.noteClick ? (
-                        <Card className="create-card2" style={{ boxShadow: "3px 3px 3px grey" ,backgroundColor:this.state.color}} >
-                            <div className="input1">
-                                <InputBase className="in2"
-                                    multiline
-                                    placeholder="Title"
-                                    id="title"
-                                    onChange={this.handleTitle}
-                                    value={this.state.title}
+                    <Card className="create-card2" style={{ boxShadow: "3px 3px 3px grey", backgroundColor: this.state.color }} >
+                        <div className="input1">
+                            <InputBase className="in2"
+                                multiline
+                                placeholder="Title"
+                                id="title"
+                                onChange={this.handleTitle}
+                                value={this.state.title}
+                            />
+                        </div>
+                        <div className="input2">
+                            <InputBase className="in3"
+                                multiline
+                                placeholder="Take a note ...."
+                                id="description"
+                                onChange={this.handleDescription}
+                                value={this.state.desc}
+                            />
+                        </div>
+                        <div className="notes-icons">
+                            <div className="notes-icon-div">
+                                <Tooltip title="Remind me">
+                                    <AddAlertOutlinedIcon />
+                                </Tooltip>
+                                <Tooltip title="collaborator">
+                                    <PersonAddOutlinedIcon />
+                                </Tooltip>
+                                <ColorPaletteComponent
+                                    paletteProps={this.handleColor}
+                                    notesId={""}
                                 />
+                                <Tooltip title="Add image">
+                                    <ImageOutlinedIcon />
+                                </Tooltip>
+                                <Tooltip title="Archive">
+                                    <ArchiveOutlinedIcon />
+                                </Tooltip>
+                                <Tooltip title="More    ">
+                                    <MoreVertOutlinedIcon />
+                                </Tooltip>
                             </div>
-                            <div className="input2">
-                                <InputBase className="in3"
-                                    multiline
-                                    placeholder="Take a note ...."
-                                    id="description"
-                                    onChange={this.handleDescription}
-                                    value={this.state.desc}
-                                />
-                            </div>
-                            <div className="notes-icons">
-                                <div className="notes-icon-div">
-                                    <Tooltip title="Remind me">
-                                        <AddAlertOutlinedIcon />
-                                    </Tooltip>
-                                    <Tooltip title="collaborator">
-                                        <PersonAddOutlinedIcon />
-                                    </Tooltip>
-                                    <ColorPaletteComponent
-                                        paletteProps={this.handleColor}
-                                        notesId={""}
-                                    />
-                                    <Tooltip title="Add image">
-                                        <ImageOutlinedIcon />
-                                    </Tooltip>
-                                    <Tooltip title="Archive">
-                                        <ArchiveOutlinedIcon />
-                                    </Tooltip>
-                                    <Tooltip title="More    ">
-                                        <MoreVertOutlinedIcon />
-                                    </Tooltip>
-                                </div>
-                                <div>
-                                    <Button onClick={this.handleClose}>
-                                        close
+                            <div>
+                                <Button onClick={this.handleClose}>
+                                    close
                                     </Button>
-                                </div>
                             </div>
-                        </Card>
+                        </div>
+                    </Card>
                 ) : (
-                        <Card className="create-card1" onClick={this.handleNoteClick} style={{ boxShadow: "0.5px 0.5px 0.5px 0.5px grey" }}>
+                        <Card className="create-card1" onClick={this.handleNoteClick}
+                            style={{ boxShadow: "grey 1.5px 1.5px 8.5px 0.5px" }}>
                             <div className="input2">
                                 <InputBase className="in1"
                                     multiline
                                     placeholder="Take a note ...."
                                     id="description"
+                                    ref={this.inputRef}
                                     onChange={this.handleDescription}
                                     onClick={this.handleCards}
                                     value={this.state.desc}

@@ -25,6 +25,15 @@ const theme = createMuiTheme({
                 width: "100%",
                 display: "flex",
                 justifyContent: "space-between"
+            },
+            gutters: {
+                paddingLeft: 0,
+                paddingRight: 0
+            }
+        },
+        MuiIconButton: {
+            root: {
+                padding: 0
             }
         }
     }
@@ -44,6 +53,7 @@ class DashboardComponent extends Component {
             dashboardNameVariant: '',
             accountCard: false,
             bgClr: " #f0f0f0",
+            refresh: false,
             name: '',
             view: false,
             a: ''
@@ -90,6 +100,9 @@ class DashboardComponent extends Component {
     }
     handleReload = () => {
         window.location.reload();
+        this.setState({
+            refresh: !this.state.refresh
+        })
     }
     handleClearText = () => {
         this.setState({
@@ -108,10 +121,11 @@ class DashboardComponent extends Component {
 
         })
     }
-    handleMenu = () => {
-        this.setState({
+    handleMenu = async () => {
+        await this.setState({
             menu: !this.state.menu
         })
+        this.props.menuGet(this.state.menu)
     }
     handleAccount = () => {
         this.setState({
@@ -163,39 +177,34 @@ class DashboardComponent extends Component {
         }
     }
 
-    handleListView=async()=>
-    {
-   await     this.setState({
-            view:!this.state.view
-        })
-        console.log("this.state.0",this.state.view);
-        
-        this.props.listview(this.state.view)
-    }
-    handleGridView=async()=>
-    {
+    handleListView = async () => {
         await this.setState({
-            view:!this.state.view
+            view: !this.state.view
         })
-        console.log("this.state.view in handle grid",this.state.view);
-        
-        this.props.listview(this.state.view)
+        console.log("this.state.0", this.state.view);
 
+        this.props.listView(this.state.view)
+    }
+    handleGridView = async () => {
+        await this.setState({
+            view: !this.state.view
+        })
+        console.log("this.state.view in handle grid", this.state.view);
+        this.props.listView(this.state.view)
     }
     render() {
         console.log("search after setstate====>", this.state.searchText);
-        const slidingCards = this.state.slideCards ? "before" : "after"
         return (
-            <div className={slidingCards}>
-                <div className="dashboard-container">
-                    <MuiThemeProvider theme={theme}>
-                        <AppBar position="fixed">
-                            <div id="dashboard-cont">
-                                <Toolbar>
+            <div className="dashboard-container">
+                <MuiThemeProvider theme={theme}>
+                    <AppBar position="fixed">
+                        <div id="dashboard-cont">
+                            <Toolbar>
+                                <div className="dashboard-logoSearch">
                                     <div className="dashboard-logo">
                                         <IconButton>
                                             <Tooltip title="Menu">
-                                                <MenuIcon onClick={this.handleMenu} />
+                                                <MenuIcon onClick={this.handleMenu} style={{ cursor: "pointer" }} />
                                             </Tooltip>
                                         </IconButton>
                                         <DrawerComponent menuSelect={this.state.menu}
@@ -203,11 +212,16 @@ class DashboardComponent extends Component {
                                             changeToTrash={this.changeToTrash}
                                             changeToArchive={this.changeToArchive}
                                         />
-                                        <img src={require("../assets/images/keep.png")} alt="" width="30px" height="30px" />
-                                        <h3 ><span>{this.state.dashboardNameVariant === '' ? "Fundoonotes" : this.state.dashboardNameVariant}</span></h3>
+                                        <img src={require("../assets/images/keep.png")} alt="" width="30px"
+                                            height="30px" />
+                                        <h3 ><span>{this.state.dashboardNameVariant === '' ? "Fundoonotes" :
+                                            this.state.dashboardNameVariant}</span></h3>
                                     </div>
                                     <ClickAwayListener onClickAway={this.handleClose}>
-                                        <div className="dashboard-card-div" style={{ backgroundColor: this.state.bgClr }}>
+                                        <div className="dashboard-card-div" style={{
+                                            backgroundColor:
+                                                this.state.bgClr
+                                        }}>
                                             <IconButton>
                                                 <Tooltip title="search">
                                                     <SearchIcon />
@@ -227,39 +241,44 @@ class DashboardComponent extends Component {
                                             ) : (null)}
                                         </div>
                                     </ClickAwayListener>
-                                    <div className="dashboard-refresh">
+                                </div>
+                                <div className="dashboard-refresh">
+                                    <IconButton>
+                                        <Tooltip title="Refresh">
+                                            <RefreshIcon onClick={this.handleReload} style={{ cursor: "pointer" }}
+                                            // style={{
+                                            //     transform: (this.state.refresh) ? " rotate(360deg)" : (null),
+                                            //     transition: (this.props.menu) ? ("5s") : (null)
+                                            // }} 
+                                            />
+                                        </Tooltip>
+                                    </IconButton>
+                                    {this.state.view ? (
                                         <IconButton>
-                                            <Tooltip title="Refresh">
-                                                <RefreshIcon onClick={this.handleReload} />
+                                            <Tooltip title="GridView">
+                                                <AppsOutlinedIcon onClick={this.handleGridView} />
                                             </Tooltip>
                                         </IconButton>
-                                        {this.state.view ? (
+                                    ) : (
                                             <IconButton>
-                                                <Tooltip title="GridView">
-                                                    <AppsOutlinedIcon onClick={this.handleGridView} />
+                                                <Tooltip title="ListView">
+                                                    <DnsOutlinedIcon onClick={this.handleListView} />
                                                 </Tooltip>
                                             </IconButton>
-                                        ) : (
-                                            <IconButton>
-                                            <Tooltip title="ListView">
-                                                <DnsOutlinedIcon onClick={this.handleListView} />
-                                                </Tooltip>
-                                            </IconButton>
-                                            )}
-                                        <Avatar onClick={(e) => this.handleOpenPopper(e)}>{this.state.name}</Avatar>
-                                    </div>
-                                </Toolbar>
-                            </div>
-                        </AppBar>
-                    </MuiThemeProvider>
-                    <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} style={{ zIndex: "9999" }}>
-                        <Paper>
+                                        )}
+                                    <Avatar onClick={(e) => this.handleOpenPopper(e)} style={{ cursor: "pointer" }}>{this.state.name} </Avatar>
+                                </div>
+                            </Toolbar>
+                        </div>
+                    </AppBar>
+                </MuiThemeProvider>
+                <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} style={{ zIndex: "9999" }}>
+                    <Paper>
                         <Avatar alt="Vikas Bisati" src="/static/images/avatar/1.jpg" />
-                            <Button>Add Account</Button>
-                            <Button onClick={this.handleSignOut}>Signout</Button>
-                        </Paper>
-                    </Popper>
-                </div>
+                        <Button>Add Account</Button>
+                        <Button onClick={this.handleSignOut}>Signout</Button>
+                    </Paper>
+                </Popper>
             </div>
         )
     }

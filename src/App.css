@@ -229,6 +229,7 @@
   justify-content: space-between;
   border-radius: 1em;
   align-items: center;
+  height: 6.8vh;
 }
 
 .dashboard-card-div1 {
@@ -246,8 +247,17 @@
 .dashboard-refresh {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
   width: 19vh;
+}
+
+.dashboard-logoSearch {
+  display: flex;
+  /* flex-direction: row; */
+  align-items: center;
+  justify-content: space-between;
+  width: 84%;
 }
 
 .before {
@@ -329,7 +339,7 @@
 
 .notes-icon-div {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 40%;
 }
 
@@ -340,7 +350,6 @@
   min-height: auto;
   border-radius: 1em;
   width: 225px;
-  box-shadow: 5px 5px 5px grey;
   border-radius: 18px
 }
 
@@ -348,11 +357,16 @@
   min-width: auto;
   min-height: auto;
   border-radius: 1em;
-  box-shadow: 5px 5px 5px grey;
   border-radius: 18px
 }
 
 .get-card1:hover .notes-icon-div1 {
+  box-shadow: 5px 5px 5px grey;
+  visibility: visible;
+}
+
+.get-card:hover .notes-icon-div1 {
+  box-shadow: 5px 5px 5px grey;
   visibility: visible;
 }
 
@@ -368,7 +382,7 @@
 
 .notes-icon-div1 {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   visibility: hidden;
 }
 
