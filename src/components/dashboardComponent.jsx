@@ -214,7 +214,8 @@ class DashboardComponent extends Component {
                                         />
                                         <img src={require("../assets/images/keep.png")} alt="" width="30px"
                                             height="30px" />
-                                        <h3 ><span>{this.state.dashboardNameVariant === '' ? "Fundoonotes" :
+                                        <h3 id="blinking"><span>
+                                        {this.state.dashboardNameVariant === '' ? "Fundoonotes" :
                                             this.state.dashboardNameVariant}</span></h3>
                                     </div>
                                     <ClickAwayListener onClickAway={this.handleClose}>

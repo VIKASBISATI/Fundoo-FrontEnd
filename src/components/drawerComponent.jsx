@@ -80,6 +80,9 @@ class DrawerComponent extends Component {
         this.props.changeToTrash(this.state.trashed);
         this.props.history.push('/getTrash')
     }
+    handleReminders=()=>{
+        this.props.history.push('/getReminders')
+    }
     render() {
         return (
             <div className="drawer-container">
@@ -91,7 +94,7 @@ class DrawerComponent extends Component {
                             <EmojiObjectsIcon style={{ paddingRight: "15%" }} />
                             Notes
                      </MenuItem>
-                        <MenuItem id="note">
+                        <MenuItem id="note" onClick={this.handleReminders}>
                             <NotificationsNoneOutlinedIcon style={{ paddingRight: "15%" }} />
                             Reminders
                      </MenuItem>

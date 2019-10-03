@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import GetArchiveComponent from "../components/getArchiveComponent";
+import GetAllRemindersComponent from "../components/getAllRemindersComponent";
 import DashBoardComponent from '../components/dashboardComponent'
-export default class ArchivePage extends Component {
+export default class GetReminders extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,7 +29,7 @@ export default class ArchivePage extends Component {
                     listView={this.listView}
                 />
                 <div className="get-archive">
-                    <GetArchiveComponent props={this.props}
+                    <GetAllRemindersComponent props={this.props}
                         list={this.state.list}
                         menu={this.state.menu}
                     />

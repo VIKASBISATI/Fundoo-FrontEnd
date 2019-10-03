@@ -54,7 +54,6 @@ class CreateLabelComponenent extends Component {
             anchorEl: currentTarget
         })
         console.log("in click2 " + this.state.label);
-
     }
     handleAway = (e) => {
         console.log('yes key down');
@@ -136,7 +135,7 @@ class CreateLabelComponenent extends Component {
                                     <SearchIcon />
                                 </Tooltip>
                                 <div className="trash-checkbox">{labelMap1}</div>
-                                {this.state.create ? (<p onClick={this.handleLabel}>+ create {this.state.labelText}</p>) : (null)}
+                                {this.state.create ? (<div><p onClick={this.handleLabel}>+ create {this.state.labelText}</p></div>) : (null)}
                             </Paper>
                         </Popper>
                     </ClickAwayListener>

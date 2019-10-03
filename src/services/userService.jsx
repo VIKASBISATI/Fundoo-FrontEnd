@@ -32,7 +32,6 @@ export function colorChange(data) {
 }
 export function updateNotes(data) {
     console.log('data in update notes is', data);
-
     return axios.post(baseURL + '/notes/updateNotes', data, {
         headers: {
             Authorization: localStorage.getItem('token')
@@ -74,6 +73,29 @@ export function noteLabel(data) {
     const noteId = data.noteId;
     const labelId = data.labelId;
     return axios.post(baseURL + `/notes/${noteId}/addLabelToNotes/${labelId}/add`, data, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}
+export function removeNoteLabel(data) {
+    const noteId = data.noteId;
+    const labelId = data.labelId;
+    return axios.post(baseURL + `/notes/${noteId}/addLabelToNotes/${labelId}/remove`, data, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}
+export function addReminder(data) {
+    return axios.post(baseURL + '/notes/addUpdateReminderNotes', data, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}
+export function deleteReminder(data) {
+    return axios.post(baseURL + '/notes/removeReminderNotes', data, {
         headers: {
             Authorization: localStorage.getItem('token')
         }

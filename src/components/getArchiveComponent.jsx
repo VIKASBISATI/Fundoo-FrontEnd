@@ -17,7 +17,7 @@ const theme = createMuiTheme({
     overrides: {
         MuiBackdrop: {
             root: {
-                backgroundColor: "rgba(0,0,0, 0.18)",
+                backgroundColor: "rgba(0,0,0, 0.01)",
             }
         },
         MuiPaper: {
@@ -130,17 +130,20 @@ class GetArchiveComponent extends Component {
 
     }
     render() {
-        console.log('delup props in get note component', this.state.trashId);
+        const list = this.props.list ? "get-container1" : "get-container";
+        const list1 = this.props.list ? "get-contents1" : "get-contents"
+        const list2 = this.props.list ? "get-card1" : "get-card"
         const allNotes = this.state.notes.map((key) => {
             // console.log('    keyid ', key.id);
             return (
                 (((key.isArchived === true))
                     && (key.isDeleted === false) &&
-                    <div className="get-contents">
-                        <Card className="get-card1" style={{
+                    <div className={list1}>
+                        <Card className={list2} style={{
                             backgroundColor: key.color,
-                            boxShadow: "5px 5px 5px grey", borderRadius: "18px",
-                            width: "225px"
+                            boxShadow: "5px 5px 5px grey", borderRadius: "10px",
+                            transform: (this.props.menu) ? "translate(80px,0) rotate(360deg)" : (null),
+                            transition: (this.props.menu) ? ("300ms") : (null)
                         }}>
                             <div className="input1">
                                 <InputBase className="get-in2"
@@ -160,7 +163,7 @@ class GetArchiveComponent extends Component {
                                     value={key.description}
                                 />
                             </div>
-                            <div>
+                            <div className="get-chips">
                                 {key.noteLabels.map(data => {
                                     return (
                                         <Chip onDelete={this.handleChipDelete}
@@ -258,7 +261,7 @@ class GetArchiveComponent extends Component {
                 ))
         })
         return (
-            <div className="getArchive-container" >
+            <div className={list} >
                 {allNotes}
             </div>
         )

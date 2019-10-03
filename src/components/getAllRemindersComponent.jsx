@@ -2,17 +2,16 @@ import React, { Component } from 'react'
 import { getAllNotes, updateNotes, colorChange } from '../services/userService'
 import { Card, InputBase, Button, createMuiTheme, MuiThemeProvider, Chip } from '@material-ui/core';
 import { Tooltip } from '@material-ui/core';
+import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import ColorPaletteComponent from './colorPaletteComponent';
-import ReminderComponent from './reminderComponent'
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import MoreOptionComponenent from './moreOptionComponenent'
 import DialogContent from '@material-ui/core/DialogContent';
-import { deleteReminder } from '../services/userService';
-import { removeNoteLabel } from '../services/userService'
+import { withRouter } from 'react-router-dom';
 import ArchiveComponent from '../components/archiveComponent';
 const theme = createMuiTheme({
     overrides: {
@@ -28,12 +27,7 @@ const theme = createMuiTheme({
         }
     }
 })
-function titleDescSearch(searchText) {
-    return function (val) {
-        return val.title.includes(searchText) || val.description.includes(searchText)
-    }
-}
-export default class GetAllNoteComponent extends Component {
+class GetAllRemindersComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -62,13 +56,12 @@ export default class GetAllNoteComponent extends Component {
             })
         })
     }
-
     updatedCard(upCard) {
         this.setState({
             notes: [...this.state.notes, upCard]
         })
-        console.log("new updated array is ", this.state.notes);
     }
+
     handleColor = (col, noteid) => {
         var data = {
             noteIdList: [noteid],
@@ -129,107 +122,30 @@ export default class GetAllNoteComponent extends Component {
             console.log('err in get all notes update is ', err);
         })
     }
-    deleteUp = (trashNoteId) => {
-        console.log("note in delUp", this.state.notes);
-        var delId = trashNoteId;
-        var newArr = this.state.notes;
-        console.log("trashnotes id is ", delId);
-        console.log("new array is ", newArr);
-        console.log('yes or not', newArr[0].id === "5d88951ca0a6a900185be37c");
-        newArr[37].isDeleted = true;
-        for (let i = 0; i < newArr.length; i++) {
-            console.log("yes entered");
-            if (newArr[i].id === delId) {
-                console.log("yes ", delId);
-                newArr[i].isDeleted = true;
-                newArr[i].isArchived = false;
-                newArr[i].isPinned = false;
-            }
-        }
-        this.setState({
-            notes: newArr
-        })
-        this.setState({
-            trashId: trashNoteId,
-            open: !this.state.open
-        })
-    }
-    arcUp = (noteId) => {
-        console.log("note in delUp", this.state.notes);
-        var arcId = noteId;
-        var newArr1 = this.state.notes;
-        console.log("trashnotes id is ", arcId);
-        for (let i = 0; i < newArr1.length; i++) {
-            console.log("yes entered");
-            if (newArr1[i].id === arcId) {
-                console.log("yes ", arcId);
-                newArr1[i].isDeleted = false;
-                newArr1[i].isArchived = true;
-                newArr1[i].isPinned = false;
-            }
-        }
-        this.setState({
-            notes: newArr1
-        })
-        this.setState({
-            archiveId: noteId
-        })
-        console.log("noteid is in arcup", noteId);
-        this.setState({
-            archiveId: noteId,
-            open: !this.state.open
-        })
-    }
-    handleLabelDelete = (noteId, labelId) => {
+    handleChipDelete = () => {
         console.log("delete chip");
-        let data = {
-            "labelId": labelId,
-            "noteId": noteId
-        }
-        removeNoteLabel(data).then((res) => {
-            console.log('response for remove notes label is', res)
-        }).catch((err) => {
-            console.log('err in remove label is ', err);
+        this.setState({
+            delChip: true
         })
 
-    }
-    handleDeleteReminder = (id) => {
-        let data = {
-            "noteIdList": [id],
-            "reminder": ""
-        }
-        console.log("data in delete reminder is", data);
-
-        deleteReminder(data).then((res) => {
-            console.log("response in deleting reminder is ", res);
-        }).catch((err) => {
-            console.log("error in hitting delete reminder api", err);
-
-        })
     }
     render() {
-        const list = this.props.list ? "get-container1" : "get-container";
+        const list = this.props.list ? "getArchive-container1" : "getArchive-container";
         const list1 = this.props.list ? "get-contents1" : "get-contents"
-        const list2 = this.props.list ? "get-card1" : "get-card"
-        console.log("props in getall notes is ", this.props.list);
-        console.log("list is ", list);
-        console.log('delup props in get note component', this.state.trashId);
-        const allNotes = this.state.notes.slice(0).reverse().filter(titleDescSearch(this.props.searchText)).map((key) => {
-            // console.log('keyid ', key.id);
+        const list2 = this.props.list ? "getArchive-card1" : "getArchive-card"
+        const allNotes = this.state.notes.map((key) => {
+            // console.log('    keyid ', key.id);
             return (
-                (((key.isArchived === false)
-                    && (key.isDeleted === false &&
-                        key.id !== this.state.trashId &&
-                        key.id !== this.state.archiveId))
-                    &&
-                    <div className={list1} >
+                (((key.isArchived === false))
+                    && (key.isDeleted === false) &&
+                    (key.reminder.length > 0) &&
+                    <div className={list1}>
                         <Card className={list2} style={{
-                            backgroundColor: key.color, boxShadow: "5px 5px 5px grey",
-                            borderRadius: "10px",
+                            backgroundColor: key.color,
+                            boxShadow: "5px 5px 5px grey", borderRadius: "10px",
                             transform: (this.props.menu) ? "translate(80px,0) rotate(360deg)" : (null),
                             transition: (this.props.menu) ? ("300ms") : (null)
-                        }}
-                        >
+                        }}>
                             <div className="input1">
                                 <InputBase className="get-in2"
                                     multiline
@@ -251,7 +167,7 @@ export default class GetAllNoteComponent extends Component {
                             <div className="get-chips">
                                 {key.noteLabels.map(data => {
                                     return (
-                                        <Chip onDelete={() => this.handleLabelDelete(key.id, data.id)}
+                                        <Chip onDelete={this.handleChipDelete}
                                             label={data.label}>
                                         </Chip>
                                     );
@@ -268,7 +184,9 @@ export default class GetAllNoteComponent extends Component {
                                 }
                             </div>
                             <div className="notes-icon-div1">
-                                <ReminderComponent noteId={key.id} />
+                                <Tooltip title="Remind me">
+                                    <AddAlertOutlinedIcon />
+                                </Tooltip>
                                 <Tooltip title="collaborator">
                                     <PersonAddOutlinedIcon />
                                 </Tooltip>
@@ -280,9 +198,9 @@ export default class GetAllNoteComponent extends Component {
                                 <Tooltip title="Add image">
                                     <ImageOutlinedIcon />
                                 </Tooltip>
-                                <Tooltip title="Archive">
+                                <Tooltip title="Unarchive">
                                     <ArchiveComponent archiveNoteId={key.id}
-                                        arcUp={this.arcUp} />
+                                    />
                                 </Tooltip>
                                 <Tooltip title="More">
                                     <MoreOptionComponenent noteId={key.id}
@@ -321,7 +239,9 @@ export default class GetAllNoteComponent extends Component {
                                     </DialogContent>
                                     <DialogActions>
                                         <div className="notes-icon-div2">
-
+                                            <Tooltip title="Remind me">
+                                                <AddAlertOutlinedIcon />
+                                            </Tooltip>
                                             <Tooltip title="collaborator">
                                                 <PersonAddOutlinedIcon />
                                             </Tooltip>
@@ -333,15 +253,14 @@ export default class GetAllNoteComponent extends Component {
                                             <Tooltip title="Add image">
                                                 <ImageOutlinedIcon />
                                             </Tooltip>
-                                            <Tooltip title="Archive">
+                                            <Tooltip title="Unarchive">
                                                 <ArchiveComponent archiveNoteId={key.id}
-                                                    arcUp={this.arcUp} />
+                                                />
                                             </Tooltip>
                                             <MoreOptionComponenent noteId={key.id}
                                                 deleteUp={this.deleteUp}
                                             />
-                                            <Button onClick={() => this.handleUpdate(this.state.noteId,
-                                                this.state.title, this.state.description, this.state.color)}>
+                                            <Button onClick={() => this.handleUpdate(this.state.noteId, this.state.title, this.state.description, this.state.color)}>
                                                 close
                                             </Button>
                                         </div>
@@ -359,3 +278,4 @@ export default class GetAllNoteComponent extends Component {
         )
     }
 }
+export default withRouter(GetAllRemindersComponent);

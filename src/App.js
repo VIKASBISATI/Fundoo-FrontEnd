@@ -25,6 +25,7 @@ import ColorPaletteComponent from './components/colorPaletteComponent';
 import EditComponent from '../src/pages/edit';
 import GetArchiveComponent from '../src/pages/getArchive';
 import GetDeletedComponent from '../src/pages/getDeleted';
+import GetReminders from './pages/getAllReminder'
 class App extends React.Component {
   render() {
     return (
@@ -43,6 +44,7 @@ class App extends React.Component {
           <Route path="/edit" component={EditComponent}></Route>
           <Route path="/getArchive" component={GetArchiveComponent}></Route>
           <Route path="/getTrash" component={GetDeletedComponent}></Route>
+          <Route path="/getReminders" component={GetReminders}></Route>
         </Switch>
       </Router>
     );
