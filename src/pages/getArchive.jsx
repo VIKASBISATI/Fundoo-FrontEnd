@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import GetArchiveComponent from "../components/getArchiveComponent";
-import DashBoardComponent from '../components/dashboardComponent'
+import DashBoardComponent from '../components/dashboardComponent';
 export default class ArchivePage extends Component {
     constructor(props) {
         super(props);
@@ -16,7 +16,7 @@ export default class ArchivePage extends Component {
             list: value
         })
     }
-    menuGet = (menu) => { 
+    menuGet = (menu) => {
         this.setState({
             menu: menu
         })

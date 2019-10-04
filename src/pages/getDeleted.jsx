@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import GetDeletedComponent from "../components/getDeletedComponent";
-import DashBoardComponent from '../components/dashboardComponent'
+import DashBoardComponent from '../components/dashboardComponent';
 export default class GetDeletePage extends Component {
     constructor(props) {
         super(props);

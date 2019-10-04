@@ -1,9 +1,11 @@
-// -------------------------------------------------trash--------------------------------------------------------------
 @mixin flexCenter {
   display: flex;
   align-items: center;
 }
 $justifySpace: space-between;
+//--------------------------------------------------create-notes-------------------------------------------------------
+  
+// -------------------------------------------------trash--------------------------------------------------------------
 .trash-card {
   @include flexCenter();
   flex-wrap: wrap;
@@ -82,13 +84,7 @@ $justifySpace: space-between;
 .trash-del {
   @include flexCenter();
 }
-.cut-text { 
-  text-overflow: ellipsis;
-  overflow: hidden; 
-  width: 160px; 
-  height: 1.2em; 
-  white-space: nowrap;
-}
+
 // --------------------------------------------------------getArchive------------------------------------------------------
 .get-card1 {
   min-width: auto;
@@ -121,10 +117,10 @@ $justifySpace: space-between;
   align-items: flex-start;
 }
 // -------------------------------------------------------getAllChips---------------------------------------------------------
-.get-chips{
-// @include flexCenter();
-display: flex;
-align-items: flex-start;
-justify-content: space-around;
-flex-wrap: wrap;
+.get-chips {
+  // @include flexCenter();
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }

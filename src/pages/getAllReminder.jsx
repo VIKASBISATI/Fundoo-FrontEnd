@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import GetAllRemindersComponent from "../components/getAllRemindersComponent";
-import DashBoardComponent from '../components/dashboardComponent'
+import DashBoardComponent from '../components/dashboardComponent';
+import CreateNotesComponent from '../components/createNotesComponent'
 export default class GetReminders extends Component {
     constructor(props) {
         super(props);
@@ -16,7 +17,7 @@ export default class GetReminders extends Component {
             list: value
         })
     }
-    menuGet = (menu) => { 
+    menuGet = (menu) => {
         this.setState({
             menu: menu
         })
@@ -28,6 +29,7 @@ export default class GetReminders extends Component {
                     menuGet={this.menuGet}
                     listView={this.listView}
                 />
+                <CreateNotesComponent getNew={this.display} />
                 <div className="get-archive">
                     <GetAllRemindersComponent props={this.props}
                         list={this.state.list}

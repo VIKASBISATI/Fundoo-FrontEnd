@@ -8,8 +8,9 @@ import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import ColorPaletteComponent from './colorPaletteComponent';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import DialogActions from '@material-ui/core/DialogActions';
-import MoreOptionComponenent from './moreOptionComponenent'
+import MoreOptionComponenent from './moreOptionComponenent';
 import DialogContent from '@material-ui/core/DialogContent';
 import { withRouter } from 'react-router-dom';
 import ArchiveComponent from '../components/archiveComponent';
@@ -61,7 +62,6 @@ class GetAllRemindersComponent extends Component {
             notes: [...this.state.notes, upCard]
         })
     }
-
     handleColor = (col, noteid) => {
         var data = {
             noteIdList: [noteid],
@@ -176,6 +176,7 @@ class GetAllRemindersComponent extends Component {
                                     key.reminder.map(data => {
                                         return (
                                             <Chip onDelete={() => this.handleDeleteReminder(key.id)}
+                                                icon={<AccessTimeIcon />}
                                                 label={data.slice(0, 21)}
                                                 size="medium">
                                             </Chip>

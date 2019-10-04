@@ -69,7 +69,8 @@ export default class ColorPaletteComponent extends Component {
                         onClick={(e) => this.handleOpenPopper(e)}
                     />
                 </Tooltip>
-                <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} style={{ zIndex: "9999" }}>
+                <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} 
+                style={{ zIndex: "9999" }} placement="top-start">
                     <Paper>
                         <div className="color-map">  {colorChange}</div>
                     </Paper>

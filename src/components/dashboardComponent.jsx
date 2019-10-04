@@ -65,7 +65,9 @@ class DashboardComponent extends Component {
         var name = localStorage.getItem('FirstName')
         name = name.toUpperCase();
         this.setState({
-            name: name.charAt(0)
+            name: name.charAt(0),
+            a:1,
+            dashboardNameVariant:"FundooNotes"
         })
     }
     handleNotes = (e) => {
@@ -215,8 +217,11 @@ class DashboardComponent extends Component {
                                         <img src={require("../assets/images/keep.png")} alt="" width="30px"
                                             height="30px" />
                                         <h3 id="blinking"><span>
-                                        {this.state.dashboardNameVariant === '' ? "Fundoonotes" :
-                                            this.state.dashboardNameVariant}</span></h3>
+                                        {/* {this.state.dashboardNameVariant === '' ? "Fundoonotes" :
+                                            this.state.dashboardNameVariant} */}
+                                            {this.props.location.state!==undefined?
+                                            this.props.location.state:"FundooNotes"}
+                                            </span></h3>
                                     </div>
                                     <ClickAwayListener onClickAway={this.handleClose}>
                                         <div className="dashboard-card-div" style={{

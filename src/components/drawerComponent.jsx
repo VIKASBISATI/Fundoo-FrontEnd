@@ -38,7 +38,8 @@ class DrawerComponent extends Component {
             arc: true,
             noted: true,
             trashed: true,
-            title: ''
+            title: '',
+            appTitle:"FundooNotes"
         }
         this.handleArchive = this.handleArchive.bind(this)
     }
@@ -57,31 +58,35 @@ class DrawerComponent extends Component {
     handleNotes = async () => {
         console.log("yes handle trash");
         await this.setState({
-            noted: this.state.noted
+            // noted: this.state.noted
+            appTitle:"FundooNotes"
         })
-        console.log("yes handle trash", this.state.noted);
-        this.props.changeToNote(this.state.noted);
-        this.props.history.push('/dashboard')
+        // console.log("yes handle trash", this.state.noted);
+        // this.props.changeToNote(this.state.noted);
+        this.props.history.push('/dashboard',this.state.appTitle)
     }
-    handleArchive = () => {
-        this.setState({
-            arc: true
+    handleArchive =async () => {
+       await this.setState({
+            appTitle: "Archive"
         })
-        console.log("yes handle trash", this.state.arc);
-        this.props.changeToArchive(this.state.arc);
-        this.props.history.push('/getArchive')
+        // console.log("yes handle trash", this.state.arc);
+        // this.props.changeToArchive(this.state.arc);
+        this.props.history.push('/getArchive',this.state.appTitle)
     }
     handleTrash = async () => {
         console.log("yes handle trash");
         await this.setState({
-            trashed: this.state.trashed
+            appTitle:"Trash"
         })
-        console.log("yes handle trash", this.state.trashed);
-        this.props.changeToTrash(this.state.trashed);
-        this.props.history.push('/getTrash')
+        // console.log("yes handle trash", this.state.trashed);
+        // this.props.changeToTrash(this.state.trashed);
+        this.props.history.push('/getTrash',this.state.appTitle)
     }
-    handleReminders=()=>{
-        this.props.history.push('/getReminders')
+    handleReminders=async()=>{
+        await this.setState({
+            appTitle:"Reminders"
+        })
+        this.props.history.push('/getReminders',this.state.appTitle)
     }
     render() {
         return (

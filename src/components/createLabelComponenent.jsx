@@ -98,6 +98,7 @@ class CreateLabelComponenent extends Component {
         noteLabel(data)
             .then((response) => {
                 console.log("response in note label", response);
+                this.props.createLabelToMoreOption(true);
             }).catch((err) => {
                 console.log('err in hitting api label', err);
             })

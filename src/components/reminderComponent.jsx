@@ -51,6 +51,7 @@ class ReminderComponent extends Component {
         console.log("data in reminder is ", data);
         addReminder(data).then((res) => {
             console.log("res in reminder", res);
+            this.props.getUpdatedReminders(true);
         }).catch((err) => {
             console.log('err in hitting api reminder', err);
         })
@@ -62,7 +63,7 @@ class ReminderComponent extends Component {
                     <Tooltip title="Remind me">
                         <AddAlertOutlinedIcon onClick={(e) => this.handleOpenPopper(e)} />
                     </Tooltip>
-                    <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} >
+                    <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} placement="bottom-right">
                         <Paper className="reminder-paper">
                             Reminder:
                         <MenuItem>

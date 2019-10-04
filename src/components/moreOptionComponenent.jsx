@@ -26,6 +26,9 @@ class MoreOptionComponenent extends Component {
         })
         this.props.deleteUp(moreNotesId)
     }
+    createLabelToMoreOption=(val)=>{
+        this.props.moreOptionLabelProps(val)
+    }
     render() {
         return (
             <div>
@@ -36,7 +39,8 @@ class MoreOptionComponenent extends Component {
                     <Paper className="colorpalette-popper">
                         <TrashComponent trashProps={this.props.noteId} 
                         delUp={this.delUp}/>
-                        <CreateLabelComponenent noteToLabel={this.props.noteId}/>
+                        <CreateLabelComponenent noteToLabel={this.props.noteId}
+                        createLabelToMoreOption={this.createLabelToMoreOption}/>
                     </Paper>
                 </Popper>
             </div>
