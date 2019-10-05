@@ -9,6 +9,7 @@ import ServiceCard from './serviceCardComponent';
 import { withRouter } from 'react-router-dom'
 // import { ServiceComponent } from '../components/serviceCardComponent'
 import ClearIcon from '@material-ui/icons/Clear';
+var Url = "http://fundoonotes.incubation.bridgelabz.com/"
 //class Login extends React.Component or we can use React.createClass
 class Login extends React.Component {
     //states are just like the variables and props are shorthand for properties that are passed to the constructor
@@ -85,6 +86,7 @@ class Login extends React.Component {
                 localStorage.setItem('userId', res.data.userId);
                 localStorage.setItem('LastName', res.data.lastName);
                 localStorage.setItem('Email', res.data.email);
+                localStorage.setItem('profileimage',Url+res.data.imageUrl)
                 this.props.history.push('/dashboard');
             }).catch((err) => {
                 console.log(err);

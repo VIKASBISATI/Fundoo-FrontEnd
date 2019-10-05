@@ -1,5 +1,6 @@
 import axios from 'axios';
 require('dotenv').config();
+
 const baseURL = process.env.REACT_APP_BASE_URL
 export function service() {
     return axios.get(baseURL + '/user/service')
@@ -97,6 +98,16 @@ export function addReminder(data) {
 export function deleteReminder(data) {
     return axios.post(baseURL + '/notes/removeReminderNotes', data, {
         headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}
+
+export function uploadProfile(upload) {
+    console.log("upload image in services");
+    return axios.post(baseURL + '/user/uploadProfileImage', upload, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
             Authorization: localStorage.getItem('token')
         }
     })

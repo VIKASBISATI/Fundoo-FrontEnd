@@ -2,17 +2,12 @@ import React, { Component } from 'react'
 import { getAllNotes, updateNotes, colorChange } from '../services/userService'
 import { Card, InputBase, Button, createMuiTheme, MuiThemeProvider, Chip } from '@material-ui/core';
 import { Tooltip } from '@material-ui/core';
-import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
-import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
-import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
-import ColorPaletteComponent from './colorPaletteComponent';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import MoreOptionComponenent from './moreOptionComponenent'
 import DialogContent from '@material-ui/core/DialogContent';
 import { withRouter } from 'react-router-dom';
-import ArchiveComponent from '../components/archiveComponent';
 const theme = createMuiTheme({
     overrides: {
         MuiBackdrop: {
@@ -174,24 +169,6 @@ class GetDeletedComponent extends Component {
                                 })}
                             </div>
                             <div className="notes-icon-div1">
-                                <Tooltip title="Remind me">
-                                    <AddAlertOutlinedIcon />
-                                </Tooltip>
-                                <Tooltip title="collaborator">
-                                    <PersonAddOutlinedIcon />
-                                </Tooltip>
-                                <Tooltip title="Change color">
-                                    <ColorPaletteComponent
-                                        paletteProps={this.handleColor}
-                                        notesId={key.id} />
-                                </Tooltip>
-                                <Tooltip title="Add image">
-                                    <ImageOutlinedIcon />
-                                </Tooltip>
-                                <Tooltip title="Unarchive">
-                                    <ArchiveComponent archiveNoteId={key.id}
-                                    />
-                                </Tooltip>
                                 <Tooltip title="More">
                                     <MoreOptionComponenent noteId={key.id}
                                         deleteUp={this.deleteUp}
@@ -229,24 +206,6 @@ class GetDeletedComponent extends Component {
                                     </DialogContent>
                                     <DialogActions>
                                         <div className="notes-icon-div2">
-                                            <Tooltip title="Remind me">
-                                                <AddAlertOutlinedIcon />
-                                            </Tooltip>
-                                            <Tooltip title="collaborator">
-                                                <PersonAddOutlinedIcon />
-                                            </Tooltip>
-                                            <Tooltip title="Change color">
-                                                <ColorPaletteComponent
-                                                    paletteProps={this.handleColor}
-                                                    notesId={this.state.noteId} />
-                                            </Tooltip>
-                                            <Tooltip title="Add image">
-                                                <ImageOutlinedIcon />
-                                            </Tooltip>
-                                            <Tooltip title="Unarchive">
-                                                <ArchiveComponent archiveNoteId={key.id}
-                                                />
-                                            </Tooltip>
                                             <MoreOptionComponenent noteId={key.id}
                                                 deleteUp={this.deleteUp}
                                             />

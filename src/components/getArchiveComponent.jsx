@@ -187,7 +187,7 @@ class GetArchiveComponent extends Component {
                                 <Tooltip title="Add image">
                                     <ImageOutlinedIcon />
                                 </Tooltip>
-                                <Tooltip title="Unarchive">
+                                <Tooltip title="Un Archive">
                                     <ArchiveComponent archiveNoteId={key.id}
                                     />
                                 </Tooltip>
@@ -242,7 +242,7 @@ class GetArchiveComponent extends Component {
                                             <Tooltip title="Add image">
                                                 <ImageOutlinedIcon />
                                             </Tooltip>
-                                            <Tooltip title="Unarchive">
+                                            <Tooltip title="Un Archive">
                                                 <ArchiveComponent archiveNoteId={key.id}
                                                 />
                                             </Tooltip>

@@ -1,10 +1,7 @@
-import { AppBar, createMuiTheme, IconButton, Button, MuiThemeProvider, Toolbar, Tooltip, InputBase } from '@material-ui/core';
+import { AppBar, createMuiTheme, IconButton, MuiThemeProvider, Toolbar, Tooltip, InputBase } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import MenuIcon from '@material-ui/icons/Menu';
-import Avatar from '@material-ui/core/Avatar';
 import React, { Component } from 'react';
-import Popper from '@material-ui/core/Popper';
-import Paper from '@material-ui/core/Paper';
 import SearchIcon from '@material-ui/icons/Search';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
@@ -12,6 +9,7 @@ import DrawerComponent from '../components/drawerComponent';
 import AppsOutlinedIcon from '@material-ui/icons/AppsOutlined';
 import DnsOutlinedIcon from '@material-ui/icons/DnsOutlined';
 import { withRouter } from "react-router-dom";
+import ProfilePicComponent from './profilePicComponent';
 const theme = createMuiTheme({
     overrides: {
         MuiAppBar: {
@@ -134,14 +132,8 @@ class DashboardComponent extends Component {
             accountCard: !this.state.accountCard
         })
     }
-    handleOpenPopper(e) {
-        this.setState({
-            anchorEl: this.state.anchorEl ? false : e.target
-        });
-    }
-    handleSignOut = () => {
-        this.props.history.push('/login')
-    }
+
+
     handleClose = () => {
         this.setState({
             bgClr: "#f0f0f0"
@@ -187,6 +179,7 @@ class DashboardComponent extends Component {
 
         this.props.listView(this.state.view)
     }
+
     handleGridView = async () => {
         await this.setState({
             view: !this.state.view
@@ -194,6 +187,7 @@ class DashboardComponent extends Component {
         console.log("this.state.view in handle grid", this.state.view);
         this.props.listView(this.state.view)
     }
+    
     render() {
         console.log("search after setstate====>", this.state.searchText);
         return (
@@ -272,19 +266,13 @@ class DashboardComponent extends Component {
                                                 </Tooltip>
                                             </IconButton>
                                         )}
-                                    <Avatar onClick={(e) => this.handleOpenPopper(e)} style={{ cursor: "pointer" }}>{this.state.name} </Avatar>
+                                        <ProfilePicComponent />
                                 </div>
                             </Toolbar>
                         </div>
                     </AppBar>
                 </MuiThemeProvider>
-                <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} style={{ zIndex: "9999" }}>
-                    <Paper>
-                        <Avatar alt="Vikas Bisati" src="/static/images/avatar/1.jpg" />
-                        <Button>Add Account</Button>
-                        <Button onClick={this.handleSignOut}>Signout</Button>
-                    </Paper>
-                </Popper>
+               
             </div>
         )
     }
