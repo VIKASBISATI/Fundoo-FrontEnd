@@ -6,7 +6,8 @@ import Snackbar from '@material-ui/core/Snackbar'
 import IconButton from '@material-ui/core/IconButton';
 import { userLogin } from '../services/shoppingService'
 import ServiceCard from './serviceCardComponent';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
+// import firebase from '../services/firebase.config'
 // import { ServiceComponent } from '../components/serviceCardComponent'
 import ClearIcon from '@material-ui/icons/Clear';
 var Url = "http://fundoonotes.incubation.bridgelabz.com/"
@@ -21,6 +22,7 @@ class Login extends React.Component {
             openSnackBar: false,
             SnackBarMessage: "",
         }
+        // this.googleLogin = new firebase.auth.GoogleAuthProvider();
     }
     //snackbar is used for displaying the error messages 
     snackbarClose = (e) => {
@@ -86,7 +88,7 @@ class Login extends React.Component {
                 localStorage.setItem('userId', res.data.userId);
                 localStorage.setItem('LastName', res.data.lastName);
                 localStorage.setItem('Email', res.data.email);
-                localStorage.setItem('profileimage',Url+res.data.imageUrl)
+                localStorage.setItem('profileimage', Url + res.data.imageUrl)
                 this.props.history.push('/dashboard');
             }).catch((err) => {
                 console.log(err);
@@ -99,6 +101,37 @@ class Login extends React.Component {
             })
         }
     }
+    handleSocialSubmit = () => {
+        // console.log('first');
+        // var loginDetails = {
+        //     'email': this.state.email,
+        //     'password': this.state.password
+        // }
+        // firebase.auth().signInWithPopup(this.googleLogin).then((res) => {
+        //     this.setState({
+        //         openSnackBar: true,
+        //         SnackBarMessage: 'Login Success'
+        //     })
+        //     console.log('res in login', res)
+        //     localStorage.setItem('token', res.data.id);
+        //     localStorage.setItem('FirstName', res.data.firstName);
+        //     localStorage.setItem('userId', res.data.userId);
+        //     localStorage.setItem('LastName', res.data.lastName);
+        //     localStorage.setItem('Email', res.data.email);
+        //     localStorage.setItem('profileimage',Url+res.data.imageUrl)
+        //     this.props.history.push('/dashboard');
+        // }).catch((err) => {
+        //     console.log(err);
+
+        //     this.setState({
+        //         openSnackBar: true,
+        //         SnackBarMessage: 'Email or password incorrect'
+        //     })
+        //     console.log('login error', err);
+        // })
+    }
+
+
 
     handleEnter = event => {
         if (event.key === 'Enter') {
@@ -182,6 +215,9 @@ class Login extends React.Component {
                         <Button variant="contained" color="primary" className="text" onClick={this.handleSubmit}>
                             Login
                          </Button>
+                        {/* <Button variant="contained" color="primary" className="text" onClick={this.handleSocialSubmit}>
+                            Social Google Login
+                         </Button> */}
                     </div>
                     <div className="login-button2">
                         <Button color="secondary" id="sensitivity" onClick={this.handleForgotPassword}>

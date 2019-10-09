@@ -4,7 +4,6 @@ import { Card, InputBase, Button, createMuiTheme, MuiThemeProvider, Chip } from 
 import { Tooltip } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
-import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import ColorPaletteComponent from './colorPaletteComponent';
 import ReminderComponent from './reminderComponent'
 import Dialog from '@material-ui/core/Dialog';
@@ -15,6 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { deleteReminder } from '../services/userService';
 import { removeNoteLabel } from '../services/userService';
 import ArchiveComponent from '../components/archiveComponent';
+import CollaboratorComponent from '../components/collaboratorComponent'
 const theme = createMuiTheme({
     overrides: {
         MuiBackdrop: {
@@ -250,7 +250,7 @@ export default class GetAllNoteComponent extends Component {
                     &&
                     <div className={list1} >
                         <Card className={list2} style={{
-                            backgroundColor: key.color, boxShadow: "5px 5px 5px grey",
+                            backgroundColor: key.color, boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)",
                             borderRadius: "10px",
                             transform: (this.props.menu) ? "translate(80px,0) rotate(360deg)" : (null),
                             transition: (this.props.menu) ? ("300ms") : (null)
@@ -298,9 +298,7 @@ export default class GetAllNoteComponent extends Component {
                                 <ReminderComponent noteId={key.id}
                                     getUpdatedReminders={this.getUpdatedReminders}
                                 />
-                                <Tooltip title="collaborator">
-                                    <PersonAddOutlinedIcon />
-                                </Tooltip>
+                                <CollaboratorComponent />
                                 <Tooltip title="Change color">
                                     <ColorPaletteComponent
                                         paletteProps={this.handleColor}
@@ -351,9 +349,7 @@ export default class GetAllNoteComponent extends Component {
                                     </DialogContent>
                                     <DialogActions>
                                         <div className="notes-icon-div2">
-                                            <Tooltip title="collaborator">
-                                                <PersonAddOutlinedIcon />
-                                            </Tooltip>
+                                            <CollaboratorComponent />
                                             <Tooltip title="Change color">
                                                 <ColorPaletteComponent
                                                     paletteProps={this.handleColor}

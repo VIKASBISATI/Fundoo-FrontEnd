@@ -372,12 +372,10 @@
 }
 
 .get-card1:hover .notes-icon-div1 {
-  box-shadow: 5px 5px 5px grey;
   visibility: visible;
 }
 
 .get-card:hover .notes-icon-div1 {
-  box-shadow: 5px 5px 5px grey;
   visibility: visible;
 }
 
@@ -440,11 +438,11 @@
 .get-contents {
   padding-bottom: 3%;
 }
-
 .get-contents1 {
   width: 100%;
   padding-bottom: 3%;
 }
+
 
 /* ------------------------------------------------------Drawer------------------------------------------------------------ */
 

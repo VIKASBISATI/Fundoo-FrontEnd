@@ -10,6 +10,9 @@ import LabelIcon from '@material-ui/icons/Label';
 import Divider from '@material-ui/core/Divider';
 import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
 import { getLabel } from '../services/userService';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { editNoteLabel } from '../services/userService';
+import { deleteNoteLabel } from '../services/userService'
 import { label } from '../services/userService';
 import { MuiThemeProvider, createMuiTheme, Card, InputBase, Button, MenuItem } from '@material-ui/core';
 const theme = createMuiTheme({
@@ -32,6 +35,11 @@ class EditLabelComponent extends Component {
         this.state = {
             dialogOpen: false,
             title: '',
+            mouse: false,
+            trueIcon: false,
+            labelName: '',
+            labelId: '',
+            input: false,
             labels: []
         }
     }
@@ -70,6 +78,13 @@ class EditLabelComponent extends Component {
         })
     }
     handleDone = () => {
+        console.log("labels are ", this.state.labels[0].length);
+        for (let i = 0; i < this.state.labels.length; i++) {
+            for (let j = 0; j < 4; j++) {
+                console.log("lbaels", this.state.labels[i].label);
+                
+            }
+        }
         var data = {
             "label": this.state.title,
             "isDeleted": false,
@@ -87,8 +102,64 @@ class EditLabelComponent extends Component {
     }
     handleClose = () => {
         this.setState({
-            dialogOpen: false
-
+            dialogOpen: false,
+            trueIcon: !this.state.trueIcon
+        })
+    }
+    handleMouseOver = async (labelName) => {
+        await this.setState({
+            mouse: true,
+            labelName: labelName
+        })
+    }
+    handleMouseOut = async (labelName) => {
+        await this.setState({
+            mouse: false,
+            labelName: labelName
+        })
+    }
+    handleLabel = async (labelName, labelId) => {
+        console.log("label inae is ", labelName);
+        await this.setState({
+            input: true,
+            labelName: labelName,
+            mouse: true,
+            trueIcon: true,
+            labelId: labelId
+        })
+    }
+    handleLabelChange = async (e) => {
+        await this.setState({
+            labelName: e.target.value
+        })
+    }
+    handleDoneLables = async () => {
+        var data = {
+            "label": this.state.labelName,
+            "labelId": this.state.labelId
+        }
+        await this.setState({
+            input: false,
+            mouse: false,
+            trueIcon: false,
+        })
+        editNoteLabel(data).then((res) => {
+            console.log("Response after hitting updatenoteslabel", res);
+            this.getLabels();
+        }).catch((err) => {
+            console.log("error in hitting update notes label", err);
+        })
+    }
+    handleDeleteLabel = (labelId) => {
+        console.log("labe3id is ", labelId);
+        var data = {
+            "labelId": labelId
+        }
+        deleteNoteLabel(data).then((res) => {
+            console.log("res after hitting api", res);
+            this.getLabels();
+        }).catch((err) => {
+            console.log("error in hitting delete notes label", err);
         })
     }
     render() {
@@ -104,10 +175,46 @@ class EditLabelComponent extends Component {
         })
         const labelMap1 = this.state.labels.map((key) => {
             return (
-                <div className="label1-map">
-                    <LabelIcon />
-                    {key.label}
-                    <EditIcon />
+                <div className="label1-map"
+                >
+                    {this.state.trueIcon && key.id === this.state.labelId ? <DeleteIcon
+                        onClick={() => this.handleDeleteLabel(key.id)} /> :
+                        this.state.mouse && key.label === this.state.labelName ?
+                            <DeleteIcon
+                                onMouseOut={() => this.handleMouseOut(key.label)}
+                                onClick={() => this.handleDeleteLabel(key.id)} /> :
+                            < LabelIcon
+                                onMouseOver={() => this.handleMouseOver(key.label)}
+                            />
+                    }
+                    {/* {this.state.input ?
+                        <InputBase 
+                            value={key.label}
+                            onClick={this.handleEditIcon(key.label, key.id)}
+                        />
+                        :
+                        <InputBase
+                            value={this.state.edit}
+                            onChange={this.handleUpdateTitle}
+                        />
+                    } */}
+                    {this.state.input && key.id === this.state.labelId ?
+                        <InputBase
+                            id="title"
+                            value={this.state.labelName}
+                            onChange={this.handleLabelChange}
+                        />
+                        :
+                        <InputBase
+                            id="title"
+                            value={key.label}
+                            onClick={() => this.handleLabel(key.label, key.id)}
+                        />
+                    }
+                    {this.state.trueIcon && key.id === this.state.labelId ?
+                        <DoneOutlinedIcon onClick={this.handleDoneLables} /> :
+                        <EditIcon />
+                    }
                 </div>
             )
         })

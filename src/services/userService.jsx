@@ -112,3 +112,30 @@ export function uploadProfile(upload) {
         }
     })
 }
+export function editNoteLabel(data) {
+    const labelId = data.labelId;
+    var data1={
+        "label":data.label
+    }
+    return axios.post(baseURL + `/noteLabels/${labelId}/updateNoteLabel`, data1, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}
+export function deleteNoteLabel(data) {
+    const labelId = data.labelId;
+    console.log("label id in services",labelId);
+    return axios.delete(baseURL + `/noteLabels/${labelId}/deleteNoteLabel`, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}   
+export function getUserEmails() {
+    return axios.get(baseURL + '/user', {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}   

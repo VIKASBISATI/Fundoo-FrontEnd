@@ -15,7 +15,7 @@ const theme = createMuiTheme({
         MuiAppBar: {
             colorPrimary: {
                 color: "black",
-                backgroundColor: "white"
+                backgroundColor: "white",
             }
         },
         MuiToolbar: {
@@ -32,6 +32,11 @@ const theme = createMuiTheme({
         MuiIconButton: {
             root: {
                 padding: 0
+            }
+        },
+        MuiPaper: {
+            elevation4: {
+                boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)"
             }
         }
     }
@@ -60,13 +65,18 @@ class DashboardComponent extends Component {
         this.changeToArchive = this.changeToArchive.bind(this);
     }
     componentDidMount = () => {
-        var name = localStorage.getItem('FirstName')
-        name = name.toUpperCase();
-        this.setState({
-            name: name.charAt(0),
-            a:1,
-            dashboardNameVariant:"FundooNotes"
-        })
+        try {
+            var name = localStorage.getItem('FirstName')
+            name = name.toUpperCase();
+            this.setState({
+                name: name.charAt(0),
+                a: 1,
+                dashboardNameVariant: "FundooNotes"
+            })
+        } catch (err) {
+            console.log("err", err);
+
+        }
     }
     handleNotes = (e) => {
         const notes = e.target.value;
@@ -187,14 +197,16 @@ class DashboardComponent extends Component {
         console.log("this.state.view in handle grid", this.state.view);
         this.props.listView(this.state.view)
     }
-    
+
     render() {
         console.log("search after setstate====>", this.state.searchText);
         return (
             <div className="dashboard-container">
                 <MuiThemeProvider theme={theme}>
-                    <AppBar position="fixed">
-                        <div id="dashboard-cont">
+                    <AppBar position="fixed" className="dashboard-appbar" style={{
+                        boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)"
+                    }}>
+                        <div id="dashboard-cont">   
                             <Toolbar>
                                 <div className="dashboard-logoSearch">
                                     <div className="dashboard-logo">
@@ -210,12 +222,13 @@ class DashboardComponent extends Component {
                                         />
                                         <img src={require("../assets/images/keep.png")} alt="" width="30px"
                                             height="30px" />
-                                        <h3 id="blinking"><span>
-                                        {/* {this.state.dashboardNameVariant === '' ? "Fundoonotes" :
+                                        <h3 id="blinking">
+                                            {/* {this.state.dashboardNameVariant === '' ? "Fundoonotes" :
                                             this.state.dashboardNameVariant} */}
-                                            {this.props.location.state!==undefined?
-                                            this.props.location.state:"FundooNotes"}
-                                            </span></h3>
+                                            {this.props.location.state !== undefined ?
+                                                <span style={{ color: "#5F6368" }}>{this.props.location.state}</span> :
+                                                <span style={{ color: "#5F6368" }}>{"FundooNotes"}</span>}
+                                        </h3>
                                     </div>
                                     <ClickAwayListener onClickAway={this.handleClose}>
                                         <div className="dashboard-card-div" style={{
@@ -266,13 +279,13 @@ class DashboardComponent extends Component {
                                                 </Tooltip>
                                             </IconButton>
                                         )}
-                                        <ProfilePicComponent />
+                                    <ProfilePicComponent />
                                 </div>
                             </Toolbar>
                         </div>
                     </AppBar>
                 </MuiThemeProvider>
-               
+
             </div>
         )
     }

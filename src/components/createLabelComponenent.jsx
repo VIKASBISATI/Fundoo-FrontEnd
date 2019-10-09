@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
 import Checkbox from '@material-ui/core/Checkbox'
 import { getLabel } from '../services/userService';
-import { noteLabel } from '../services/userService'
+import { noteLabel } from '../services/userService';
 class CreateLabelComponenent extends Component {
     constructor(props) {
         super(props);

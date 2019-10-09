@@ -125,18 +125,20 @@ class ProfilePicComponent extends Component {
         data.append('file', e.target.files[0]);
         await uploadProfile(data)
             .then((result) => {
-                console.log('backend image result', result);
+                console.log('data after hitting upload profile', result);
                 localStorage.setItem('profileimage', Url + result.data.status.imageUrl);
                 var image = localStorage.getItem("profileimage");
-                console.log("image url ", image);
+                console.log("link of the image", image);
                 this.setState({
                     // pic: image,
                     imageSet: true,
                     selected: Url + result.data.status.imageUrl
                 })
-                console.log('selected img---', this.state.selected);
-
+                console.log('image that is selected', this.state.selected);
                 localStorage.setItem('profileimage', this.state.selected);
+            }).catch(err => {
+                console.log("err in hitting api", err);
+
             })
     }
     render() {
@@ -157,31 +159,44 @@ class ProfilePicComponent extends Component {
                 </Avatar>
                 <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} style={{ zIndex: "9999" }}>
                     <ClickAwayListener onClickAway={this.handleClickAway}>
-                        <Paper>
+                        <Paper style={{ width: "auto", height: "auto" }}>
                             <label className="label">
-                                <Avatar
-                                    style={{ width: "90px", height: "90px" }}>
-                                    <img
-                                        style={{
-                                            width: "-webkit-fill-available",
-                                            height: "-webkit-fill-available",
-                                        }}
-                                        src={localStorage.getItem('profileimage')}
-                                    />
-                                </Avatar>
+                                <div className="profile-avatar">
+                                    <div className="profile-secondAvatar">
+                                        <Avatar style={{ width: "90px", height: "90px" }}>
+                                            <img
+                                                style={{
+                                                    width: "-webkit-fill-available",
+                                                    height: "-webkit-fill-available",
+                                                }}
+                                                src={localStorage.getItem('profileimage')}
+                                            />
+                                        </Avatar>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            {localStorage.getItem('FirstName')}
+                                        </div>
+                                        <div>
+                                            {localStorage.getItem('Email')}
+                                        </div>
+                                    </div>
+                                </div>
                                 <input
                                     type='file' id='file'
                                     onChange={(e) => this.handleUploadImage(e)}
                                     style={{ display: 'none' }}
                                 />
                                 <Divider />
-                                <Button>Add Account</Button>
-                                <Button onClick={this.handleSignOut}>Signout</Button>
+                                <div className="profile-buttons">
+                                    <Button>Add Account</Button>
+                                    <Button onClick={this.handleSignOut}>Signout</Button>
+                                </div>
                             </label>
                         </Paper>
                     </ClickAwayListener>
                 </Popper>
-            </div>
+            </div >
         )
     }
 }

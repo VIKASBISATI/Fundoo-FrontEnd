@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import { ThemeProvider } from "@material-ui/styles";
-import { addReminder } from '../services/userService'
+import { addReminder } from '../services/userService';
 const theme = createMuiTheme({
     overrides: {
         MuiPickersModal: {

@@ -3,8 +3,10 @@
   align-items: center;
 }
 $justifySpace: space-between;
-//--------------------------------------------------create-notes-------------------------------------------------------
-  
+//--------------------------------------------------Dashboard-------------------------------------------------------
+.dashboard-appbar {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
 // -------------------------------------------------trash--------------------------------------------------------------
 .trash-card {
   @include flexCenter();
@@ -123,4 +125,30 @@ $justifySpace: space-between;
   align-items: flex-start;
   justify-content: space-around;
   flex-wrap: wrap;
+}
+// ------------------------------------------------------------profile--------------------------------------------------
+.profile-avatar {
+  display: flex;
+  align-items: center;
+}
+.profile-secondAvatar {
+  @include flexCenter();
+}
+.profile-buttons {
+  display: flex;
+  justify-content: $justifySpace;
+}
+// ---------------------------------------------------------------collab--------------------------------------------------
+.collab-buttons {
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: lightgray;
+}
+.collab-avatar {
+  @include flexCenter();
+  padding-left: 10px;
+}
+.collab-secondAvatar {
+  @include flexCenter();
+  padding-left: 10px;
 }

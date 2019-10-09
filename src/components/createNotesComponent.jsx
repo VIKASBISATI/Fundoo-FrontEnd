@@ -115,7 +115,7 @@ export default class createNotes extends Component {
         return (
             <div className="create-container">
                 {this.state.noteClick ? (
-                    <Card className="create-card2" style={{ boxShadow: "3px 3px 3px grey", backgroundColor: this.state.color }} >
+                    <Card className="create-card2" style={{ boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)", backgroundColor: this.state.color }} >
                         <div className="input1">
                             <InputBase className="in2"
                                 multiline
@@ -165,7 +165,7 @@ export default class createNotes extends Component {
                     </Card>
                 ) : (
                         <Card className="create-card1" onClick={this.handleNoteClick}
-                            style={{ boxShadow: "grey 1.5px 1.5px 8.5px 0.5px" }}>
+                            style={{ boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)" }}>
                             <div className="input2">
                                 <InputBase className="in1"
                                     multiline
