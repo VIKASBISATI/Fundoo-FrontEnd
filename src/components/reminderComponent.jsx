@@ -48,6 +48,9 @@ class ReminderComponent extends Component {
             "noteIdList": [this.props.noteId],
             "reminder": this.state.selectedDate
         }
+        this.setState({
+            anchorEl: null
+        })
         console.log("data in reminder is ", data);
         addReminder(data).then((res) => {
             console.log("res in reminder", res);

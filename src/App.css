@@ -357,6 +357,7 @@
 /* ------------------------------------------------getNotes--------------------------------------------------------------- */
 
 .get-card {
+  position: relative;
   min-width: auto;
   min-height: auto;
   border-radius: 1em;
@@ -365,10 +366,29 @@
 }
 
 .get-card1 {
+  position: relative;
   min-width: auto;
   min-height: auto;
   border-radius: 1em;
   border-radius: 18px
+}
+
+.get-card1:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
+  transform: translateY(-5px);
+}
+
+.get-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
+  transform: translateY(-5px);
+}
+
+.get-card1:hover:after {
+  position: absolute;
+}
+
+.get-card:hover:after {
+  position: absolute;
 }
 
 .get-card1:hover .notes-icon-div1 {
@@ -438,11 +458,11 @@
 .get-contents {
   padding-bottom: 3%;
 }
+
 .get-contents1 {
   width: 100%;
   padding-bottom: 3%;
 }
-
 
 /* ------------------------------------------------------Drawer------------------------------------------------------------ */
 
@@ -500,6 +520,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  position: relative;
   height: 10vh;
 }
 
@@ -509,6 +530,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 
 .main-container {
@@ -517,6 +539,7 @@
   flex-direction: column;
   width: 100%;
   height: 100vh;
+  position: relative;
 }
 
 .first-card {
@@ -525,6 +548,7 @@
   border: 1px solid black;
   box-shadow: 15px 15px grey;
   transition: transform .2s;
+  position: relative;
 }
 
 .first-card:hover {
@@ -539,6 +563,14 @@
   box-shadow: 15px 15px orange;
 }
 
+.first-card:hover:after {
+  position: absolute;
+}
+
+.second-card:hover:after {
+  position: absolute;
+}
+
 .second-card {
   width: 20%;
   height: 40vh;
@@ -546,5 +578,6 @@
   box-shadow: 15px 15px grey;
   /* transition: width 1s;
   transition: height 1s; */
+  position: relative;
   transition: transform .2s;
 }

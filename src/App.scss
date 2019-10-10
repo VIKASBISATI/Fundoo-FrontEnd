@@ -152,3 +152,24 @@ $justifySpace: space-between;
   @include flexCenter();
   padding-left: 10px;
 }
+.collab-card {
+  min-width: auto;
+  min-height: auto;
+  max-height: 200px;
+  overflow-y: scroll;
+  border-radius: 1em;
+  border-radius: 18px;
+}
+// .collab-input {
+//   display: flex;
+//   position: relative;
+// }
+// .collab-map {
+//   position: absolute;
+//   display: flex;
+//   height: 50px;
+//   overflow-y: scroll;
+// }
+.avatar-container{
+  min-height: 24vh;
+}

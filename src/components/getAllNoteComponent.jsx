@@ -14,7 +14,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { deleteReminder } from '../services/userService';
 import { removeNoteLabel } from '../services/userService';
 import ArchiveComponent from '../components/archiveComponent';
-import CollaboratorComponent from '../components/collaboratorComponent'
+import CollaboratorComponent from '../components/collaboratorComponent';
+import Avatar from '@material-ui/core/Avatar';
 const theme = createMuiTheme({
     overrides: {
         MuiBackdrop: {
@@ -242,6 +243,7 @@ export default class GetAllNoteComponent extends Component {
         console.log('delup props in get note component', this.state.trashId);
         const allNotes = this.state.notes.slice(0).reverse().filter(titleDescSearch(this.props.searchText)).map((key) => {
             // console.log('keyid ', key.id);
+            console.log("first character is ",key.user.firstName.charAt(0)); 
             return (
                 (((key.isArchived === false)
                     && (key.isDeleted === false &&
@@ -250,7 +252,7 @@ export default class GetAllNoteComponent extends Component {
                     &&
                     <div className={list1} >
                         <Card className={list2} style={{
-                            backgroundColor: key.color, boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)",
+                            backgroundColor: key.color,
                             borderRadius: "10px",
                             transform: (this.props.menu) ? "translate(80px,0) rotate(360deg)" : (null),
                             transition: (this.props.menu) ? ("300ms") : (null)
@@ -293,12 +295,24 @@ export default class GetAllNoteComponent extends Component {
                                         );
                                     })
                                 }
+                                {
+                                    key.collaborators.map(col => {
+                                        return (
+                                            <Avatar style={{
+                                                cursor: "pointer",
+                                                width: "35px", height: "35px"
+                                            }}>
+                                                {col.firstName.toUpperCase().charAt(0)}
+                                            </Avatar>
+                                        )
+                                    })
+                                }
                             </div>
                             <div className="notes-icon-div1">
                                 <ReminderComponent noteId={key.id}
                                     getUpdatedReminders={this.getUpdatedReminders}
                                 />
-                                <CollaboratorComponent />
+                                <CollaboratorComponent noteToCollab={key.id} />
                                 <Tooltip title="Change color">
                                     <ColorPaletteComponent
                                         paletteProps={this.handleColor}
@@ -368,7 +382,7 @@ export default class GetAllNoteComponent extends Component {
                                             <Button onClick={() => this.handleUpdate(this.state.noteId,
                                                 this.state.title, this.state.description, this.state.color)}>
                                                 close
-                                            </Button>
+                                            </Button>   
                                         </div>
                                     </DialogActions>
                                 </Card>

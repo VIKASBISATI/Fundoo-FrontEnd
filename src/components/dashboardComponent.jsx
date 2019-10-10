@@ -206,7 +206,7 @@ class DashboardComponent extends Component {
                     <AppBar position="fixed" className="dashboard-appbar" style={{
                         boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)"
                     }}>
-                        <div id="dashboard-cont">   
+                        <div id="dashboard-cont">
                             <Toolbar>
                                 <div className="dashboard-logoSearch">
                                     <div className="dashboard-logo">

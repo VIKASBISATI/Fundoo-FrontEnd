@@ -24,7 +24,6 @@ export function getAllNotes() {
     })
 }
 export function colorChange(data) {
-
     return axios.post(baseURL + '/notes/changesColorNotes', data, {
         headers: {
             Authorization: localStorage.getItem('token')
@@ -114,8 +113,8 @@ export function uploadProfile(upload) {
 }
 export function editNoteLabel(data) {
     const labelId = data.labelId;
-    var data1={
-        "label":data.label
+    var data1 = {
+        "label": data.label
     }
     return axios.post(baseURL + `/noteLabels/${labelId}/updateNoteLabel`, data1, {
         headers: {
@@ -125,15 +124,30 @@ export function editNoteLabel(data) {
 }
 export function deleteNoteLabel(data) {
     const labelId = data.labelId;
-    console.log("label id in services",labelId);
+    console.log("label id in services", labelId);
     return axios.delete(baseURL + `/noteLabels/${labelId}/deleteNoteLabel`, {
         headers: {
             Authorization: localStorage.getItem('token')
         }
     })
-}   
+}
 export function getUserEmails() {
     return axios.get(baseURL + '/user', {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}
+export function addCollaboratorNotes(data, id) {
+    console.log("data1/n id", data, id);
+    return axios.post(baseURL + `/notes/${id}/AddcollaboratorsNotes`, data, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}
+export function searchUserList(data) {
+    return axios.post(baseURL + '/user/searchUserList', data, {
         headers: {
             Authorization: localStorage.getItem('token')
         }
