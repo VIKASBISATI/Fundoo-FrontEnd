@@ -7,18 +7,26 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { MuiThemeProvider, Button, Card, Tooltip, InputBase, MenuItem } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
+import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 import { getUserEmails } from '../services/userService';
 import { addCollaboratorNotes } from '../services/userService';
 import { searchUserList } from '../services/userService';
-import { getAllNotes } from '../services/userService'
+import { getAllNotes } from '../services/userService';
+import { removeCollabNotes } from '../services/userService'
 const theme = createMuiTheme({
     overrides: {
         MuiDialogContent: {
             root: {
                 padding: "0px 0px"
             }
+        },
+        MuiDialog: {
+            paperWidthSm: {
+                borderRadius: "40px"
+            }
         }
+
     }
 })
 class CollaboratorComponent extends Component {
@@ -111,6 +119,11 @@ class CollaboratorComponent extends Component {
             console.log("this.props.noteTo", data1);
             addCollaboratorNotes(data1, this.props.noteToCollab).then((res) => {
                 console.log("res after hitting adding collaborator api is ", res);
+                this.setState({
+                    searchText: ''
+                })
+                this.props.addCollab(true);
+                this.getNotes();
             }).catch((err) => {
                 console.log("err in hitting collaborator api", err);
             })
@@ -119,7 +132,6 @@ class CollaboratorComponent extends Component {
         }).catch(err => {
             console.log("err in hitting search user api ", err);
         })
-
     }
 
     handleDone = () => {
@@ -158,7 +170,21 @@ class CollaboratorComponent extends Component {
             card: false
         })
         console.log("search text is ", this.state.searchText);
+    }
 
+    handleClear = (userId) => {
+        let data = {
+            id: this.props.noteToCollab,
+            collaboratorUserId: userId
+        }
+        console.log("collab id", data);
+        removeCollabNotes(data).then((res) => {
+            console.log("res after hitting remove collaborator api is ", res);
+            this.props.remCollab(true);
+            this.getNotes();
+        }).catch((err) => {
+            console.log("err in hitting collaborator api", err);
+        })
     }
 
     render() {
@@ -171,8 +197,11 @@ class CollaboratorComponent extends Component {
                     <Dialog position="static"
                         open={this.state.dialogOpen}
                         onClose={this.handleClose}
+                        className="collab-dialog"
                     >
-                        <Card className="get-card2">
+                        <Card className="get-card2" style={{
+                            borderRadius: "40px",
+                        }}>
                             <DialogTitle>
                                 Collaborators
                             </DialogTitle>
@@ -181,7 +210,7 @@ class CollaboratorComponent extends Component {
                                 <div className="avatar-container">
                                     <div className="collab-avatar">
                                         <div className="collab-secondAvatar">
-                                            <Avatar style={{ width: "50px", height: "50px" }}>
+                                            <Avatar style={{ width: "35px", height: "35px" }}>
                                                 <img
                                                     style={{
                                                         width: "-webkit-fill-available",
@@ -192,44 +221,38 @@ class CollaboratorComponent extends Component {
                                             </Avatar>
                                         </div>
                                         <div>
-                                            <div>
-                                                <p style={{ fontFamily: 'Roboto' }}>
-                                                    <b>{localStorage.getItem('FirstName')}
-                                                        {localStorage.getItem('LastName')}
-                                                    </b>
-                                                    (owner)
+                                            <p style={{ fontFamily: 'Roboto' }}>
+                                                <b>{localStorage.getItem('FirstName')}
+                                                    {localStorage.getItem('LastName')}
+                                                </b>
+                                                (owner)
                                                 <br />
-                                                    {localStorage.getItem('Email')}
-                                                </p>
-                                            </div>
+                                                {localStorage.getItem('Email')}
+                                            </p>
                                         </div>
                                     </div>
                                     {this.state.notes.map(key => {
-                                        console.log("this.porops.collab",this.props.noteToCollab);
-                                        
+                                        console.log("this.porops.collab", this.props.noteToCollab);
                                         return (
-                                            key === this.props.noteToCollab ?
-                                                <div className="collab-avatar">
-                                                    <div className="collab-secondAvatar">
-                                                        {key.collaborators.map(col => {
-                                                            return (
-                                                                <Avatar style={{
-                                                                    cursor: "pointer",
-                                                                    width: "35px", height: "35px"
-                                                                }}>
-                                                                    {col.firstName.toUpperCase().charAt(0)}
-                                                                </Avatar>
-                                                            )
-                                                        })
-                                                        }
-                                                    </div>
-                                                    <div>
-                                                        <div>
+                                            key.id === this.props.noteToCollab ?
+                                                <div className="map-container">
+                                                    <div className="secondCollab-avatar">
+                                                        <div className="secondCollab-secondAvatar">
                                                             {key.collaborators.map(col => {
                                                                 return (
-                                                                    <p style={{ fontFamily: 'Roboto' }}>
-                                                                        {col.email}
-                                                                    </p>
+                                                                    <div className="para-collab">
+                                                                        <Avatar style={{
+                                                                            cursor: "pointer",
+                                                                            width: "35px", height: "35px"
+                                                                        }}>
+                                                                            {col.firstName.toUpperCase().charAt(0)}
+                                                                        </Avatar>
+                                                                        <span style={{ fontFamily: 'Roboto' }}>
+                                                                            {col.email}
+                                                                        </span>
+                                                                        <ClearOutlinedIcon
+                                                                            onClick={() => this.handleClear(col.userId)} />
+                                                                    </div>
                                                                 )
                                                             })
                                                             }
@@ -241,7 +264,7 @@ class CollaboratorComponent extends Component {
                                     }
                                     <div className="collab-avatar">
                                         <div className="collab-secondAvatar">
-                                            <Avatar style={{ width: "50px", height: "50px" }}>
+                                            <Avatar style={{ width: "35px", height: "35px" }}>
                                                 <PersonAddOutlinedIcon />
                                             </Avatar>
                                         </div>
@@ -287,7 +310,6 @@ class CollaboratorComponent extends Component {
                         </Card>
                     </Dialog>
                 </MuiThemeProvider>
-
             </div>
         )
     }

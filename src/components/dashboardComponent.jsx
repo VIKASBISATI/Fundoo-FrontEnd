@@ -226,7 +226,8 @@ class DashboardComponent extends Component {
                                             {/* {this.state.dashboardNameVariant === '' ? "Fundoonotes" :
                                             this.state.dashboardNameVariant} */}
                                             {this.props.location.state !== undefined ?
-                                                <span style={{ color: "#5F6368" }}>{this.props.location.state}</span> :
+                                                <span style={{ color: "#5F6368" }}>{this.props.location.state}
+                                                </span> :
                                                 <span style={{ color: "#5F6368" }}>{"FundooNotes"}</span>}
                                         </h3>
                                     </div>

@@ -234,6 +234,16 @@ export default class GetAllNoteComponent extends Component {
             this.getNotes();
         }
     }
+    addCollab = (col) => {
+        if (col) {
+            this.getNotes();
+        }
+    }
+    remCollab = (col) => {
+        if (col) {
+            this.getNotes();
+        }
+    }
     render() {
         const list = this.props.list ? "get-container1" : "get-container";
         const list1 = this.props.list ? "get-contents1" : "get-contents"
@@ -243,7 +253,7 @@ export default class GetAllNoteComponent extends Component {
         console.log('delup props in get note component', this.state.trashId);
         const allNotes = this.state.notes.slice(0).reverse().filter(titleDescSearch(this.props.searchText)).map((key) => {
             // console.log('keyid ', key.id);
-            console.log("first character is ",key.user.firstName.charAt(0)); 
+            console.log("first character is ", key.user.firstName.charAt(0));
             return (
                 (((key.isArchived === false)
                     && (key.isDeleted === false &&
@@ -312,7 +322,9 @@ export default class GetAllNoteComponent extends Component {
                                 <ReminderComponent noteId={key.id}
                                     getUpdatedReminders={this.getUpdatedReminders}
                                 />
-                                <CollaboratorComponent noteToCollab={key.id} />
+                                <CollaboratorComponent noteToCollab={key.id}
+                                    addCollab={this.addCollab}
+                                    remCollab={this.remCollab} />
                                 <Tooltip title="Change color">
                                     <ColorPaletteComponent
                                         paletteProps={this.handleColor}
@@ -382,7 +394,7 @@ export default class GetAllNoteComponent extends Component {
                                             <Button onClick={() => this.handleUpdate(this.state.noteId,
                                                 this.state.title, this.state.description, this.state.color)}>
                                                 close
-                                            </Button>   
+                                            </Button>
                                         </div>
                                     </DialogActions>
                                 </Card>

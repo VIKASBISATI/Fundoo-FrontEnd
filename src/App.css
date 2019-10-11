@@ -301,14 +301,13 @@
   border-radius: 1em;
 }
 
-@media screen and (min-width:320px) and (max-width:360px) {
-  .create-card1 {
-    display: flex;
-    width: 55%;
-    height: 46px;
-    border: 1px solid whitesmoke;
-    border-radius: 1em;
-  }
+.create-card1 {
+  display: flex;
+  width: 55%;
+  height: 46px;
+  border: 1px solid whitesmoke;
+  border-radius: 1em;
+  justify-content: space-between;
 }
 
 .create-card1 {
@@ -317,6 +316,7 @@
   height: 46px;
   border: 1px solid whitesmoke;
   border-radius: 1em;
+  justify-content: space-between;
 }
 
 .in1 {
@@ -337,6 +337,13 @@
 }
 
 .input2 {
+  padding-left: 3%;
+  padding-top: 2%
+}
+
+.check-input2 {
+  display: flex;
+  align-items: center;
   padding-left: 3%;
   padding-top: 2%
 }

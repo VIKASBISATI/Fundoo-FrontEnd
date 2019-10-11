@@ -152,4 +152,15 @@ export function searchUserList(data) {
             Authorization: localStorage.getItem('token')
         }
     })
+}
+export function removeCollabNotes(data) {
+    let id = data.id;
+    let collaboratorUserId = data.collaboratorUserId;
+    console.log("collab id in service", id, collaboratorUserId, data);
+    console.log("data in services-->", data);
+    return axios.delete(baseURL + `/notes/${id}/removeCollaboratorsNotes/${collaboratorUserId}`, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
 }   

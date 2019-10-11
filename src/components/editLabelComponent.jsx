@@ -82,7 +82,6 @@ class EditLabelComponent extends Component {
         for (let i = 0; i < this.state.labels.length; i++) {
             for (let j = 0; j < 4; j++) {
                 console.log("lbaels", this.state.labels[i].label);
-                
             }
         }
         var data = {

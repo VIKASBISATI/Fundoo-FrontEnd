@@ -150,6 +150,17 @@ $justifySpace: space-between;
 }
 .collab-secondAvatar {
   @include flexCenter();
+  flex-direction: column;
+  padding-left: 10px;
+}
+.secondCollab-secondAvatar {
+  @include flexCenter();
+  flex-direction: column;
+  padding-left: 10px;
+  width: 100%;
+}
+.secondCollab-avatar {
+  @include flexCenter();
   padding-left: 10px;
 }
 .collab-card {
@@ -170,6 +181,12 @@ $justifySpace: space-between;
 //   height: 50px;
 //   overflow-y: scroll;
 // }
-.avatar-container{
+.avatar-container {
   min-height: 24vh;
+}
+.para-collab {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
 }
