@@ -16,30 +16,65 @@ class ArchiveComponent extends Component {
         }
     }
     handleArchive = () => {
-        this.setState({
-            isArchived: true
-        })
-        var noteId = this.props.archiveNoteId;
-        console.log("note id in archive", noteId);
+        try {
+            this.setState({
+                isArchived: true
+            })
+            var noteId = this.props.archiveNoteId;
+            console.log("note id in archive", noteId);
 
-        var data = {
-            noteIdList: [noteId],
-            isArchived: true
+            var data = {
+                noteIdList: [noteId],
+                isArchived: true
+            }
+            archive(data).then((res) => {
+                this.props.arcUp(noteId)
+                console.log('res in archive component', res);
+            }).catch((err) => {
+                console.log(err);
+            })
+        } catch (err) {
+            console.log("err in archive component", err);
         }
-        archive(data).then((res) => {
-            this.props.arcUp(noteId)
-            console.log('res in archive component', res);
-        }).catch((err) => {
-            console.log(err);
-        })
+    }
+    handleUnArchive = () => {
+        try {
+            this.setState({
+                isArchived: false
+            })
+            var noteId = this.props.archiveNoteId;
+            console.log("note id in archive", noteId);
+
+            var data = {
+                noteIdList: [noteId],
+                isArchived: false
+            }
+            archive(data).then((res) => {
+                this.props.arcUp(noteId)
+                console.log('res in archive component', res);
+            }).catch((err) => {
+                console.log(err);
+            })
+        } catch (err) {
+            console.log("err in archive component", err);
+        }
     }
     render() {
         return (
             <div>
-                <Tooltip title="Archive">
-                    <ArchiveOutlinedIcon onClick={this.handleArchive}
-                    />
-                </Tooltip >
+                {window.location.pathname === '/getArchive' ?
+                    <Tooltip title="UnArchive">
+                        <ArchiveOutlinedIcon onClick={this.handleUnArchive}
+                        style={{height:"0.7em"}}
+                        />
+                    </Tooltip >
+                    :
+                    <Tooltip title="Archive">
+                        <ArchiveOutlinedIcon onClick={this.handleArchive}
+                        style={{height:"0.7em"}}
+                        />
+                    </Tooltip >
+                }
                 <Snackbar
                     anchorOrigin={{
                         vertical: 'bottom',
@@ -51,12 +86,10 @@ class ArchiveComponent extends Component {
                     onClose={this.snackbarClose}
                     message={<span id="messege-id">{this.state.SnackBarMessage}</span>}
                     action={[
-
                         <IconButton
                             key="close"
                             arial-label="close"
                             color="inherit"
-
                             onClick={this.snackbarClose}
                         >
                             <ClearIcon />

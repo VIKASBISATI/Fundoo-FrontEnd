@@ -16,7 +16,7 @@ const theme = createMuiTheme({
             dialogRootWider: {
                 minWidth: "380px"
             }
-        }
+        },
     }
 })
 class ReminderComponent extends Component {
@@ -64,7 +64,8 @@ class ReminderComponent extends Component {
             <div>
                 <ThemeProvider theme={theme}>
                     <Tooltip title="Remind me">
-                        <AddAlertOutlinedIcon onClick={(e) => this.handleOpenPopper(e)} />
+                        <AddAlertOutlinedIcon onClick={(e) => this.handleOpenPopper(e)}
+                        style={{height:"0.7em"}} />
                     </Tooltip>
                     <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} placement="bottom-right">
                         <Paper className="reminder-paper">

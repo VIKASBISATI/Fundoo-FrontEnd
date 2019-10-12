@@ -9,9 +9,16 @@ export function addToCart(data) {
     return axios.post(baseURL + '/productcarts/addToCart', data)
 }
 export function addNotes(data) {
+    console.log("data in add notes is",data);
+    // for (var pair of data.entries()) {
+    //     console.log("data in form  datin servies a",pair[0] + ', ' + pair[1]);
+    // }
+    
     return axios.post(baseURL + '/notes/addNotes', data,
         {
             headers: {
+                // 'Content-Type':' multipart/form-data',
+                'Content-Type':'application/json',
                 Authorization: localStorage.getItem('token')
             }
         })

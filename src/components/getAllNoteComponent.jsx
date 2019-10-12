@@ -51,6 +51,7 @@ export default class GetAllNoteComponent extends Component {
             noteId: '',
             trashId: '',
             archiveId: '',
+            imageNotes: [],
         }
     }
     componentDidMount() {
@@ -62,6 +63,20 @@ export default class GetAllNoteComponent extends Component {
             this.setState({
                 notes: res.data.data.data
             })
+            // let c=0;
+            // const imageNotes = this.state.notes.map(key => {
+            //     if (key.isArchived === false
+            //         && key.isDeleted === false) {
+            //         return ++c
+            //     }
+            // })
+            // console.log("const image notes is ", imageNotes);
+
+            // this.setState({
+            //     imageNotes: imageNotes
+            // })
+            // console.log("image notes in get all notes is ", this.state.imageNotes);
+
         })
     }
 
@@ -83,7 +98,6 @@ export default class GetAllNoteComponent extends Component {
         colorChange(data)
             .then((res) => {
                 console.log("ytydydyhegy", res);
-
                 this.getNotes();
             }).catch((err) => {
                 console.log(err);
@@ -273,6 +287,7 @@ export default class GetAllNoteComponent extends Component {
                                     multiline
                                     placeholder="Title"
                                     id="title"
+                                    style={{ paddingLeft: "3%" }}
                                     onClick={() => this.handleUpdate(key.id, key.title, key.description, key.color)}
                                     value={key.title}
                                 />
@@ -280,8 +295,8 @@ export default class GetAllNoteComponent extends Component {
                             <div className="input2">
                                 <InputBase className="get-in1"
                                     multiline
-                                    placeholder="Take a note ...."
                                     id="description"
+                                    style={{ paddingLeft: "3%" }}
                                     onClick={() => this.handleUpdate(key.id, key.title, key.description, key.color)}
                                     value={key.description}
                                 />
@@ -331,7 +346,7 @@ export default class GetAllNoteComponent extends Component {
                                         notesId={key.id} />
                                 </Tooltip>
                                 <Tooltip title="Add image">
-                                    <ImageOutlinedIcon />
+                                    <ImageOutlinedIcon style={{ height: "0.7em" }} />
                                 </Tooltip>
                                 <Tooltip title="Archive">
                                     <ArchiveComponent archiveNoteId={key.id}
@@ -357,6 +372,7 @@ export default class GetAllNoteComponent extends Component {
                                                 multiline
                                                 placeholder="Title"
                                                 id="title"
+                                                style={{ paddingLeft: "3%" }}
                                                 value={this.state.title}
                                                 onChange={this.handleUpdateTitle}
                                             />
@@ -368,6 +384,7 @@ export default class GetAllNoteComponent extends Component {
                                                 multiline
                                                 placeholder="Take a note ...."
                                                 id="description"
+                                                style={{ paddingLeft: "3%" }}
                                                 value={this.state.description}
                                                 onChange={this.handleUpdateDescription}
                                             />
@@ -382,7 +399,7 @@ export default class GetAllNoteComponent extends Component {
                                                     notesId={this.state.noteId} />
                                             </Tooltip>
                                             <Tooltip title="Add image">
-                                                <ImageOutlinedIcon />
+                                                <ImageOutlinedIcon style={{ height: "0.7em" }} />
                                             </Tooltip>
                                             <Tooltip title="Archive">
                                                 <ArchiveComponent archiveNoteId={key.id}

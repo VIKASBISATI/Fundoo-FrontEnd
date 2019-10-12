@@ -38,7 +38,13 @@ const theme = createMuiTheme({
             elevation4: {
                 boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)"
             }
-        }
+        },
+        // MuiSvgIcon: {
+        //     root: {
+        //         width:"0",
+        //         height:"0.7em"
+        //     }
+        // }
     }
 })
 class DashboardComponent extends Component {
@@ -210,11 +216,9 @@ class DashboardComponent extends Component {
                             <Toolbar>
                                 <div className="dashboard-logoSearch">
                                     <div className="dashboard-logo">
-                                        <IconButton>
-                                            <Tooltip title="Menu">
-                                                <MenuIcon onClick={this.handleMenu} style={{ cursor: "pointer" }} />
-                                            </Tooltip>
-                                        </IconButton>
+                                        <Tooltip title="Menu">
+                                            <MenuIcon onClick={this.handleMenu} style={{ cursor: "pointer" }} />
+                                        </Tooltip>
                                         <DrawerComponent menuSelect={this.state.menu}
                                             changeToNote={this.changeToNote}
                                             changeToTrash={this.changeToTrash}
@@ -257,28 +261,22 @@ class DashboardComponent extends Component {
                                     </ClickAwayListener>
                                 </div>
                                 <div className="dashboard-refresh">
-                                    <IconButton>
-                                        <Tooltip title="Refresh">
-                                            <RefreshIcon onClick={this.handleReload} style={{ cursor: "pointer" }}
-                                            // style={{
-                                            //     transform: (this.state.refresh) ? " rotate(360deg)" : (null),
-                                            //     transition: (this.props.menu) ? ("5s") : (null)
-                                            // }} 
-                                            />
-                                        </Tooltip>
-                                    </IconButton>
+                                    <Tooltip title="Refresh">
+                                        <RefreshIcon onClick={this.handleReload} style={{ cursor: "pointer" }}
+                                        // style={{
+                                        //     transform: (this.state.refresh) ? " rotate(360deg)" : (null),
+                                        //     transition: (this.props.menu) ? ("5s") : (null)
+                                        // }} 
+                                        />
+                                    </Tooltip>
                                     {this.state.view ? (
-                                        <IconButton>
-                                            <Tooltip title="GridView">
-                                                <AppsOutlinedIcon onClick={this.handleGridView} />
-                                            </Tooltip>
-                                        </IconButton>
+                                        <Tooltip title="GridView">
+                                            <AppsOutlinedIcon onClick={this.handleGridView} />
+                                        </Tooltip>
                                     ) : (
-                                            <IconButton>
-                                                <Tooltip title="ListView">
-                                                    <DnsOutlinedIcon onClick={this.handleListView} />
-                                                </Tooltip>
-                                            </IconButton>
+                                            <Tooltip title="ListView">
+                                                <DnsOutlinedIcon onClick={this.handleListView} />
+                                            </Tooltip>
                                         )}
                                     <ProfilePicComponent />
                                 </div>

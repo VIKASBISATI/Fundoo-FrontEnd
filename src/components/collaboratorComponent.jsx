@@ -55,7 +55,7 @@ class CollaboratorComponent extends Component {
 
     getNotes = () => {
         getAllNotes().then((res) => {
-            console.log('response is', res);
+            // console.log('response is', res);
             this.setState({
                 notes: res.data.data.data
             })
@@ -191,7 +191,8 @@ class CollaboratorComponent extends Component {
         return (
             <div>
                 <Tooltip title="collaborator">
-                    <PersonAddOutlinedIcon onClick={this.handleEdit} />
+                    <PersonAddOutlinedIcon onClick={this.handleEdit} 
+                    style={{height:"0.7em"}}/>
                 </Tooltip>
                 <MuiThemeProvider theme={theme}>
                     <Dialog position="static"
@@ -232,7 +233,7 @@ class CollaboratorComponent extends Component {
                                         </div>
                                     </div>
                                     {this.state.notes.map(key => {
-                                        console.log("this.porops.collab", this.props.noteToCollab);
+                                        // console.log("this.porops.collab", this.props.noteToCollab);
                                         return (
                                             key.id === this.props.noteToCollab ?
                                                 <div className="map-container">

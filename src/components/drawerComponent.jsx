@@ -39,7 +39,7 @@ class DrawerComponent extends Component {
             noted: true,
             trashed: true,
             title: '',
-            appTitle:"FundooNotes"
+            appTitle: "FundooNotes"
         }
         this.handleArchive = this.handleArchive.bind(this)
     }
@@ -59,34 +59,34 @@ class DrawerComponent extends Component {
         console.log("yes handle trash");
         await this.setState({
             // noted: this.state.noted
-            appTitle:"FundooNotes"
+            appTitle: "FundooNotes"
         })
         // console.log("yes handle trash", this.state.noted);
         // this.props.changeToNote(this.state.noted);
-        this.props.history.push('/dashboard',this.state.appTitle)
+        this.props.history.push('/dashboard', this.state.appTitle)
     }
-    handleArchive =async () => {
-       await this.setState({
+    handleArchive = async () => {
+        await this.setState({
             appTitle: "Archive"
         })
         // console.log("yes handle trash", this.state.arc);
         // this.props.changeToArchive(this.state.arc);
-        this.props.history.push('/getArchive',this.state.appTitle)
+        this.props.history.push('/getArchive', this.state.appTitle)
     }
     handleTrash = async () => {
         console.log("yes handle trash");
         await this.setState({
-            appTitle:"Trash"
+            appTitle: "Trash"
         })
         // console.log("yes handle trash", this.state.trashed);
         // this.props.changeToTrash(this.state.trashed);
-        this.props.history.push('/getTrash',this.state.appTitle)
+        this.props.history.push('/getTrash', this.state.appTitle)
     }
-    handleReminders=async()=>{
+    handleReminders = async () => {
         await this.setState({
-            appTitle:"Reminders"
+            appTitle: "Reminders"
         })
-        this.props.history.push('/getReminders',this.state.appTitle)
+        this.props.history.push('/getReminders', this.state.appTitle)
     }
     render() {
         return (

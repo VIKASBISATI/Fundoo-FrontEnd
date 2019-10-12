@@ -6,7 +6,6 @@ export default class card extends Component {
             <div className="main-container">
                 <div className="card-container">
                     <h1>Fundoo</h1>
-
                 </div>
                 <div className="middle-card">
                     <div className="first-card">

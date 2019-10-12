@@ -25,6 +25,12 @@ const theme = createMuiTheme({
             },
             paperAnchorDockedLeft: {
                 borderColor: "white"
+            },
+            MuiSvgIcon: {
+                root: {
+                    width: "0",
+                    height: "0.7em"
+                }
             }
         }
     }

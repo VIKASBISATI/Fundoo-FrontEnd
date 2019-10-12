@@ -33,7 +33,8 @@ class MoreOptionComponenent extends Component {
         return (
             <div>
                 <Tooltip title="More">
-                    <MoreVertOutlinedIcon onClick={(e) => this.handleOpenPopper(e)} />
+                    <MoreVertOutlinedIcon onClick={(e) => this.handleOpenPopper(e)} 
+                    style={{height:"0.7em"}}/>
                 </Tooltip>
                 <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} >
                     <Paper className="colorpalette-popper">

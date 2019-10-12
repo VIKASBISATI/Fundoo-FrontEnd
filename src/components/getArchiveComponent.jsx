@@ -102,6 +102,31 @@ class GetArchiveComponent extends Component {
             description: description
         })
     }
+    // deleteUp = (trashNoteId) => {
+    //     console.log("note in delUp", this.state.notes);
+    //     var delId = trashNoteId;
+    //     var newArr = this.state.notes;
+    //     console.log("trashnotes id is ", delId);
+    //     console.log("new array is ", newArr);
+    //     console.log('yes or not', newArr[0].id === "5d88951ca0a6a900185be37c");
+    //     newArr[37].isDeleted = true;
+    //     for (let i = 0; i < newArr.length; i++) {
+    //         console.log("yes entered");
+    //         if (newArr[i].id === delId) {
+    //             console.log("yes ", delId);
+    //             newArr[i].isDeleted = true;
+    //             newArr[i].isArchived = false;
+    //             newArr[i].isPinned = false;
+    //         }
+    //     }
+    //     this.setState({
+    //         notes: newArr
+    //     })
+    //     this.setState({
+    //         trashId: trashNoteId,
+    //         // open: !this.state.open
+    //     })
+    // }
     handleUpdate = (id, oldTitle, oldDescription, colorUpdated) => {
         this.setState({
             noteId: id,
@@ -141,7 +166,7 @@ class GetArchiveComponent extends Component {
                     <div className={list1}>
                         <Card className={list2} style={{
                             backgroundColor: key.color,
-                            boxShadow: "5px 5px 5px grey", borderRadius: "10px",
+                            borderRadius: "10px",
                             transform: (this.props.menu) ? "translate(80px,0) rotate(360deg)" : (null),
                             transition: (this.props.menu) ? ("300ms") : (null)
                         }}>
@@ -234,18 +259,14 @@ class GetArchiveComponent extends Component {
                                             <Tooltip title="collaborator">
                                                 <PersonAddOutlinedIcon />
                                             </Tooltip>
-                                            <Tooltip title="Change color">
                                                 <ColorPaletteComponent
                                                     paletteProps={this.handleColor}
                                                     notesId={this.state.noteId} />
-                                            </Tooltip>
                                             <Tooltip title="Add image">
                                                 <ImageOutlinedIcon />
                                             </Tooltip>
-                                            <Tooltip title="Un Archive">
                                                 <ArchiveComponent archiveNoteId={key.id}
                                                 />
-                                            </Tooltip>
                                             <MoreOptionComponenent noteId={key.id}
                                                 deleteUp={this.deleteUp}
                                             />

@@ -67,6 +67,7 @@ export default class ColorPaletteComponent extends Component {
                 <Tooltip title="Change Color" style={{ zIndex: "1111" }}>
                     <ColorLensOutlinedIcon
                         onClick={(e) => this.handleOpenPopper(e)}
+                        style={{height:"0.7em"}}
                     />
                 </Tooltip>
                 <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl}
