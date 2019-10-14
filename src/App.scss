@@ -191,7 +191,33 @@ $justifySpace: space-between;
   align-items: center;
 }
 // ---------------------------------------------------chekclists-------------------------------------------------------
-.check-map{
-  display:flex;
+.check-map {
+  display: flex;
   padding-left: 3.5%;
+}
+// -----------------------------------------------------Editor-------------------------------------------------------------
+.editor-button {
+  display: flex;
+  flex-direction: row-reverse;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.editor-container {
+  @include flexCenter();
+  justify-content: center;
+}
+.editor-contents {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+}
+.editor-details {
+  @extend .editor-contents;
+}
+.editor-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+div.DraftEditor-root {
+  padding: 10px;
 }

@@ -6,7 +6,6 @@ import { Tooltip, InputBase, Button } from '@material-ui/core';
 import Popper from '@material-ui/core/Popper';
 import { label } from '../services/userService';
 import Paper from '@material-ui/core/Paper';
-import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
 import Checkbox from '@material-ui/core/Checkbox'
 import { getLabel } from '../services/userService';
 import { noteLabel } from '../services/userService';
@@ -117,7 +116,6 @@ class CreateLabelComponenent extends Component {
         return (
             <div>
                 <div className="label-button">
-                    <LabelOutlinedIcon />
                     <Button onClick={(event) => this.handleAddLabel(event)}>Add Label</Button>
                 </div>
                 {this.state.label ? (

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import { trash } from '../services/userService';
-import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 class TrashComponent extends Component {
     constructor(props) {
         super(props);
@@ -35,7 +34,6 @@ class TrashComponent extends Component {
     render() {
         return (
             <div className="trash-del">
-                <DeleteOutlineOutlinedIcon/>
                 <Button onClick={this.handleButton}>Delete</Button>
             </div>
         )

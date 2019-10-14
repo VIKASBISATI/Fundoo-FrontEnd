@@ -9,16 +9,16 @@ export function addToCart(data) {
     return axios.post(baseURL + '/productcarts/addToCart', data)
 }
 export function addNotes(data) {
-    console.log("data in add notes is",data);
+    console.log("data in add notes is", data);
     // for (var pair of data.entries()) {
     //     console.log("data in form  datin servies a",pair[0] + ', ' + pair[1]);
     // }
-    
+
     return axios.post(baseURL + '/notes/addNotes', data,
         {
             headers: {
                 // 'Content-Type':' multipart/form-data',
-                'Content-Type':'application/json',
+                'Content-Type': 'application/json',
                 Authorization: localStorage.getItem('token')
             }
         })
@@ -170,4 +170,13 @@ export function removeCollabNotes(data) {
             Authorization: localStorage.getItem('token')
         }
     })
-}   
+}
+export function questionAndAnswer(data) {
+    let id=data.id;
+    let msg=data.msg;
+    return axios.post(baseURL + `/notes/${id}/questionAndAnswerNotes`, msg, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}

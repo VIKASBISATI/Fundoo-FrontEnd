@@ -183,7 +183,6 @@ class DashboardComponent extends Component {
             await this.setState({
                 dashboardNameVariant: "Archive"
             })
-            console.log("dashboard varaint name is ", this.state.dashboardNameVariant);
         }
     }
 
@@ -226,14 +225,22 @@ class DashboardComponent extends Component {
                                         />
                                         <img src={require("../assets/images/keep.png")} alt="" width="30px"
                                             height="30px" />
-                                        <h3 id="blinking">
+                                        <p id="blinking">
                                             {/* {this.state.dashboardNameVariant === '' ? "Fundoonotes" :
                                             this.state.dashboardNameVariant} */}
-                                            {this.props.location.state !== undefined ?
-                                                <span style={{ color: "#5F6368" }}>{this.props.location.state}
-                                                </span> :
-                                                <span style={{ color: "#5F6368" }}>{"FundooNotes"}</span>}
-                                        </h3>
+                                            {
+                                                !window.location.href === '/editor' ? (
+                                                    this.props.location.state !== undefined ?
+                                                        <span style={{ color: "#5F6368", fontSize: "1.5vw" }}>
+                                                            {this.props.location.state}
+                                                        </span> :
+                                                        <span style={{ color: "#5F6368", fontSize: "1.5vw" }}>
+                                                            {"FundooNotes"}</span>) : (
+                                                        <span style={{ color: "#5F6368", fontSize: "1.5vw" }}>
+                                                            {"FundooNotes"}</span>)
+                                            }
+
+                                        </p>
                                     </div>
                                     <ClickAwayListener onClickAway={this.handleClose}>
                                         <div className="dashboard-card-div" style={{

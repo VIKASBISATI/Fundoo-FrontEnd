@@ -354,6 +354,7 @@ export default class GetAllNoteComponent extends Component {
                                 </Tooltip>
                                 <Tooltip title="More">
                                     <MoreOptionComponenent noteId={key.id}
+                                        completeNote={key}
                                         deleteUp={this.deleteUp}
                                         moreOptionLabelProps={this.moreOptionLabel}
                                     />

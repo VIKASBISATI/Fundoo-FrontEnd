@@ -289,9 +289,14 @@
 /* ------------------------------------------------------CreateNotes----------------------------------------------------- */
 
 .create-container {
+  /* display: flex;
+  justify-content: center; */
+  margin-bottom: 55px
+}
+
+.create-take{
   display: flex;
   justify-content: center;
-  margin-bottom: 55px
 }
 
 .create-card2 {

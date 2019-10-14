@@ -42,9 +42,7 @@ class Dashboard extends Component {
                     listView={this.listView}
                     menuGet={this.menuGet}
                 />
-                <div className="create-notes">
                 <CreateNotesComponent getNew={this.display} />
-                </div>
                 <div className="get-page">
                     <GetAllNoteComponent
                         ref={this.newNote}

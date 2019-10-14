@@ -224,131 +224,135 @@ export default class createNotes extends Component {
         return (
             <div className="create-container">
                 {this.state.noteClick ? (
-                    <Card className="create-card2" style={{ boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)", backgroundColor: this.state.color }} >
-                        <div className="input1">
-                            <InputBase className="in2"
-                                multiline
-                                placeholder="Title"
-                                id="title"
-                                style={{ width: "100%" }}
-                                onChange={this.handleTitle}
-                                value={this.state.title}
-                            />
-                        </div>
-                        <div className="input2">
-                            <InputBase className="in3"
-                                multiline
-                                placeholder="Take a note ...."
-                                style={{ width: "100%" }}
-                                id="description"
-                                onChange={this.handleDescription}
-                                value={this.state.desc}
-                            />
-                        </div>
-                        <div className="notes-icons">
-                            <div className="notes-icon-div">
-                                <Tooltip title="Remind me">
-                                    <AddAlertOutlinedIcon style={{height:"0.7em"}}/>
-                                </Tooltip>
-                                <Tooltip title="collaborator">
-                                    <PersonAddOutlinedIcon style={{height:"0.7em"}}/>
-                                </Tooltip>
-                                <ColorPaletteComponent
-                                    paletteProps={this.handleColor}
-                                    notesId={""}
+                    <div className="create-take">
+                        <Card className="create-card2" style={{ boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)", backgroundColor: this.state.color }} >
+                            <div className="input1">
+                                <InputBase className="in2"
+                                    multiline
+                                    placeholder="Title"
+                                    id="title"
+                                    style={{ width: "100%" }}
+                                    onChange={this.handleTitle}
+                                    value={this.state.title}
                                 />
-                                <Tooltip title="Add image">
-                                    <ImageOutlinedIcon style={{height:"0.7em"}}/>
-                                </Tooltip>
-                                <Tooltip title="Archive">
-                                    <ArchiveOutlinedIcon style={{height:"0.7em"}}/>
-                                </Tooltip>
-                                <Tooltip title="More">
-                                    <MoreVertOutlinedIcon style={{height:"0.7em"}}/>
-                                </Tooltip>
                             </div>
-                            <div>
-                                <Button onClick={this.handleClose}>
-                                    close
+                            <div className="input2">
+                                <InputBase className="in3"
+                                    multiline
+                                    placeholder="Take a note ...."
+                                    style={{ width: "100%" }}
+                                    id="description"
+                                    onChange={this.handleDescription}
+                                    value={this.state.desc}
+                                />
+                            </div>
+                            <div className="notes-icons">
+                                <div className="notes-icon-div">
+                                    <Tooltip title="Remind me">
+                                        <AddAlertOutlinedIcon style={{ height: "0.7em" }} />
+                                    </Tooltip>
+                                    <Tooltip title="collaborator">
+                                        <PersonAddOutlinedIcon style={{ height: "0.7em" }} />
+                                    </Tooltip>
+                                    <ColorPaletteComponent
+                                        paletteProps={this.handleColor}
+                                        notesId={""}
+                                    />
+                                    <Tooltip title="Add image">
+                                        <ImageOutlinedIcon style={{ height: "0.7em" }} />
+                                    </Tooltip>
+                                    <Tooltip title="Archive">
+                                        <ArchiveOutlinedIcon style={{ height: "0.7em" }} />
+                                    </Tooltip>
+                                    <Tooltip title="More">
+                                        <MoreVertOutlinedIcon style={{ height: "0.7em" }} />
+                                    </Tooltip>
+                                </div>
+                                <div>
+                                    <Button onClick={this.handleClose}>
+                                        close
                                 </Button>
+                                </div>
                             </div>
-                        </div>
-                    </Card>
+                        </Card>
+                    </div>
                 ) : (
                         (null)
                     )
                 }
                 {this.state.checkedState && !this.state.noteClick ?
-                    <Card className="create-card2"
-                        style={{ boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)", backgroundColor: this.state.color }} >
-                        <div className="input1">
-                            <InputBase className="in2"
-                                multiline
-                                placeholder="Title"
-                                id="title"
-                                style={{ width: "100%" }}
-                                onChange={this.handleTitle}
-                                value={this.state.title}
-                            />
-                        </div>
-                        {this.state.checkList.map(data => {
-                            return (
-                                <div className="check-map">
-                                    <InputBase className="in3"
-                                        multiline
-                                        value={data.text}
-                                        style={{ width: "100%" }}
-                                        onChange={(e) => this.handleUpdateItem(e.target.value, data.key)}
-                                    />
-                                    <DeleteOutlineIcon onClick={() => this.handleDeleteItem(data.key)} />
-                                </div>
-                            )
-                        })}
-                        <hr style={{ margin: "0" }} />
-                        <div className="check-input2">
-                            <span style={{ color: "gray" }}>+</span>
-                            <InputBase className="in3"
-                                multiline
-                                placeholder="List item"
-                                id="description"
-                                onChange={this.handleList}
-                                style={{ width: "100%" }}
-                                value={this.state.currentItem.text}
-                            />
-                            <Button onClick={this.handleAddItem}>AddItem</Button>
-                        </div>
-                        <hr style={{ margin: "0" }} />
-                        <div className="notes-icons">
-                            <div className="notes-icon-div">
-                                <Tooltip title="Remind me">
-                                    <AddAlertOutlinedIcon style={{height:"0.7em"}}/>
-                                </Tooltip>
-                                <Tooltip title="collaborator">
-                                    <PersonAddOutlinedIcon style={{height:"0.7em"}}/>
-                                </Tooltip>
-                                <ColorPaletteComponent
-                                    paletteProps={this.handleColor}
-                                    notesId={""}
+                    <div className="create-take">
+                        <Card className="create-card2"
+                            style={{ boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)", backgroundColor: this.state.color }} >
+                            <div className="input1">
+                                <InputBase className="in2"
+                                    multiline
+                                    placeholder="Title"
+                                    id="title"
+                                    style={{ width: "100%" }}
+                                    onChange={this.handleTitle}
+                                    value={this.state.title}
                                 />
-                                <Tooltip title="Add image">
-                                    <ImageOutlinedIcon style={{height:"0.7em"}}/>
-                                </Tooltip>
-                                <Tooltip title="Archive">
-                                    <ArchiveOutlinedIcon style={{height:"0.7em"}}/>
-                                </Tooltip>
-                                <Tooltip title="More">
-                                    <MoreVertOutlinedIcon style={{height:"0.7em"}}/>
-                                </Tooltip>
                             </div>
-                            <div>
-                                <Button onClick={this.handleCheckClose}>
-                                    close
+                            {this.state.checkList.map(data => {
+                                return (
+                                    <div className="check-map">
+                                        <InputBase className="in3"
+                                            multiline
+                                            value={data.text}
+                                            style={{ width: "100%" }}
+                                            onChange={(e) => this.handleUpdateItem(e.target.value, data.key)}
+                                        />
+                                        <DeleteOutlineIcon onClick={() => this.handleDeleteItem(data.key)} />
+                                    </div>
+                                )
+                            })}
+                            <hr style={{ margin: "0" }} />
+                            <div className="check-input2">
+                                <span style={{ color: "gray" }}>+</span>
+                                <InputBase className="in3"
+                                    multiline
+                                    placeholder="List item"
+                                    id="description"
+                                    onChange={this.handleList}
+                                    style={{ width: "100%" }}
+                                    value={this.state.currentItem.text}
+                                />
+                                <Button onClick={this.handleAddItem}>AddItem</Button>
+                            </div>
+                            <hr style={{ margin: "0" }} />
+                            <div className="notes-icons">
+                                <div className="notes-icon-div">
+                                    <Tooltip title="Remind me">
+                                        <AddAlertOutlinedIcon style={{ height: "0.7em" }} />
+                                    </Tooltip>
+                                    <Tooltip title="collaborator">
+                                        <PersonAddOutlinedIcon style={{ height: "0.7em" }} />
+                                    </Tooltip>
+                                    <ColorPaletteComponent
+                                        paletteProps={this.handleColor}
+                                        notesId={""}
+                                    />
+                                    <Tooltip title="Add image">
+                                        <ImageOutlinedIcon style={{ height: "0.7em" }} />
+                                    </Tooltip>
+                                    <Tooltip title="Archive">
+                                        <ArchiveOutlinedIcon style={{ height: "0.7em" }} />
+                                    </Tooltip>
+                                    <Tooltip title="More">
+                                        <MoreVertOutlinedIcon style={{ height: "0.7em" }} />
+                                    </Tooltip>
+                                </div>
+                                <div>
+                                    <Button onClick={this.handleCheckClose}>
+                                        close
                             </Button>
+                                </div>
                             </div>
-                        </div>
-                    </Card> : (
+                        </Card>
+                    </div> : (
                         !this.state.noteClick ?
-                            <div>
+                            <div className="create-take">
                                 <Card className="create-card1" onClick={this.handleNoteClick}
                                     style={{ boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)" }}>
                                     <div className="input2" style={{ width: "100%" }}>
