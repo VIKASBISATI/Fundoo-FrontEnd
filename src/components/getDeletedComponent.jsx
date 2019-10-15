@@ -171,7 +171,9 @@ class GetDeletedComponent extends Component {
                             <div className="notes-icon-div1">
                                 <Tooltip title="More">
                                     <MoreOptionComponenent noteId={key.id}
+                                        completeNote={key}
                                         deleteUp={this.deleteUp}
+                                        moreOptionLabelProps={this.moreOptionLabel}
                                     />
                                 </Tooltip>
                             </div>
@@ -207,7 +209,9 @@ class GetDeletedComponent extends Component {
                                     <DialogActions>
                                         <div className="notes-icon-div2">
                                             <MoreOptionComponenent noteId={key.id}
-                                                deleteUp={this.deleteUp}
+                                        completeNote={key}
+                                        deleteUp={this.deleteUp}
+                                        moreOptionLabelProps={this.moreOptionLabel}
                                             />
                                             <Button onClick={() => this.handleUpdate(this.state.noteId, this.state.title, this.state.description, this.state.color)}>
                                                 close

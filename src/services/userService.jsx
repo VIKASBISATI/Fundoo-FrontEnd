@@ -172,9 +172,14 @@ export function removeCollabNotes(data) {
     })
 }
 export function questionAndAnswer(data) {
-    let id=data.id;
-    let msg=data.msg;
-    return axios.post(baseURL + `/notes/${id}/questionAndAnswerNotes`, msg, {
+    return axios.post(baseURL + '/questionAndAnswerNotes/addQuestionAndAnswer', data, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}
+export function getQuesAns(id) {
+    return axios.get(baseURL + `/notes/${id}/questionAndAnswerNotes`, {
         headers: {
             Authorization: localStorage.getItem('token')
         }

@@ -218,6 +218,7 @@ class GetArchiveComponent extends Component {
                                 </Tooltip>
                                 <Tooltip title="More">
                                     <MoreOptionComponenent noteId={key.id}
+                                        completeNote={key}
                                         deleteUp={this.deleteUp}
                                     />
                                 </Tooltip>
@@ -259,15 +260,16 @@ class GetArchiveComponent extends Component {
                                             <Tooltip title="collaborator">
                                                 <PersonAddOutlinedIcon />
                                             </Tooltip>
-                                                <ColorPaletteComponent
-                                                    paletteProps={this.handleColor}
-                                                    notesId={this.state.noteId} />
+                                            <ColorPaletteComponent
+                                                paletteProps={this.handleColor}
+                                                notesId={this.state.noteId} />
                                             <Tooltip title="Add image">
                                                 <ImageOutlinedIcon />
                                             </Tooltip>
-                                                <ArchiveComponent archiveNoteId={key.id}
-                                                />
+                                            <ArchiveComponent archiveNoteId={key.id}
+                                            />
                                             <MoreOptionComponenent noteId={key.id}
+                                                completeNote={key}
                                                 deleteUp={this.deleteUp}
                                             />
                                             <Button onClick={() => this.handleUpdate(this.state.noteId, this.state.title, this.state.description, this.state.color)}>

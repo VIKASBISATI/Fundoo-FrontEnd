@@ -475,6 +475,11 @@
   padding-bottom: 3%;
 }
 
+.get-questions{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 /* ------------------------------------------------------Drawer------------------------------------------------------------ */
 
 .drawer-container {

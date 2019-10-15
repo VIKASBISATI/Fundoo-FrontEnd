@@ -13,8 +13,10 @@ class MoreOptionComponenent extends Component {
             anchorEl: false,
             moreNotesId: '',
             data: [],
+            qa: []
         }
     }
+
     handleOpenPopper(e) {
         console.log("yes");
         this.setState({
@@ -38,11 +40,15 @@ class MoreOptionComponenent extends Component {
         this.state.data.push(this.props.completeNote.id);
         this.state.data.push(this.props.completeNote.title);
         this.state.data.push(this.props.completeNote.description);
-        this.props.history.push('/editor',this.state.data);
+        this.props.history.push('/editor', this.state.data);
+    }
+
+    handleSQA = () => {
+
     }
 
     render() {
-        
+        console.log("this.state.dat in more option component", this.props.completeNote);
         return (
             <div>
                 <Tooltip title="More">
@@ -55,7 +61,13 @@ class MoreOptionComponenent extends Component {
                             delUp={this.delUp} />
                         <CreateLabelComponenent noteToLabel={this.props.noteId}
                             createLabelToMoreOption={this.createLabelToMoreOption} />
-                        <Button onClick={this.handleQA}>Ask QA</Button>
+                        {this.props.completeNote.questionAndAnswerNotes.length !== undefined ?
+                            this.props.completeNote.questionAndAnswerNotes.length > 0 ?
+                                <Button onClick={this.handleQA}>Ask SQA</Button>
+                                :
+                                <Button onClick={this.handleQA}>Ask QA</Button>
+                            : (null)
+                        }
                     </Paper>
                 </Popper>
             </div>

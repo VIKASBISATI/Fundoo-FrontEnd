@@ -221,3 +221,7 @@ $justifySpace: space-between;
 div.DraftEditor-root {
   padding: 10px;
 }
+.editor-assignment {
+  max-height: 25vh;
+  overflow-y: scroll;
+}

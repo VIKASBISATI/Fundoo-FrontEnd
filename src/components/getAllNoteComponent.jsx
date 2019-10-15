@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { getAllNotes, updateNotes, colorChange } from '../services/userService'
-import { Card, InputBase, Button, createMuiTheme, MuiThemeProvider, Chip } from '@material-ui/core';
+import { Card, InputBase, Button, createMuiTheme, MuiThemeProvider, Chip, Divider } from '@material-ui/core';
 import { Tooltip } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
@@ -265,7 +265,7 @@ export default class GetAllNoteComponent extends Component {
         console.log("props in getall notes is ", this.props.list);
         console.log("list is ", list);
         console.log('delup props in get note component', this.state.trashId);
-        const allNotes = this.state.notes.slice(0).reverse().filter(titleDescSearch(this.props.searchText)).map((key) => {
+        const allNotes = this.state.notes.slice(0).reverse().filter(titleDescSearch(this.props.searchText)).map((key, index) => {
             // console.log('keyid ', key.id);
             console.log("first character is ", key.user.firstName.charAt(0));
             return (
@@ -274,7 +274,7 @@ export default class GetAllNoteComponent extends Component {
                         key.id !== this.state.trashId &&
                         key.id !== this.state.archiveId))
                     &&
-                    <div className={list1} >
+                    <div className={list1} key={index}>
                         <Card className={list2} style={{
                             backgroundColor: key.color,
                             borderRadius: "10px",
@@ -359,6 +359,17 @@ export default class GetAllNoteComponent extends Component {
                                         moreOptionLabelProps={this.moreOptionLabel}
                                     />
                                 </Tooltip>
+                            </div>
+                            <Divider />
+                            <div>
+                                {key.questionAndAnswerNotes.map(data => {
+                                    return (
+                                        <div className="get-questions">
+                                            <p>Question Asked</p>
+                                            {data.message}
+                                        </div>
+                                    )
+                                })}
                             </div>
                         </Card>
                         <MuiThemeProvider theme={theme}>
