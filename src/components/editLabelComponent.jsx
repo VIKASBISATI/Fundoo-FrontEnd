@@ -185,9 +185,11 @@ class EditLabelComponent extends Component {
                     {this.state.trueIcon && key.id === this.state.labelId ? <DeleteIcon
                         onClick={() => this.handleDeleteLabel(key.id)} /> :
                         this.state.mouse && key.label === this.state.labelName ?
-                            <DeleteIcon
-                                onMouseOut={() => this.handleMouseOut(key.label)}
-                                onClick={() => this.handleDeleteLabel(key.id)} /> :
+                            <div className="del">
+                                <DeleteIcon
+                                    onMouseOut={() => this.handleMouseOut(key.label)}
+                                    onClick={() => this.handleDeleteLabel(key.id)} />
+                            </div> :
                             < LabelIcon
                                 onMouseOver={() => this.handleMouseOver(key.label)}
                             />

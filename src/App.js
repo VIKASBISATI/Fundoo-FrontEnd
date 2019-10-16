@@ -46,7 +46,7 @@ class App extends React.Component {
           <Route path="/getArchive" component={GetArchiveComponent}></Route>
           <Route path="/getTrash" component={GetDeletedComponent}></Route>
           <Route path="/getReminders" component={GetReminders}></Route>
-          <Route path="/editor" component={WysiwygPage}></Route>
+          <Route path="/quesAns/:id" component={WysiwygPage}></Route>
         </Switch>
       </Router>
     );

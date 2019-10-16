@@ -185,3 +185,14 @@ export function getQuesAns(id) {
         }
     })
 }
+export function like(data) {
+    let count = data.count
+    let data1 = {
+        "like": count
+    }
+    return axios.post(baseURL + `/questionAndAnswerNotes/like/${data.id}`, data1, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}

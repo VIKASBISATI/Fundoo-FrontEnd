@@ -5,9 +5,10 @@ import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Card, Button, Divider, createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import ReplyIcon from '@material-ui/icons/Reply';
-import { getQuesAns } from '../services/userService'
+import { getQuesAns, like } from '../services/userService'
 import { questionAndAnswer } from '../services/userService';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import { async } from 'q';
 const theme = createMuiTheme({
     overrides: {
         MuiDivider: {
@@ -29,18 +30,35 @@ class WysiwygComponent extends Component {
             dis: false,
             msgArr: [],
             rating: 0,
-            editor: false
+            editor: false,
+            count: false,
+            likes: [],
+            msgId: [],
+            c: 0,
         }
     }
 
     componentWillMount() {
         if (this.props.location !== undefined) {
             console.log("data in complete notes form in wy", this.props);
-            this.setState({
-                id: this.props.location.state[0],
-                title: this.props.location.state[1],
-                desc: this.props.location.state[2],
-            })
+            if (this.props.location.state.length === 3) {
+                this.setState({
+                    id: this.props.location.state[0],
+                    title: this.props.location.state[1],
+                    desc: this.props.location.state[2],
+                })
+            }
+            else if (this.props.location.state[3]) {
+                console.log("this.proips.", this.props.location);
+                this.getQandA(this.props.location.state[0]);
+                this.setState({
+                    id: this.props.location.state[0],
+                    title: this.props.location.state[1],
+                    desc: this.props.location.state[2],
+                    dis: !this.state.dis
+                })
+                this.getQandA(this.state.id);
+            }
         }
     }
 
@@ -50,17 +68,41 @@ class WysiwygComponent extends Component {
         })
     }
 
+    handleLike = (id) => {
+        let data = {
+            'id': id,
+            'count': !this.state.count
+        }
+
+        like(data).then(res => {
+            this.setState({
+                count: !this.state.count
+            })
+            this.getQandA(this.state.id)
+            console.log("res after hitting like api is ", res);
+        }).catch(err => {
+            console.log("err after hitting like api ", err);
+        })
+    }
+
     getQandA = (id) => {
+        console.log("Yes WYSIWYG comp1", id);
         getQuesAns(id).then(res => {
             console.log("res in qa", res.data[0].createdDate);
-            const msg = res.data.map((key, index) => {
-                return key.message
+            const id = res.data.map((key, index) => {
+                return key.id
             })
-            console.log("msg i s", msg);
+            this.setState({
+                msgId: id
+            })
+            console.log("msg is", this.state.msgId);
+            console.log("Res.did", res.data);
 
             this.setState({
                 msgArr: res.data
             })
+            console.log("The message array is ", this.state.msgArr);
+
         })
     }
 
@@ -94,11 +136,6 @@ class WysiwygComponent extends Component {
             editor: !this.state.editor
         })
         console.log("data in handleReply", reply);
-
-    }
-
-    handleSubmit = () => {
-
     }
 
     render() {
@@ -160,15 +197,47 @@ class WysiwygComponent extends Component {
                                                         {data.createdDate}
                                                     </p>
                                                 </div>
-                                                {data.message}
-                                                <ReplyIcon onClick={() => this.handleReply(data)} />
-                                                <ThumbUpIcon />
+                                                <div>
+                                                    {data.message}
+                                                    <ReplyIcon onClick={() => this.handleReply(data)} />
+                                                    {data.like.length > 0 ?
+                                                        data.like.map(val => {
+                                                            return (
+                                                                val.like ?
+                                                                    <div>
+                                                                        <ThumbUpIcon
+                                                                            onClick={() => this.handleLike(data.id)}
+                                                                            style={{ color: val.like ? '#0000FF' : '' }}
+                                                                        />
+                                                                        {data.like.length} like
+                                                                </div>
+                                                                    :
+                                                                    <div>
+                                                                        <ThumbUpIcon
+                                                                            onClick={() => this.handleLike(data.id)}
+                                                                            style={{
+                                                                                color: !this.state.count ? '' :
+                                                                                    '#0000FF'
+                                                                            }}
+                                                                        />
+                                                                        {!this.state.count ? '0 likes' : '1 like'}
+                                                                    </div>
+                                                            )
+                                                        }) :
+                                                        <div>
+                                                            <ThumbUpIcon
+                                                                onClick={() => this.handleLike(data.id)}
+                                                                style={{ color: !this.state.count ? '' : '#0000FF' }}
+                                                            />
+                                                            {!this.state.count ? '0 likes' : '1 like'}
+                                                        </div>
+                                                    }
+                                                </div>
                                             </div>
                                         )
                                     })}
                                 </div>
                                 <Divider />
-
                                 {this.state.editor ?
                                     <div>
                                         <Card>

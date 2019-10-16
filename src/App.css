@@ -477,8 +477,9 @@
 
 .get-questions{
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
+  padding-left: 4%;
 }
 /* ------------------------------------------------------Drawer------------------------------------------------------------ */
 

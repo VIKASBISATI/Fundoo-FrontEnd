@@ -418,7 +418,9 @@ export default class GetAllNoteComponent extends Component {
                                                     arcUp={this.arcUp} />
                                             </Tooltip>
                                             <MoreOptionComponenent noteId={key.id}
-                                                deleteUp={this.deleteUp}
+                                        completeNote={key}
+                                        deleteUp={this.deleteUp}
+                                        moreOptionLabelProps={this.moreOptionLabel}
                                             />
                                             <Button onClick={() => this.handleUpdate(this.state.noteId,
                                                 this.state.title, this.state.description, this.state.color)}>

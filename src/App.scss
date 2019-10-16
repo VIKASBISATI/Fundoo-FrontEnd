@@ -222,6 +222,7 @@ div.DraftEditor-root {
   padding: 10px;
 }
 .editor-assignment {
-  max-height: 25vh;
+  min-height: 30vh;
+  height: auto;
   overflow-y: scroll;
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, InputBase, Tooltip, Button } from '@material-ui/core';
+import { Card, InputBase, Tooltip, Button, MuiThemeProvider,createMuiTheme } from '@material-ui/core';
 import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
@@ -9,6 +9,15 @@ import { addNotes } from '../services/userService';
 import ColorPaletteComponent from './colorPaletteComponent';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import Checkbox from '@material-ui/core/Checkbox';
+const theme = createMuiTheme({
+    overrides: {
+        MuiCard: {
+            root: {
+                backgroundColor: "#e8e8e8",
+            }
+        }
+    }
+})
 export default class createNotes extends Component {
     constructor(props) {
         super(props);
@@ -225,6 +234,7 @@ export default class createNotes extends Component {
             <div className="create-container">
                 {this.state.noteClick ? (
                     <div className="create-take">
+                        <MuiThemeProvider theme={theme}>
                         <Card className="create-card2" style={{ boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)", backgroundColor: this.state.color }} >
                             <div className="input1">
                                 <InputBase className="in2"
@@ -275,6 +285,7 @@ export default class createNotes extends Component {
                                 </div>
                             </div>
                         </Card>
+                        </MuiThemeProvider>
                     </div>
                 ) : (
                         (null)
@@ -282,6 +293,7 @@ export default class createNotes extends Component {
                 }
                 {this.state.checkedState && !this.state.noteClick ?
                     <div className="create-take">
+                        <MuiThemeProvider>
                         <Card className="create-card2"
                             style={{ boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)", backgroundColor: this.state.color }} >
                             <div className="input1">
@@ -350,9 +362,11 @@ export default class createNotes extends Component {
                                 </div>
                             </div>
                         </Card>
+                        </MuiThemeProvider>
                     </div> : (
                         !this.state.noteClick ?
                             <div className="create-take">
+                                <MuiThemeProvider>
                                 <Card className="create-card1" onClick={this.handleNoteClick}
                                     style={{ boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)" }}>
                                     <div className="input2" style={{ width: "100%" }}>
@@ -375,6 +389,7 @@ export default class createNotes extends Component {
                                         />
                                     </div>
                                 </Card>
+                                </MuiThemeProvider>
                             </div> :
                             (null))}
             </div>

@@ -35,20 +35,26 @@ class MoreOptionComponenent extends Component {
         this.props.moreOptionLabelProps(val)
     }
 
-    handleQA = () => {
+    handleQA = (id) => {
         console.log("this.props", this.props.completeNote);
         this.state.data.push(this.props.completeNote.id);
         this.state.data.push(this.props.completeNote.title);
         this.state.data.push(this.props.completeNote.description);
-        this.props.history.push('/editor', this.state.data);
+        this.props.history.push(`/quesAns/${id}`, this.state.data);
     }
 
-    handleSQA = () => {
-
+    handleSQA = (id) => {
+        console.log("this.props", this.props.completeNote);
+        this.state.data.push(this.props.completeNote.id);
+        this.state.data.push(this.props.completeNote.title);
+        this.state.data.push(this.props.completeNote.description);
+        this.state.data.push(true);
+        this.state.data.push(this.props.completeNote.questionAndAnswerNotes);
+        this.props.history.push(`/quesAns/${id}`, this.state.data);
     }
 
     render() {
-        console.log("this.state.dat in more option component", this.props.completeNote);
+        // console.log("this.state.dat in more option component", this.props.completeNote);
         return (
             <div>
                 <Tooltip title="More">
@@ -63,9 +69,9 @@ class MoreOptionComponenent extends Component {
                             createLabelToMoreOption={this.createLabelToMoreOption} />
                         {this.props.completeNote.questionAndAnswerNotes.length !== undefined ?
                             this.props.completeNote.questionAndAnswerNotes.length > 0 ?
-                                <Button onClick={this.handleQA}>Ask SQA</Button>
+                                <Button onClick={() => this.handleSQA(this.props.completeNote.id)}>Show QA</Button>
                                 :
-                                <Button onClick={this.handleQA}>Ask QA</Button>
+                                <Button onClick={() => this.handleQA(this.props.completeNote.id)}>Ask QA</Button>
                             : (null)
                         }
                     </Paper>
