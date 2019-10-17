@@ -35,7 +35,7 @@ function titleDescSearch(searchText) {
         return val.title.includes(searchText) || val.description.includes(searchText)
     }
 }
-export default class GetAllNoteComponent extends Component {
+export default class DisplayLabelComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -169,7 +169,7 @@ export default class GetAllNoteComponent extends Component {
             trashId: trashNoteId,
             // open: !this.state.open
         })
-        this.getNotes();
+        this.getNotes()
     }
     arcUp = (noteId) => {
         // console.log("note in delUp", this.state.notes);
@@ -196,7 +196,7 @@ export default class GetAllNoteComponent extends Component {
             archiveId: noteId,
             // open: !this.state.open
         })
-        this.getNotes();
+        this.getNotes()
     }
     handleLabelDelete = (noteId, labelId) => {
         console.log("delete chip");
@@ -217,7 +217,6 @@ export default class GetAllNoteComponent extends Component {
             "reminder": ""
         }
         console.log("data in delete reminder is", data);
-
         deleteReminder(data).then((res) => {
             //First way
             // console.log("response in deleting reminder is ", res);

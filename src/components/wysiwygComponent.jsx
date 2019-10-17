@@ -5,10 +5,10 @@ import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Card, Button, Divider, createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import ReplyIcon from '@material-ui/icons/Reply';
-import { getQuesAns, like } from '../services/userService'
+import { getQuesAns, like, rate, reply } from '../services/userService'
 import { questionAndAnswer } from '../services/userService';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import { async } from 'q';
+import StarRatingComponent from 'react-star-rating-component';
 const theme = createMuiTheme({
     overrides: {
         MuiDivider: {
@@ -34,6 +34,7 @@ class WysiwygComponent extends Component {
             count: false,
             likes: [],
             msgId: [],
+            rating: 0,
             c: 0,
         }
     }
@@ -138,6 +139,39 @@ class WysiwygComponent extends Component {
         console.log("data in handleReply", reply);
     }
 
+    starClick = async (e) => {
+        console.log('local storage parentiD', localStorage.getItem('parentId'))
+        await this.setState({
+            rating: e
+        })
+        console.log("Rating e", this.state.rating);
+        let data = {
+            'id': localStorage.getItem('parentId'),
+            'rate': this.state.rating,
+        }
+        rate(data).then(res => {
+            this.getQandA(this.state.id)
+            console.log("res after hitting rate api is ", res);
+        }).catch(err => {
+            console.log("err after hitting rate api ", err);
+        })
+    }
+
+    handleSubmit = async () => {
+        let id = localStorage.getItem('parentId');
+        let message = convertToRaw(this.state.editorState.getCurrentContent()).blocks[0].text;
+        let data = {
+            'id': localStorage.getItem('parentId'),
+            'message': message,
+        }
+        console.log("After reply data is ", data);
+        reply(data).then((res) => {
+            console.log("Response after hitting reply api", res);
+        }).catch((err) => {
+            console.log("Error in hitting reply api", err);
+        })
+    }
+
     render() {
         const { editorState } = this.state;
         // console.log("editor state is ", editorState);
@@ -189,6 +223,7 @@ class WysiwygComponent extends Component {
                             <div>
                                 <div className="editor-assignment">
                                     {this.state.msgArr.map((data, index) => {
+                                        localStorage.setItem('parentId', data.id)
                                         return (
                                             <div >
                                                 <div>
@@ -197,14 +232,14 @@ class WysiwygComponent extends Component {
                                                         {data.createdDate}
                                                     </p>
                                                 </div>
-                                                <div>
+                                                <div className="editor-data">
                                                     {data.message}
                                                     <ReplyIcon onClick={() => this.handleReply(data)} />
                                                     {data.like.length > 0 ?
                                                         data.like.map(val => {
                                                             return (
                                                                 val.like ?
-                                                                    <div>
+                                                                    <div className="editor-thumbsUp">
                                                                         <ThumbUpIcon
                                                                             onClick={() => this.handleLike(data.id)}
                                                                             style={{ color: val.like ? '#0000FF' : '' }}
@@ -212,7 +247,7 @@ class WysiwygComponent extends Component {
                                                                         {data.like.length} like
                                                                 </div>
                                                                     :
-                                                                    <div>
+                                                                    <div className="editor-thumbsUp">
                                                                         <ThumbUpIcon
                                                                             onClick={() => this.handleLike(data.id)}
                                                                             style={{
@@ -224,13 +259,38 @@ class WysiwygComponent extends Component {
                                                                     </div>
                                                             )
                                                         }) :
-                                                        <div>
+                                                        <div className="editor-thumbsUp">
                                                             <ThumbUpIcon
                                                                 onClick={() => this.handleLike(data.id)}
                                                                 style={{ color: !this.state.count ? '' : '#0000FF' }}
                                                             />
                                                             {!this.state.count ? '0 likes' : '1 like'}
                                                         </div>
+                                                    }
+                                                    {
+                                                        data.rate.length > 0 ?
+                                                            data.rate.map((val) => {
+                                                                console.log("val.id", data.id);
+                                                                return (
+                                                                    <div>
+                                                                        <StarRatingComponent
+                                                                            starCount={5}
+                                                                            value={val.rate}
+                                                                            onStarClick={this.starClick}
+                                                                        />
+                                                                        {val.rate}
+                                                                    </div>
+                                                                )
+                                                            })
+                                                            :
+                                                            <div>
+                                                                <StarRatingComponent
+                                                                    starCount={5}
+                                                                    value={this.state.rating}
+                                                                    onStarClick={this.starClick}
+                                                                />
+                                                                {this.state.rating}
+                                                            </div>
                                                     }
                                                 </div>
                                             </div>

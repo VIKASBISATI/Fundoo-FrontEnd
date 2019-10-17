@@ -13,7 +13,6 @@ export function addNotes(data) {
     // for (var pair of data.entries()) {
     //     console.log("data in form  datin servies a",pair[0] + ', ' + pair[1]);
     // }
-
     return axios.post(baseURL + '/notes/addNotes', data,
         {
             headers: {
@@ -56,6 +55,14 @@ export function archive(data) {
 export function trash(data) {
     console.log('data in trash notes is', data);
     return axios.post(baseURL + '/notes/trashNotes', data, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}
+export function forever(data) {
+    console.log('data in forever notes is', data);
+    return axios.post(baseURL + '/notes/deleteForeverNotes', data, {
         headers: {
             Authorization: localStorage.getItem('token')
         }
@@ -191,6 +198,30 @@ export function like(data) {
         "like": count
     }
     return axios.post(baseURL + `/questionAndAnswerNotes/like/${data.id}`, data1, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}
+export function rate(data) {
+    let data1 = {
+        'rate': data.rate
+    }
+    console.log("data.rate", data1);
+    return axios.post(baseURL + `/questionAndAnswerNotes/rate/${data.id}`, data1, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}
+export function reply(data) {
+    console.log("data befor reply",data);
+    
+    let data1 = {
+        'message': data.message
+    }
+    console.log("data.rate", data1);
+    return axios.post(baseURL + `/questionAndAnswerNotes/reply/${data.id}`, data1, {
         headers: {
             Authorization: localStorage.getItem('token')
         }

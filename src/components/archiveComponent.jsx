@@ -62,18 +62,19 @@ class ArchiveComponent extends Component {
     render() {
         return (
             <div>
-                {window.location.pathname === '/getArchive' ?
-                    <Tooltip title="UnArchive">
-                        <ArchiveOutlinedIcon onClick={this.handleUnArchive}
-                        style={{height:"0.7em"}}
-                        />
-                    </Tooltip >
-                    :
-                    <Tooltip title="Archive">
-                        <ArchiveOutlinedIcon onClick={this.handleArchive}
-                        style={{height:"0.7em"}}
-                        />
-                    </Tooltip >
+                {
+                    window.location.pathname === '/getArchive' ?
+                        <Tooltip title="UnArchive">
+                            <ArchiveOutlinedIcon onClick={this.handleUnArchive}
+                                style={{ height: "0.7em" }}
+                            />
+                        </Tooltip >
+                        :
+                        <Tooltip title="Archive">
+                            <ArchiveOutlinedIcon onClick={this.handleArchive}
+                                style={{ height: "0.7em" }}
+                            />
+                        </Tooltip >
                 }
                 <Snackbar
                     anchorOrigin={{

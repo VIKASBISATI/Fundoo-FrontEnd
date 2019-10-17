@@ -207,7 +207,8 @@ $justifySpace: space-between;
 }
 .editor-contents {
   display: flex;
-  width: 80%;
+  min-width: 80%;
+  width: auto;
   flex-direction: column;
 }
 .editor-details {
@@ -222,7 +223,18 @@ div.DraftEditor-root {
   padding: 10px;
 }
 .editor-assignment {
-  min-height: 30vh;
+  // min-height: 30vh;
   height: auto;
   overflow-y: scroll;
+}
+.editor-data {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 64%;
+  // flex-direction: rpw;
+  flex-direction: column;
+}
+.editor-thumbsUp {
+  @include flexCenter();
 }

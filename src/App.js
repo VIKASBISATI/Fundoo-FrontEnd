@@ -26,7 +26,8 @@ import EditComponent from '../src/pages/edit';
 import GetArchiveComponent from '../src/pages/getArchive';
 import GetDeletedComponent from '../src/pages/getDeleted';
 import GetReminders from './pages/getAllReminder';
-import WysiwygPage from './pages/wysiwyg'
+import WysiwygPage from './pages/wysiwyg';
+import DisplayLabel from './pages/displayLabel'
 class App extends React.Component {
   render() {
     return (
@@ -47,6 +48,7 @@ class App extends React.Component {
           <Route path="/getTrash" component={GetDeletedComponent}></Route>
           <Route path="/getReminders" component={GetReminders}></Route>
           <Route path="/quesAns/:id" component={WysiwygPage}></Route>
+          <Route path="/dispLabel/:id" component={DisplayLabel}></Route>
         </Switch>
       </Router>
     );

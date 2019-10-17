@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
-import { trash } from '../services/userService';
+import { trash, forever } from '../services/userService';
 class TrashComponent extends Component {
     constructor(props) {
         super(props);
@@ -26,15 +26,36 @@ class TrashComponent extends Component {
             })
     }
 
+    handleForever = () => {
+        var trashNoteId = this.props.trashProps;
+        var data = {
+            isDeleted: true,
+            noteIdList: [trashNoteId]
+        }
+        console.log('data in trash', data);
+        forever(data)
+            .then((res) => {
+                console.log('res in forever after hitting', res);
+                this.props.delUp(trashNoteId)
+            }).catch((err) => {
+                console.log('error in trash ', err);
+            })
+    }
+
     handleCheck = () => {
         this.setState({
             check: !this.state.check
         })
     }
     render() {
+        console.log("window", window.location.pathname);
         return (
             <div className="trash-del">
-                <Button onClick={this.handleButton}>Delete</Button>
+                {window.location.pathname === '/getTrash' ?
+                    <Button onClick={this.handleForever}>Forever</Button>
+                    :
+                    <Button onClick={this.handleButton}>Delete</Button>
+                }
             </div>
         )
     }
