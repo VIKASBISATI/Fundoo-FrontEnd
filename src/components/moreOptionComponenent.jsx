@@ -61,7 +61,8 @@ class MoreOptionComponenent extends Component {
                     <MoreVertOutlinedIcon onClick={(e) => this.handleOpenPopper(e)}
                         style={{ height: "0.7em" }} />
                 </Tooltip>
-                <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} >
+                         <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl}
+                    style={{ zIndex: "9999" }} placement="bottom-start">                   
                     <Paper className="colorpalette-popper">
                         <TrashComponent trashProps={this.props.noteId}
                             delUp={this.delUp} />

@@ -5,6 +5,11 @@ import { Tooltip } from '@material-ui/core';
 import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
+import Snackbar from '@material-ui/core/Snackbar'
+import IconButton from '@material-ui/core/IconButton';
+import ClearIcon from '@material-ui/icons/Clear';
+import ReminderComponent from './reminderComponent';
+import CollaboratorComponent from '../components/collaboratorComponent';
 import ColorPaletteComponent from './colorPaletteComponent';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -27,6 +32,11 @@ const theme = createMuiTheme({
         }
     }
 })
+function titleDescSearch(searchText) {
+    return function (val) {
+        return val.title.includes(searchText) || val.description.includes(searchText)
+    }
+}
 class GetArchiveComponent extends Component {
     constructor(props) {
         super(props);
@@ -42,6 +52,8 @@ class GetArchiveComponent extends Component {
             description: '',
             noteId: '',
             trashId: '',
+            openSnackBar: false,
+            SnackBarMessage: "",
             archiveId: ''
         }
     }
@@ -56,12 +68,72 @@ class GetArchiveComponent extends Component {
             })
         })
     }
+    snackbarClose = () => {
+        this.setState({
+            openSnackBar: !this.state.openSnackBar
+        })
+    }
     updatedCard(upCard) {
         this.setState({
             notes: [...this.state.notes, upCard]
         })
     }
-
+    deleteUp = async (trashNoteId) => {
+        // console.log("note in delUp", this.state.notes);
+        // var delId = trashNoteId;
+        // var newArr = this.state.notes;
+        // console.log("trashnotes id is ", delId);
+        // console.log("new array is ", newArr);
+        // console.log('yes or not', newArr[0].id === "5d88951ca0a6a900185be37c");
+        // newArr[37].isDeleted = true;
+        // for (let i = 0; i < newArr.length; i++) {
+        //     console.log("yes entered");
+        //     if (newArr[i].id === delId) {
+        //         console.log("yes ", delId);
+        //         newArr[i].isDeleted = true;
+        //         newArr[i].isArchived = false;
+        //         newArr[i].isPinned = false;
+        //     }
+        // }
+        // this.setState({
+        //     notes: newArr
+        // })
+        await this.setState({
+            trashId: trashNoteId,
+            open: false
+        })
+        this.getNotes();
+    }
+    arcUp = (noteId) => {
+        // console.log("note in delUp", this.state.notes);
+        // var arcId = noteId;
+        // var newArr1 = this.state.notes;
+        // console.log("trashnotes id is ", arcId);
+        // for (let i = 0; i < newArr1.length; i++) {
+        //     console.log("yes entered");
+        //     if (newArr1[i].id === arcId) {
+        //         console.log("yes ", arcId);
+        //         newArr1[i].isDeleted = false;
+        //         newArr1[i].isArchived = true;
+        //         newArr1[i].isPinned = false;
+        //     }
+        // }
+        // this.setState({
+        //     notes: newArr1
+        // })
+        this.setState({
+            archiveId: noteId,
+            openSnackBar: !this.state.openSnackBar,
+            SnackBarMessage: "Note unarchived"
+        })
+        console.log("noteid is in arcup", noteId);
+        this.setState({
+            archiveId: noteId,
+            open: false
+            // open: !this.state.open
+        })
+        this.getNotes();
+    }
     handleColor = (col, noteid) => {
         var data = {
             noteIdList: [noteid],
@@ -152,13 +224,14 @@ class GetArchiveComponent extends Component {
         this.setState({
             delChip: true
         })
-
+ 
     }
+
     render() {
         const list = this.props.list ? "get-container1" : "get-container";
         const list1 = this.props.list ? "get-contents1" : "get-contents"
         const list2 = this.props.list ? "get-card1" : "get-card"
-        const allNotes = this.state.notes.map((key) => {
+        const allNotes = this.state.notes.filter(titleDescSearch(this.props.searchText)).map((key) => {
             // console.log('    keyid ', key.id);
             return (
                 (((key.isArchived === true))
@@ -198,28 +271,29 @@ class GetArchiveComponent extends Component {
                                 })}
                             </div>
                             <div className="notes-icon-div1">
-                                <Tooltip title="Remind me">
-                                    <AddAlertOutlinedIcon />
-                                </Tooltip>
-                                <Tooltip title="collaborator">
-                                    <PersonAddOutlinedIcon />
-                                </Tooltip>
+                                <ReminderComponent noteId={key.id}
+                                    getUpdatedReminders={this.getUpdatedReminders}
+                                />
+                                <CollaboratorComponent noteToCollab={key.id}
+                                    addCollab={this.addCollab}
+                                    remCollab={this.remCollab} />
                                 <Tooltip title="Change color">
                                     <ColorPaletteComponent
                                         paletteProps={this.handleColor}
                                         notesId={key.id} />
                                 </Tooltip>
                                 <Tooltip title="Add image">
-                                    <ImageOutlinedIcon />
+                                    <ImageOutlinedIcon style={{ height: "0.7em" }} />
                                 </Tooltip>
-                                <Tooltip title="Un Archive">
+                                <Tooltip title="Archive">
                                     <ArchiveComponent archiveNoteId={key.id}
-                                    />
+                                        arcUp={this.arcUp} />
                                 </Tooltip>
                                 <Tooltip title="More">
                                     <MoreOptionComponenent noteId={key.id}
                                         completeNote={key}
                                         deleteUp={this.deleteUp}
+                                        moreOptionLabelProps={this.moreOptionLabel}
                                     />
                                 </Tooltip>
                             </div>
@@ -254,23 +328,28 @@ class GetArchiveComponent extends Component {
                                     </DialogContent>
                                     <DialogActions>
                                         <div className="notes-icon-div2">
-                                            <Tooltip title="Remind me">
-                                                <AddAlertOutlinedIcon />
-                                            </Tooltip>
-                                            <Tooltip title="collaborator">
-                                                <PersonAddOutlinedIcon />
-                                            </Tooltip>
-                                            <ColorPaletteComponent
-                                                paletteProps={this.handleColor}
-                                                notesId={this.state.noteId} />
-                                            <Tooltip title="Add image">
-                                                <ImageOutlinedIcon />
-                                            </Tooltip>
-                                            <ArchiveComponent archiveNoteId={key.id}
+                                            <ReminderComponent noteId={key.id}
+                                                getUpdatedReminders={this.getUpdatedReminders}
                                             />
-                                            <MoreOptionComponenent noteId={key.id}
+                                            <CollaboratorComponent noteToCollab={this.state.noteId}
+                                                addCollab={this.addCollab}
+                                                remCollab={this.remCollab} />
+                                            <Tooltip title="Change color">
+                                                <ColorPaletteComponent
+                                                    paletteProps={this.handleColor}
+                                                    notesId={this.state.noteId} />
+                                            </Tooltip>
+                                            <Tooltip title="Add image">
+                                                <ImageOutlinedIcon style={{ height: "0.7em" }} />
+                                            </Tooltip>
+                                            <Tooltip title="Archive">
+                                                <ArchiveComponent archiveNoteId={this.state.noteId}
+                                                    arcUp={this.arcUp} />
+                                            </Tooltip>
+                                            <MoreOptionComponenent noteId={this.state.noteId}
                                                 completeNote={key}
                                                 deleteUp={this.deleteUp}
+                                                moreOptionLabelProps={this.moreOptionLabel}
                                             />
                                             <Button onClick={() => this.handleUpdate(this.state.noteId, this.state.title, this.state.description, this.state.color)}>
                                                 close
@@ -280,12 +359,34 @@ class GetArchiveComponent extends Component {
                                 </Card>
                             </Dialog>
                         </MuiThemeProvider>
+                        <Snackbar
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            // open={true}
+                            open={this.state.openSnackBar}
+                            autoHideDuration={6000}
+                            onClose={this.snackbarClose}
+                            message={<span id="messege-id">{this.state.SnackBarMessage}</span>}
+                            action={[
+                                <IconButton
+                                    key="close"
+                                    arial-label="close"
+                                    color="inherit"
+                                    onClick={this.snackbarClose}
+                                >
+                                    <ClearIcon onClick={this.snackbarClose}/>
+                                </IconButton>
+                            ]}
+                        />
                     </div >
                 ))
         })
         return (
             <div className={list} >
                 {allNotes}
+
             </div>
         )
     }

@@ -48,7 +48,7 @@ class App extends React.Component {
           <Route path="/getTrash" component={GetDeletedComponent}></Route>
           <Route path="/getReminders" component={GetReminders}></Route>
           <Route path="/quesAns/:id" component={WysiwygPage}></Route>
-          <Route path="/dispLabel/:id" component={DisplayLabel}></Route>
+          <Route path="/dispLabel/:label" component={DisplayLabel}></Route>
         </Switch>
       </Router>
     );

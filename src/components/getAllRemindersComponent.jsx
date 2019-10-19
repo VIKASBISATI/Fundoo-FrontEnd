@@ -28,6 +28,11 @@ const theme = createMuiTheme({
         }
     }
 })
+function titleDescSearch(searchText) {
+    return function (val) {
+        return val.title.includes(searchText) || val.description.includes(searchText)
+    }
+}
 class GetAllRemindersComponent extends Component {
     constructor(props) {
         super(props);
@@ -130,10 +135,10 @@ class GetAllRemindersComponent extends Component {
 
     }
     render() {
-        const list = this.props.list ? "getArchive-container1" : "getArchive-container";
+        const list = this.props.list ? "get-container1" : "get-container";
         const list1 = this.props.list ? "get-contents1" : "get-contents"
-        const list2 = this.props.list ? "getArchive-card1" : "getArchive-card"
-        const allNotes = this.state.notes.map((key) => {
+        const list2 = this.props.list ? "get-card1" : "get-card"
+        const allNotes = this.state.notes.filter(titleDescSearch(this.props.searchText)).map((key) => {
             // console.log('    keyid ', key.id);
             return (
                 (((key.isArchived === false))
@@ -205,8 +210,8 @@ class GetAllRemindersComponent extends Component {
                                 </Tooltip>
                                 <Tooltip title="More">
                                     <MoreOptionComponenent noteId={key.id}
-                                        deleteUp={this.deleteUp}
-                                    />
+                                        completeNote={key}
+                                        deleteUp={this.deleteUp}></MoreOptionComponenent>
                                 </Tooltip>
                             </div>
                         </Card>
@@ -259,6 +264,7 @@ class GetAllRemindersComponent extends Component {
                                                 />
                                             </Tooltip>
                                             <MoreOptionComponenent noteId={key.id}
+                                                completeNote={key}
                                                 deleteUp={this.deleteUp}
                                             />
                                             <Button onClick={() => this.handleUpdate(this.state.noteId, this.state.title, this.state.description, this.state.color)}>

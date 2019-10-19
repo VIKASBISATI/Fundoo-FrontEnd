@@ -10,14 +10,9 @@ export function addToCart(data) {
 }
 export function addNotes(data) {
     console.log("data in add notes is", data);
-    // for (var pair of data.entries()) {
-    //     console.log("data in form  datin servies a",pair[0] + ', ' + pair[1]);
-    // }
     return axios.post(baseURL + '/notes/addNotes', data,
         {
             headers: {
-                // 'Content-Type':' multipart/form-data',
-                'Content-Type': 'application/json',
                 Authorization: localStorage.getItem('token')
             }
         })
@@ -215,13 +210,22 @@ export function rate(data) {
     })
 }
 export function reply(data) {
-    console.log("data befor reply",data);
-    
+    console.log("data befor reply", data);
     let data1 = {
         'message': data.message
     }
     console.log("data.rate", data1);
     return axios.post(baseURL + `/questionAndAnswerNotes/reply/${data.id}`, data1, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}
+export function getNotesByLabel(data,labelName) {
+    console.log("data label in services", labelName);
+    let label=labelName
+    console.log("label",label);
+    return axios.post(baseURL + `/notes/getNotesListByLabel/${label}`,data ,{
         headers: {
             Authorization: localStorage.getItem('token')
         }

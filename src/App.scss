@@ -69,6 +69,7 @@ $justifySpace: space-between;
   flex-direction: row;
   align-items: flex-start;
   justify-content: $justifySpace;
+  width: 103%;
 }
 .edit-map {
   overflow-y: auto;
@@ -202,13 +203,17 @@ $justifySpace: space-between;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 .editor-container {
-  @include flexCenter();
+  display: flex;
+  /* align-items: center; */
   justify-content: center;
+  width: 100%;
 }
 .editor-contents {
   display: flex;
-  min-width: 80%;
-  width: auto;
+  /* min-width: 80%; */
+  width: 67%;
+  width: 60%;
+  width: 70%;
   flex-direction: column;
 }
 .editor-details {
@@ -230,10 +235,9 @@ div.DraftEditor-root {
 .editor-data {
   display: flex;
   align-items: flex-start;
-  justify-content: center;
+  flex-wrap: wrap;
   width: 64%;
-  // flex-direction: rpw;
-  flex-direction: column;
+  justify-content: space-between;
 }
 .editor-thumbsUp {
   @include flexCenter();

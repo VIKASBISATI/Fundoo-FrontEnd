@@ -413,7 +413,6 @@
 .get-card2 {
   min-width: 40vw;
   min-height: auto;
-  border: 1px solid whitesmoke;
 }
 
 .get-card2:hover .notes-icon-div2 {

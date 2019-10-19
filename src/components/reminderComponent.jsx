@@ -65,20 +65,21 @@ class ReminderComponent extends Component {
                 <ThemeProvider theme={theme}>
                     <Tooltip title="Remind me">
                         <AddAlertOutlinedIcon onClick={(e) => this.handleOpenPopper(e)}
-                        style={{height:"0.7em"}} />
+                            style={{ height: "0.7em" }} />
                     </Tooltip>
-                    <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} placement="bottom-right">
-                        <Paper className="reminder-paper">
-                            Reminder:
-                        <MenuItem>
-                                Later today
-                        </MenuItem>
+                    <Popper open={this.state.anchorEl} anchorEl={this.state.anchorEl} placement="bottom-right"
+                        style={{ zIndex: "9999" }}>
+                        <Paper className="reminder-paper" >
+                            <pre>     Reminder:</pre>
                             <MenuItem>
-                                Tomorrow
-                        </MenuItem>
+                                <pre> Later today    8:00PM</pre>
+                            </MenuItem>
                             <MenuItem>
-                                Next Week
-                        </MenuItem>
+                                <pre>Tomorrow    8:00PM</pre>
+                            </MenuItem>
+                            <MenuItem>
+                                <pre>Next Week  Mon,8:00AM</pre>
+                            </MenuItem>
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <DateTimePicker value={this.state.selectedDate} onChange={this.handleDateChange} />
                             </MuiPickersUtilsProvider>

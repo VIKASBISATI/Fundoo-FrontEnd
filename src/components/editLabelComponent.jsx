@@ -167,13 +167,24 @@ class EditLabelComponent extends Component {
             console.log("error in hitting delete notes label", err);
         })
     }
+    handleDisplay=(label)=>{
+        // var data={
+        //     labelName:label
+        // };
+        // getNotesByLabel(data,label).then((res)=>{
+        //     console.log("Response after hitting get label",res);
+        // }).catch((err)=>{
+        //     console.log("Err in hitting get label",err);
+        // })
+        this.props.history.push(`/dispLabel/${label}`,label)
+    }
     render() {
         const labelMap = this.state.labels.map((key) => {
             console.log('labelid in edit label component', key.id);
 
             return (
                 <div>
-                    <MenuItem id="note">
+                    <MenuItem id="note" onClick={()=>this.handleDisplay(key.label)}>
                         <LabelOutlinedIcon style={{ paddingRight: "15%" }} />
                         {key.label}
                     </MenuItem>

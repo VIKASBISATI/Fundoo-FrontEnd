@@ -23,10 +23,9 @@ const theme = createMuiTheme({
         },
         MuiDialog: {
             paperWidthSm: {
-                borderRadius: "40px"
+                borderRadius: "10px"
             }
         }
-
     }
 })
 class CollaboratorComponent extends Component {
@@ -107,7 +106,7 @@ class CollaboratorComponent extends Component {
         searchUserList(data).then((res) => {
             console.log("res in search user list is", res);
             this.setState({
-                searchData: res.data.data.details
+                searchData: res.data.data.details,
             })
             console.log("res.data in collab is ", res.data.data.details[0].email);
             data1 = {
@@ -128,7 +127,6 @@ class CollaboratorComponent extends Component {
                 console.log("err in hitting collaborator api", err);
             })
             console.log("data1---------->", data1);
-
         }).catch(err => {
             console.log("err in hitting search user api ", err);
         })
@@ -191,8 +189,8 @@ class CollaboratorComponent extends Component {
         return (
             <div>
                 <Tooltip title="collaborator">
-                    <PersonAddOutlinedIcon onClick={this.handleEdit} 
-                    style={{height:"0.7em"}}/>
+                    <PersonAddOutlinedIcon onClick={this.handleEdit}
+                        style={{ height: "0.7em" }} />
                 </Tooltip>
                 <MuiThemeProvider theme={theme}>
                     <Dialog position="static"
@@ -200,9 +198,7 @@ class CollaboratorComponent extends Component {
                         onClose={this.handleClose}
                         className="collab-dialog"
                     >
-                        <Card className="get-card2" style={{
-                            borderRadius: "40px",
-                        }}>
+                        <Card className="get-card2">
                             <DialogTitle>
                                 Collaborators
                             </DialogTitle>

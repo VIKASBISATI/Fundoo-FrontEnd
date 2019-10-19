@@ -45,7 +45,7 @@ class Dashboard extends Component {
                 <CreateNotesComponent getNew={this.display} />
                 <div className="get-page">
                     <GetAllNoteComponent
-                        ref={this.newNote}
+                        wrappedComponentRef={this.newNote}
                         searchText={this.state.searchText}
                         list={this.state.list}
                         menu={this.state.menu}

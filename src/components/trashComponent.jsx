@@ -47,12 +47,30 @@ class TrashComponent extends Component {
             check: !this.state.check
         })
     }
+    handleRestore = () => {
+        var trashNoteId = this.props.trashProps;
+        var data = {
+            noteIdList: [trashNoteId],
+            isDeleted: false
+        }
+        console.log('data in trash', data);
+        trash(data)
+            .then((res) => {
+                console.log('res in trash after hitting', res);
+                this.props.delUp(trashNoteId)
+            }).catch((err) => {
+                console.log('error in trash ', err);
+            })
+    }
     render() {
         console.log("window", window.location.pathname);
         return (
             <div className="trash-del">
                 {window.location.pathname === '/getTrash' ?
-                    <Button onClick={this.handleForever}>Forever</Button>
+                    <div>
+                        <Button onClick={this.handleForever}>Forever</Button>
+                        <Button onClick={this.handleRestore}>Restore</Button>
+                    </div>
                     :
                     <Button onClick={this.handleButton}>Delete</Button>
                 }

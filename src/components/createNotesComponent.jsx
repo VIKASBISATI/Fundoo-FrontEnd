@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, InputBase, Tooltip, Button, MuiThemeProvider,createMuiTheme } from '@material-ui/core';
+import { Card, InputBase, Tooltip, Button, MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
@@ -7,17 +7,19 @@ import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import { addNotes } from '../services/userService';
 import ColorPaletteComponent from './colorPaletteComponent';
+import MoreOptionComponenent from './moreOptionComponenent'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import Checkbox from '@material-ui/core/Checkbox';
-const theme = createMuiTheme({
-    overrides: {
-        MuiCard: {
-            root: {
-                backgroundColor: "#e8e8e8",
-            }
-        }
-    }
-})
+import ReminderComponent from './reminderComponent'
+// const theme = createMuiTheme({
+//     overrides: {
+//         MuiCard: {
+//             root: {
+//                 backgroundColor: "#e8e8e8",
+//             }
+//         }
+//     }
+// })
 export default class createNotes extends Component {
     constructor(props) {
         super(props);
@@ -33,7 +35,8 @@ export default class createNotes extends Component {
             currentItem: {
                 text: '',
                 key: ''
-            }
+            },
+            archive: false
         }
         this.inputRef = React.createRef();
     }
@@ -80,6 +83,7 @@ export default class createNotes extends Component {
         this.setState({
             title: title
         })
+        console.log("title in create notes", this.state.title);
     }
     handleDescription = (e) => {
         var desc = e.target.value;
@@ -105,7 +109,38 @@ export default class createNotes extends Component {
             title: this.state.title,
             description: this.state.desc,
             color: this.state.color,
-            isArchived: this.state.archive
+        }
+        console.log("create notes data", data)
+        addNotes(data).then(async (res) => {
+            console.log(res);
+            await this.setState({
+                note: res.data.status.details
+            });
+            this.props.getNew(this.state.note)
+            this.setState({
+                noteClick: false,
+                title: '',
+                desc: '',
+                color: ''
+            })
+        }).catch((err) => {
+            console.log(err);
+        })
+
+    }
+    handleArchiveClose = async () => {
+        await this.setState({
+            noteClick: false,
+            title: '',
+            description: '',
+            archive: true
+        })
+        console.log("is archive", this.state.title);
+        var data = {
+            title: this.state.title,
+            description: this.state.desc,
+            color: this.state.color,
+            isArchived: true
         }
         console.log("create notes data", data)
         addNotes(data).then((res) => {
@@ -118,6 +153,7 @@ export default class createNotes extends Component {
                 noteClick: false,
                 title: '',
                 desc: '',
+                description: '',
                 color: ''
             })
         }).catch((err) => {
@@ -155,13 +191,6 @@ export default class createNotes extends Component {
             return data.text
         })
         console.log("add check list is ", addCheckList);
-
-        // var data = {
-        //     title: this.state.title,
-        //     isArchived: this.state.archive,
-        //     color: this.state.color,
-        //     noteCheckLists: addCheckList,
-        // }
         console.log("title", this.state.title);
 
         var data = new FormData();
@@ -234,8 +263,12 @@ export default class createNotes extends Component {
             <div className="create-container">
                 {this.state.noteClick ? (
                     <div className="create-take">
-                        <MuiThemeProvider theme={theme}>
-                        <Card className="create-card2" style={{ boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)", backgroundColor: this.state.color }} >
+                        {/* <MuiThemeProvider theme={theme}> */}
+                        <Card className="create-card2" style={{
+                            boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)",
+                            backgroundColor: this.state.color,
+                            borderRadius: "15px"
+                        }} >
                             <div className="input1">
                                 <InputBase className="in2"
                                     multiline
@@ -259,7 +292,7 @@ export default class createNotes extends Component {
                             <div className="notes-icons">
                                 <div className="notes-icon-div">
                                     <Tooltip title="Remind me">
-                                        <AddAlertOutlinedIcon style={{ height: "0.7em" }} />
+                                        <ReminderComponent />
                                     </Tooltip>
                                     <Tooltip title="collaborator">
                                         <PersonAddOutlinedIcon style={{ height: "0.7em" }} />
@@ -272,7 +305,8 @@ export default class createNotes extends Component {
                                         <ImageOutlinedIcon style={{ height: "0.7em" }} />
                                     </Tooltip>
                                     <Tooltip title="Archive">
-                                        <ArchiveOutlinedIcon style={{ height: "0.7em" }} />
+                                        <ArchiveOutlinedIcon style={{ height: "0.7em" }}
+                                            onClick={this.handleArchiveClose} />
                                     </Tooltip>
                                     <Tooltip title="More">
                                         <MoreVertOutlinedIcon style={{ height: "0.7em" }} />
@@ -285,7 +319,7 @@ export default class createNotes extends Component {
                                 </div>
                             </div>
                         </Card>
-                        </MuiThemeProvider>
+                        {/* </MuiThemeProvider> */}
                     </div>
                 ) : (
                         (null)
@@ -294,101 +328,105 @@ export default class createNotes extends Component {
                 {this.state.checkedState && !this.state.noteClick ?
                     <div className="create-take">
                         <MuiThemeProvider>
-                        <Card className="create-card2"
-                            style={{ boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)", backgroundColor: this.state.color }} >
-                            <div className="input1">
-                                <InputBase className="in2"
-                                    multiline
-                                    placeholder="Title"
-                                    id="title"
-                                    style={{ width: "100%" }}
-                                    onChange={this.handleTitle}
-                                    value={this.state.title}
-                                />
-                            </div>
-                            {this.state.checkList.map(data => {
-                                return (
-                                    <div className="check-map">
-                                        <InputBase className="in3"
-                                            multiline
-                                            value={data.text}
-                                            style={{ width: "100%" }}
-                                            onChange={(e) => this.handleUpdateItem(e.target.value, data.key)}
-                                        />
-                                        <DeleteOutlineIcon onClick={() => this.handleDeleteItem(data.key)} />
-                                    </div>
-                                )
-                            })}
-                            <hr style={{ margin: "0" }} />
-                            <div className="check-input2">
-                                <span style={{ color: "gray" }}>+</span>
-                                <InputBase className="in3"
-                                    multiline
-                                    placeholder="List item"
-                                    id="description"
-                                    onChange={this.handleList}
-                                    style={{ width: "100%" }}
-                                    value={this.state.currentItem.text}
-                                />
-                                <Button onClick={this.handleAddItem}>AddItem</Button>
-                            </div>
-                            <hr style={{ margin: "0" }} />
-                            <div className="notes-icons">
-                                <div className="notes-icon-div">
-                                    <Tooltip title="Remind me">
-                                        <AddAlertOutlinedIcon style={{ height: "0.7em" }} />
-                                    </Tooltip>
-                                    <Tooltip title="collaborator">
-                                        <PersonAddOutlinedIcon style={{ height: "0.7em" }} />
-                                    </Tooltip>
-                                    <ColorPaletteComponent
-                                        paletteProps={this.handleColor}
-                                        notesId={""}
+                            <Card className="create-card2"
+                                style={{ boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)", backgroundColor: this.state.color }} >
+                                <div className="input1">
+                                    <InputBase className="in2"
+                                        multiline
+                                        placeholder="Title"
+                                        id="title"
+                                        style={{ width: "100%" }}
+                                        onChange={this.handleTitle}
+                                        value={this.state.title}
                                     />
-                                    <Tooltip title="Add image">
-                                        <ImageOutlinedIcon style={{ height: "0.7em" }} />
-                                    </Tooltip>
-                                    <Tooltip title="Archive">
-                                        <ArchiveOutlinedIcon style={{ height: "0.7em" }} />
-                                    </Tooltip>
-                                    <Tooltip title="More">
-                                        <MoreVertOutlinedIcon style={{ height: "0.7em" }} />
-                                    </Tooltip>
                                 </div>
-                                <div>
-                                    <Button onClick={this.handleCheckClose}>
-                                        close
+                                {this.state.checkList.map(data => {
+                                    return (
+                                        <div className="check-map">
+                                            <InputBase className="in3"
+                                                multiline
+                                                value={data.text}
+                                                style={{ width: "100%" }}
+                                                onChange={(e) => this.handleUpdateItem(e.target.value, data.key)}
+                                            />
+                                            <DeleteOutlineIcon onClick={() => this.handleDeleteItem(data.key)} />
+                                        </div>
+                                    )
+                                })}
+                                <hr style={{ margin: "0" }} />
+                                <div className="check-input2">
+                                    <span style={{ color: "gray" }}>+</span>
+                                    <InputBase className="in3"
+                                        multiline
+                                        placeholder="List item"
+                                        id="description"
+                                        onChange={this.handleList}
+                                        style={{ width: "100%" }}
+                                        value={this.state.currentItem.text}
+                                    />
+                                    <Button onClick={this.handleAddItem}>AddItem</Button>
+                                </div>
+                                <hr style={{ margin: "0" }} />
+                                <div className="notes-icons">
+                                    <div className="notes-icon-div">
+                                        <Tooltip title="Remind me">
+                                            <ReminderComponent />
+                                        </Tooltip>
+                                        <Tooltip title="collaborator">
+                                            <PersonAddOutlinedIcon style={{ height: "0.7em" }} />
+                                        </Tooltip>
+                                        <ColorPaletteComponent
+                                            paletteProps={this.handleColor}
+                                            notesId={""}
+                                        />
+                                        <Tooltip title="Add image">
+                                            <ImageOutlinedIcon style={{ height: "0.7em" }} />
+                                        </Tooltip>
+                                        <Tooltip title="Archive">
+                                            <ArchiveOutlinedIcon style={{ height: "0.7em" }} />
+                                        </Tooltip>
+                                        <Tooltip title="More">
+                                            <MoreOptionComponenent noteId={null}
+                                                completeNote={null}
+                                                deleteUp={this.deleteUp}
+                                                moreOptionLabelProps={this.moreOptionLabel}
+                                            />                                       
+                                             </Tooltip>
+                                    </div>
+                                    <div>
+                                        <Button onClick={this.handleCheckClose}>
+                                            close
                             </Button>
+                                    </div>
                                 </div>
-                            </div>
-                        </Card>
+                            </Card>
                         </MuiThemeProvider>
                     </div> : (
                         !this.state.noteClick ?
                             <div className="create-take">
                                 <MuiThemeProvider>
-                                <Card className="create-card1" onClick={this.handleNoteClick}
-                                    style={{ boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)" }}>
-                                    <div className="input2" style={{ width: "100%" }}>
-                                        <InputBase className="in1"
-                                            multiline
-                                            placeholder="Take a note ...."
-                                            id="description"
-                                            ref={this.inputRef}
-                                            style={{ width: "100%" }}
-                                            onChange={this.handleDescription}
-                                            onClick={this.handleCards}
-                                            value={this.state.desc}
-                                        />
-                                    </div>
-                                    <div>
-                                        <Checkbox
-                                            checked
-                                            color="White"
-                                            onChange={this.handleCheckBox}
-                                        />
-                                    </div>
-                                </Card>
+                                    <Card className="create-card1" onClick={this.handleNoteClick}
+                                        style={{ boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)" }}>
+                                        <div className="input2" style={{ width: "100%" }}>
+                                            <InputBase className="in1"
+                                                multiline
+                                                placeholder="Take a note ...."
+                                                id="description"
+                                                ref={this.inputRef}
+                                                style={{ width: "100%" }}
+                                                onChange={this.handleDescription}
+                                                onClick={this.handleCards}
+                                                value={this.state.desc}
+                                            />
+                                        </div>
+                                        <div>
+                                            <Checkbox
+                                                checked
+                                                color="White"
+                                                onChange={this.handleCheckBox}
+                                            />
+                                        </div>
+                                    </Card>
                                 </MuiThemeProvider>
                             </div> :
                             (null))}

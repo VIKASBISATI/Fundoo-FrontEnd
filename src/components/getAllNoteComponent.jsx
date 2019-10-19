@@ -5,22 +5,26 @@ import { Tooltip } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ColorPaletteComponent from './colorPaletteComponent';
-import ReminderComponent from './reminderComponent'
+import ReminderComponent from './reminderComponent';
+import CollaboratorComponent from '../components/collaboratorComponent';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import MoreOptionComponenent from './moreOptionComponenent'
 import DialogContent from '@material-ui/core/DialogContent';
 import { deleteReminder } from '../services/userService';
+import Snackbar from '@material-ui/core/Snackbar'
+import IconButton from '@material-ui/core/IconButton';
+import ClearIcon from '@material-ui/icons/Clear';
 import { removeNoteLabel } from '../services/userService';
+import { withRouter } from 'react-router-dom'
 import ArchiveComponent from '../components/archiveComponent';
-import CollaboratorComponent from '../components/collaboratorComponent';
 import Avatar from '@material-ui/core/Avatar';
 const theme = createMuiTheme({
     overrides: {
         MuiBackdrop: {
             root: {
-                backgroundColor: "rgba(0,0,0, 0.01)",
+                backgroundColor: "rgba(0,0,0, 0.035)",
             }
         },
         MuiPaper: {
@@ -35,7 +39,7 @@ function titleDescSearch(searchText) {
         return val.title.includes(searchText) || val.description.includes(searchText)
     }
 }
-export default class GetAllNoteComponent extends Component {
+class GetAllNoteComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -48,10 +52,14 @@ export default class GetAllNoteComponent extends Component {
             colorUpdated: '',
             delChip: '',
             description: '',
+            openSnackBar: false,
+            SnackBarMessage: "",
             noteId: '',
             trashId: '',
             archiveId: '',
+            completNotes: [],
             imageNotes: [],
+            completeData: []
         }
     }
     componentDidMount() {
@@ -63,6 +71,25 @@ export default class GetAllNoteComponent extends Component {
             this.setState({
                 notes: res.data.data.data
             })
+            try{
+                var keyData;
+            let newNote=this.state.notes.map(key=>{
+                if(key.id===this.state.completNotes.id){
+                    console.log("key in map",key);    
+                    keyData=key
+                    return key
+                }
+            })
+            console.log("new note data is ",keyData);
+            this.setState({
+                completNotes:keyData
+            })
+             console.log("updated complete notes with reminder and lot more",this.state.completeNotes);
+
+        }catch(err){
+            console.log("eerr in get all notes",err);
+            
+        }
             // let c=0;
             // const imageNotes = this.state.notes.map(key => {
             //     if (key.isArchived === false
@@ -80,7 +107,8 @@ export default class GetAllNoteComponent extends Component {
         })
     }
 
-    updatedCard(upCard) {
+    updatedCard = (upCard) => {
+        console.log("new card", upCard);
         this.setState({
             notes: [...this.state.notes, upCard]
         })
@@ -125,12 +153,13 @@ export default class GetAllNoteComponent extends Component {
             description: description
         })
     }
-    handleUpdate = (id, oldTitle, oldDescription, colorUpdated) => {
+    handleUpdate = (id, oldTitle, oldDescription, colorUpdated, completKey) => {
         this.setState({
             noteId: id,
             title: oldTitle,
             description: oldDescription,
             open: !this.state.open,
+            completNotes: completKey,
             colorUpdated: colorUpdated
         })
         var data = {
@@ -167,7 +196,9 @@ export default class GetAllNoteComponent extends Component {
         // })
         this.setState({
             trashId: trashNoteId,
-            // open: !this.state.open
+            openSnackBar: !this.state.openSnackBar,
+            SnackBarMessage: "Note Deleted",
+            open: false
         })
         this.getNotes();
     }
@@ -189,11 +220,14 @@ export default class GetAllNoteComponent extends Component {
         //     notes: newArr1
         // })
         this.setState({
-            archiveId: noteId
+            archiveId: noteId,
+            openSnackBar: !this.state.openSnackBar,
+            SnackBarMessage: "Note archived"
         })
         console.log("noteid is in arcup", noteId);
         this.setState({
             archiveId: noteId,
+            open: false
             // open: !this.state.open
         })
         this.getNotes();
@@ -217,7 +251,6 @@ export default class GetAllNoteComponent extends Component {
             "reminder": ""
         }
         console.log("data in delete reminder is", data);
-
         deleteReminder(data).then((res) => {
             //First way
             // console.log("response in deleting reminder is ", res);
@@ -245,6 +278,11 @@ export default class GetAllNoteComponent extends Component {
             this.getNotes();
         }
     }
+    snackbarClose = () => {
+        this.setState({
+            openSnackBar: false
+        })
+    }
     getUpdatedReminders = (val) => {
         if (val) {
             this.getNotes();
@@ -259,6 +297,15 @@ export default class GetAllNoteComponent extends Component {
         if (col) {
             this.getNotes();
         }
+    }
+    handleSQA = (fullNotes) => {
+        console.log("this.props in get all notes sqa", this.props);
+        this.state.completeData.push(fullNotes.id);
+        this.state.completeData.push(fullNotes.title);
+        this.state.completeData.push(fullNotes.description);
+        this.state.completeData.push(true);
+        let id = fullNotes.id
+        this.props.history.push(`/quesAns/${id}`, this.state.completeData);
     }
     render() {
         const list = this.props.list ? "get-container1" : "get-container";
@@ -281,7 +328,9 @@ export default class GetAllNoteComponent extends Component {
                             backgroundColor: key.color,
                             borderRadius: "10px",
                             transform: (this.props.menu) ? "translate(80px,0) rotate(360deg)" : (null),
-                            transition: (this.props.menu) ? ("300ms") : (null)
+                            transition: (this.props.menu) ? ("300ms") : (null),
+                            visibility: this.state.open && this.state.noteId === key.id ? 'hidden' : (null),
+                            // transition:this.state.open && this.state.noteId === key.id?'5s':(null)
                         }}
                         >
                             <div className="input1">
@@ -290,7 +339,7 @@ export default class GetAllNoteComponent extends Component {
                                     placeholder="Title"
                                     id="title"
                                     style={{ paddingLeft: "3%" }}
-                                    onClick={() => this.handleUpdate(key.id, key.title, key.description, key.color)}
+                                    onClick={() => this.handleUpdate(key.id, key.title, key.description, key.color, key)}
                                     value={key.title}
                                 />
                             </div>
@@ -299,7 +348,7 @@ export default class GetAllNoteComponent extends Component {
                                     multiline
                                     id="description"
                                     style={{ paddingLeft: "3%" }}
-                                    onClick={() => this.handleUpdate(key.id, key.title, key.description, key.color)}
+                                    onClick={() => this.handleUpdate(key.id, key.title, key.description, key.color, key)}
                                     value={key.description}
                                 />
                             </div>
@@ -354,20 +403,18 @@ export default class GetAllNoteComponent extends Component {
                                     <ArchiveComponent archiveNoteId={key.id}
                                         arcUp={this.arcUp} />
                                 </Tooltip>
-                                <Tooltip title="More">
-                                    <MoreOptionComponenent noteId={key.id}
-                                        completeNote={key}
-                                        deleteUp={this.deleteUp}
-                                        moreOptionLabelProps={this.moreOptionLabel}
-                                    />
-                                </Tooltip>
+                                <MoreOptionComponenent noteId={this.state.noteId}
+                                    completeNote={key}
+                                    deleteUp={this.deleteUp}
+                                    moreOptionLabelProps={this.moreOptionLabel}
+                                />
                             </div>
                             <Divider />
                             <div>
                                 {key.questionAndAnswerNotes.map(data => {
                                     return (
                                         <div className="get-questions">
-                                            <p>Question Asked</p>
+                                            <p onClick={() => this.handleSQA(key)}>Question Asked</p>
                                             {data.message}
                                         </div>
                                     )
@@ -403,10 +450,56 @@ export default class GetAllNoteComponent extends Component {
                                                 onChange={this.handleUpdateDescription}
                                             />
                                         </div>
+                                        {
+                                            this.state.completNotes !== undefined ?
+                                                <div className="get-chips">
+                                                    {(this.state.completNotes.noteLabels) ?
+                                                        this.state.completNotes.noteLabels.map(data => {
+                                                            return (
+                                                                <Chip onDelete={() =>
+                                                                    this.handleLabelDelete(this.state.completNotes.id, data.id)}
+                                                                    label={data.label}>
+                                                                </Chip>
+                                                            );
+                                                        }) : (null)
+                                                    }
+                                                    {
+                                                        this.state.completNotes.reminder !== undefined ?
+                                                            this.state.completNotes.reminder.map(data => {
+                                                                return (
+                                                                    <Chip onDelete={() =>
+                                                                        this.handleDeleteReminder(this.state.completNotes.id)}
+                                                                        icon={<AccessTimeIcon />}
+                                                                        label={data.slice(0, 21)}
+                                                                        size="medium">
+                                                                    </Chip>
+                                                                );
+                                                            }) : (null)
+                                                    }
+                                                    {this.state.completNotes.collaborators !== undefined ?
+                                                        this.state.completNotes.collaborators.map(col => {
+                                                            return (
+                                                                <Avatar style={{
+                                                                    cursor: "pointer",
+                                                                    width: "35px", height: "35px"
+                                                                }}>
+                                                                    {col.firstName.toUpperCase().charAt(0)}
+                                                                </Avatar>
+                                                            )
+                                                        }) : (null)
+                                                    }
+                                                </div>
+                                                : (null)
+                                        }
                                     </DialogContent>
                                     <DialogActions>
                                         <div className="notes-icon-div2">
-                                            <CollaboratorComponent />
+                                            <ReminderComponent noteId={this.state.noteId}
+                                                getUpdatedReminders={this.getUpdatedReminders}
+                                            />
+                                            <CollaboratorComponent noteToCollab={this.state.noteId}
+                                                addCollab={this.addCollab}
+                                                remCollab={this.remCollab} />
                                             <Tooltip title="Change color">
                                                 <ColorPaletteComponent
                                                     paletteProps={this.handleColor}
@@ -416,10 +509,10 @@ export default class GetAllNoteComponent extends Component {
                                                 <ImageOutlinedIcon style={{ height: "0.7em" }} />
                                             </Tooltip>
                                             <Tooltip title="Archive">
-                                                <ArchiveComponent archiveNoteId={key.id}
+                                                <ArchiveComponent archiveNoteId={this.state.noteId}
                                                     arcUp={this.arcUp} />
                                             </Tooltip>
-                                            <MoreOptionComponenent noteId={key.id}
+                                            <MoreOptionComponenent noteId={this.state.noteId}
                                                 completeNote={key}
                                                 deleteUp={this.deleteUp}
                                                 moreOptionLabelProps={this.moreOptionLabel}
@@ -433,6 +526,27 @@ export default class GetAllNoteComponent extends Component {
                                 </Card>
                             </Dialog>
                         </MuiThemeProvider>
+                        <Snackbar
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            // open={true}
+                            open={this.state.openSnackBar}
+                            autoHideDuration={6000}
+                            onClose={this.snackbarClose}
+                            message={<span id="messege-id">{this.state.SnackBarMessage}</span>}
+                            action={[
+                                <IconButton
+                                    key="close"
+                                    arial-label="close"
+                                    color="inherit"
+                                    onClick={this.snackbarClose}
+                                >
+                                    <ClearIcon onClick={this.snackbarClose} />
+                                </IconButton>
+                            ]}
+                        />
                     </div >
                 ))
         })
@@ -443,3 +557,4 @@ export default class GetAllNoteComponent extends Component {
         )
     }
 }
+export default withRouter(GetAllNoteComponent)

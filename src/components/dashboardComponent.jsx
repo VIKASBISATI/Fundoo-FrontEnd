@@ -79,9 +79,10 @@ class DashboardComponent extends Component {
                 a: 1,
                 dashboardNameVariant: "FundooNotes"
             })
+            console.log("the path name is", window.location.pathname);
+
         } catch (err) {
             console.log("err", err);
-
         }
     }
     handleNotes = (e) => {
@@ -229,15 +230,17 @@ class DashboardComponent extends Component {
                                             {/* {this.state.dashboardNameVariant === '' ? "Fundoonotes" :
                                             this.state.dashboardNameVariant} */}
                                             {
-                                                !window.location.href === '/editor' ? (
-                                                    this.props.location.state !== undefined ?
+                                                (
+                                                    this.props.location.state !== undefined &&
+                                                        !window.location.pathname.startsWith('/quesAns') ?
                                                         <span style={{ color: "#5F6368", fontSize: "1.5vw" }}>
                                                             {this.props.location.state}
                                                         </span> :
                                                         <span style={{ color: "#5F6368", fontSize: "1.5vw" }}>
-                                                            {"FundooNotes"}</span>) : (
-                                                        <span style={{ color: "#5F6368", fontSize: "1.5vw" }}>
                                                             {"FundooNotes"}</span>)
+                                                //     : (
+                                                // <span style={{ color: "#5F6368", fontSize: "1.5vw" }}>
+                                                //     {this.props.location.state}</span>)
                                             }
 
                                         </p>
@@ -278,11 +281,13 @@ class DashboardComponent extends Component {
                                     </Tooltip>
                                     {this.state.view ? (
                                         <Tooltip title="GridView">
-                                            <AppsOutlinedIcon onClick={this.handleGridView} />
+                                            <AppsOutlinedIcon onClick={this.handleGridView}
+                                                style={{ cursor: "pointer" }} />
                                         </Tooltip>
                                     ) : (
                                             <Tooltip title="ListView">
-                                                <DnsOutlinedIcon onClick={this.handleListView} />
+                                                <DnsOutlinedIcon onClick={this.handleListView}
+                                                    style={{ cursor: "pointer" }} />
                                             </Tooltip>
                                         )}
                                     <ProfilePicComponent />

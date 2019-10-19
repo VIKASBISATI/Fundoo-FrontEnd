@@ -42,7 +42,7 @@ class ProfilePicComponent extends Component {
         });
     }
     handleSignOut = () => {
-        this.props.history.push('/login')
+        this.props.history.push('/')
     }
     handleClickAway = () => {
         this.setState({

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getAllNotes, updateNotes, colorChange } from '../services/userService'
+import { updateNotes, colorChange } from '../services/userService'
 import { Card, InputBase, Button, createMuiTheme, MuiThemeProvider, Chip, Divider } from '@material-ui/core';
 import { Tooltip } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
@@ -13,6 +13,7 @@ import MoreOptionComponenent from './moreOptionComponenent'
 import DialogContent from '@material-ui/core/DialogContent';
 import { deleteReminder } from '../services/userService';
 import { removeNoteLabel } from '../services/userService';
+import { getNotesByLabel } from '../services/userService'
 import ArchiveComponent from '../components/archiveComponent';
 import CollaboratorComponent from '../components/collaboratorComponent';
 import Avatar from '@material-ui/core/Avatar';
@@ -55,30 +56,58 @@ export default class DisplayLabelComponent extends Component {
         }
     }
     componentDidMount() {
-        this.getNotes();
+        try {
+            this.getLabels();
+        } catch (err) {
+            console.log("Err in component label", err)
+
+        }
     }
-    getNotes = () => {
-        getAllNotes().then((res) => {
-            console.log('response is', res);
-            this.setState({
-                notes: res.data.data.data
+    getLabels = () => {
+        try {
+            console.log("This.props in display label", this.props.props.history.location.state);
+            let label = this.props.props.history.location.state;
+            var data = {
+                labelName: label
+            };
+
+            getNotesByLabel(data, label).then((res) => {
+                console.log("Response after hitting get label", res);
+                this.setState({
+                    notes: res.data.data.data
+                })
+                console.log("notes in label", this.state.notes);
+
+            }).catch((err) => {
+                console.log("Err in hitting get label", err);
             })
-            // let c=0;
-            // const imageNotes = this.state.notes.map(key => {
-            //     if (key.isArchived === false
-            //         && key.isDeleted === false) {
-            //         return ++c
-            //     }
-            // })
-            // console.log("const image notes is ", imageNotes);
+        } catch (err) {
+            console.log("Err in display label component", err);
 
-            // this.setState({
-            //     imageNotes: imageNotes
-            // })
-            // console.log("image notes in get all notes is ", this.state.imageNotes);
-
-        })
+        }
     }
+    // getNotes = () => {
+    //     getAllNotes().then((res) => {
+    //         console.log('response is', res);
+    //         this.setState({
+    //             notes: res.data.data.data
+    //         })
+    // let c=0;
+    // const imageNotes = this.state.notes.map(key => {
+    //     if (key.isArchived === false
+    //         && key.isDeleted === false) {
+    //         return ++c
+    //     }
+    // })
+    // console.log("const image notes is ", imageNotes);
+
+    // this.setState({
+    //     imageNotes: imageNotes
+    // })
+    // console.log("image notes in get all notes is ", this.state.imageNotes);
+
+    //     })
+    // }
 
     updatedCard(upCard) {
         this.setState({
@@ -263,12 +292,11 @@ export default class DisplayLabelComponent extends Component {
         const list = this.props.list ? "get-container1" : "get-container";
         const list1 = this.props.list ? "get-contents1" : "get-contents"
         const list2 = this.props.list ? "get-card1" : "get-card"
-        console.log("props in getall notes is ", this.props.list);
+        console.log("props in getall notes is ", this.props);
         console.log("list is ", list);
         console.log('delup props in get note component', this.state.trashId);
-        const allNotes = this.state.notes.slice(0).reverse().filter(titleDescSearch(this.props.searchText)).map((key, index) => {
-            // console.log('keyid ', key.id);
-            console.log("first character is ", key.user.firstName.charAt(0));
+        const allNotes = this.state.notes.filter(titleDescSearch(this.props.searchText)).map((key, index) => {
+        console.log("first character is ", key);
             return (
                 (((key.isArchived === false)
                     && (key.isDeleted === false &&
