@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import GetArchiveComponent from "../components/getArchiveComponent";
+import ShoppingComponent from "../components/shoppingCart";
 import DashBoardComponent from '../components/dashboardComponent';
-export default class ArchivePage extends Component {
+class ShoppingCartPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             searchText: '',
             list: false,
             menu: false,
-       
+
         }
         this.newNote = React.createRef()
     }
@@ -34,6 +34,8 @@ export default class ArchivePage extends Component {
         })
     }
     render() {
+        console.log("props in shopping ",this.props);
+        
         return (
             <div >
                 <DashBoardComponent props={this.props}
@@ -41,15 +43,14 @@ export default class ArchivePage extends Component {
                     menuGet={this.menuGet}
                     listView={this.listView} />
                 <div className="get-archive">
-                    <GetArchiveComponent props={this.props}
+                    <ShoppingComponent props={this.props}
                         ref={this.newNote}
                         searchText={this.state.searchText}
                         list={this.state.list}
-                        menu={this.state.menu}
-                    />
+                        menu={this.state.menu} />
                 </div>
-          
-            </div>
-        );
+
+            </div>);
     }
 }
+export default ShoppingCartPage;

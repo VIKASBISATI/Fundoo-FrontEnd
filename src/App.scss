@@ -242,3 +242,127 @@ div.DraftEditor-root {
 .editor-thumbsUp {
   @include flexCenter();
 }
+.no-archive {
+  @include flexCenter();
+  justify-content: center;
+  height: 65vh;
+  flex-direction: column;
+}
+// -----------------------------------------------------shopping card----------------------------------------------------
+.shopping-card1 {
+  width: 120px;
+  /* height: 10vh; */
+  min-height: 3vh;
+  border: 1px solid #a7a7a7;
+  border-radius: 5px;
+  padding: 0.9em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: auto;
+}
+
+.shopping-textArea{
+  width: 200px;
+  /* height: 10vh; */
+  min-height: 8vh;
+  border: 1px solid #a7a7a7;
+  padding: 0.9em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: auto;
+}
+
+.shopping-card2 {
+  width: 80px;
+  // width: auto;
+  /* height: 10vh; */
+  min-height: 10vh;
+  border: 1px solid #a7a7a7;
+  border-radius: 5px;
+  padding: 0.9em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: auto;
+}
+.shopping-container {
+  width: 70vw;
+  min-height: 60vh;
+  padding: 10px 10px 10px 10px;
+}
+.shopping-details {
+  margin: 10px 0px 10px 0px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.shopping-details > div {
+  padding: 1.4em;
+}
+.card-container1 {
+  display: flex;
+  margin: 1.4em;
+}
+.cart-info1 {
+  width: 220px;
+  display: flex;
+  align-items: flex-start;
+  /* justify-content: space-between; */
+  flex-direction: column;
+}
+.cart-info2 {
+  display: flex;
+  flex-direction: column;
+}
+.cart-info3 {
+  @extend .cart-info2;
+}
+.total-box {
+  min-width: 15vw;
+  width: auto;
+  /* height: 10vh; */
+  min-height: 10vh;
+  border: 1px solid #a7a7a7;
+  border-radius: 3px;
+  padding: 0.9em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: auto;
+}
+.shoppingcart-header {
+  margin: 1.4em;
+}
+.cart-info4 {
+  margin: 1.4em;
+}
+.shopping-details1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* padding: 10px; */
+  flex-wrap: wrap;
+  width: 324px;
+}
+.payment-options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.cart-info5 {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.cart-info5 > div {
+  display: flex;
+  padding: 1.4em;
+}

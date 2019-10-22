@@ -54,7 +54,8 @@ class GetArchiveComponent extends Component {
             trashId: '',
             openSnackBar: false,
             SnackBarMessage: "",
-            archiveId: ''
+            archiveId: '',
+            count: 0,
         }
     }
     componentDidMount() {
@@ -196,7 +197,7 @@ class GetArchiveComponent extends Component {
     //     })
     //     this.setState({
     //         trashId: trashNoteId,
-    //         // open: !this.state.open
+    // open: !this.state.open
     //     })
     // }
     handleUpdate = (id, oldTitle, oldDescription, colorUpdated) => {
@@ -224,7 +225,7 @@ class GetArchiveComponent extends Component {
         this.setState({
             delChip: true
         })
- 
+
     }
 
     render() {
@@ -232,6 +233,7 @@ class GetArchiveComponent extends Component {
         const list1 = this.props.list ? "get-contents1" : "get-contents"
         const list2 = this.props.list ? "get-card1" : "get-card"
         const allNotes = this.state.notes.filter(titleDescSearch(this.props.searchText)).map((key) => {
+            console.log("count in archive", this.state.count);
             // console.log('    keyid ', key.id);
             return (
                 (((key.isArchived === true))
@@ -243,6 +245,7 @@ class GetArchiveComponent extends Component {
                             transform: (this.props.menu) ? "translate(80px,0) rotate(360deg)" : (null),
                             transition: (this.props.menu) ? ("300ms") : (null)
                         }}>
+                            {this.state.count++}
                             <div className="input1">
                                 <InputBase className="get-in2"
                                     multiline
@@ -376,7 +379,7 @@ class GetArchiveComponent extends Component {
                                     color="inherit"
                                     onClick={this.snackbarClose}
                                 >
-                                    <ClearIcon onClick={this.snackbarClose}/>
+                                    <ClearIcon onClick={this.snackbarClose} />
                                 </IconButton>
                             ]}
                         />
@@ -384,10 +387,14 @@ class GetArchiveComponent extends Component {
                 ))
         })
         return (
-            <div className={list} >
-                {allNotes}
-
-            </div>
+            this.state.count > 0 ?
+                <div className={list} >
+                    {allNotes}
+                </div> :
+                <div className="no-archive" >
+                    <img src={require('../assets/images/notes.png')} width="80px" height="80px" />
+                    Your archived notes appear here
+                </div>
         )
     }
 }

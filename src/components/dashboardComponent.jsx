@@ -2,6 +2,7 @@ import { AppBar, createMuiTheme, IconButton, MuiThemeProvider, Toolbar, Tooltip,
 import RefreshIcon from '@material-ui/icons/Refresh';
 import MenuIcon from '@material-ui/icons/Menu';
 import React, { Component } from 'react';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SearchIcon from '@material-ui/icons/Search';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
@@ -204,6 +205,10 @@ class DashboardComponent extends Component {
         this.props.listView(this.state.view)
     }
 
+    handleShoppingIcon = () => {
+        this.props.history.push('/shoppingCart')
+    }
+
     render() {
         console.log("search after setstate====>", this.state.searchText);
         return (
@@ -271,6 +276,7 @@ class DashboardComponent extends Component {
                                     </ClickAwayListener>
                                 </div>
                                 <div className="dashboard-refresh">
+                                    <ShoppingCartIcon onClick={this.handleShoppingIcon} />
                                     <Tooltip title="Refresh">
                                         <RefreshIcon onClick={this.handleReload} style={{ cursor: "pointer" }}
                                         // style={{

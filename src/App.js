@@ -28,6 +28,7 @@ import GetDeletedComponent from '../src/pages/getDeleted';
 import GetReminders from './pages/getAllReminder';
 import WysiwygPage from './pages/wysiwyg';
 import DisplayLabel from './pages/displayLabel'
+import ShoppingCartPage from './pages/shopping'
 class App extends React.Component {
   render() {
     return (
@@ -47,6 +48,7 @@ class App extends React.Component {
           <Route path="/getArchive" component={GetArchiveComponent}></Route>
           <Route path="/getTrash" component={GetDeletedComponent}></Route>
           <Route path="/getReminders" component={GetReminders}></Route>
+          <Route path="/shoppingCart" component={ShoppingCartPage}></Route>
           <Route path="/quesAns/:id" component={WysiwygPage}></Route>
           <Route path="/dispLabel/:label" component={DisplayLabel}></Route>
         </Switch>

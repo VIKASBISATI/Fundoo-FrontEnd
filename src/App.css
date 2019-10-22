@@ -249,7 +249,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 19vh;
+  width: 23vh;
 }
 
 .dashboard-logoSearch {
@@ -294,7 +294,7 @@
   margin-bottom: 55px
 }
 
-.create-take{
+.create-take {
   display: flex;
   justify-content: center;
 }
@@ -373,7 +373,7 @@
   min-height: auto;
   border-radius: 1em;
   width: 225px;
-  border-radius: 18px
+  border-radius: 18px;
 }
 
 .get-card1 {
@@ -381,24 +381,25 @@
   min-width: auto;
   min-height: auto;
   border-radius: 1em;
-  border-radius: 18px
+  border-radius: 18px;
 }
 
 .get-card1:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
-  transform: translateY(-5px);
+  /* transform: scale(1.07); */
+
 }
 
 .get-card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
-  transform: translateY(-5px);
+  /* transform: scale(1.07); */
 }
 
-.get-card1:hover:after {
+.get-card1:hover::after {
   position: absolute;
 }
 
-.get-card:hover:after {
+.get-card:hover::after {
   position: absolute;
 }
 
@@ -474,12 +475,13 @@
   padding-bottom: 3%;
 }
 
-.get-questions{
+.get-questions {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
   padding-left: 4%;
 }
+
 /* ------------------------------------------------------Drawer------------------------------------------------------------ */
 
 .drawer-container {

@@ -17,13 +17,8 @@ export function userForgotPassword(forgotData) {
 }
 export async function abc() {
     console.log("in abc");
-
     var snap = await Firebase.firestore.collection('fundoo').doc('image').get()    
     console.log("res",snap._document.proto.fields.url.stringValue);
     var url=snap._document.proto.fields.url.stringValue
-    
     return url;
-
-
 }
-

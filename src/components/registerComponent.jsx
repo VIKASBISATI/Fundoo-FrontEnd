@@ -118,7 +118,7 @@ class RegisterComponent extends React.Component {
         if (this.props.location.state !== 'undefined') {
             changeColor = "orange"
             cartIdd = this.props.location.state.pIdCart
-            // cart = this.props.location.state.idCart
+            cart = this.props.location.state.idCart
             status = "Selected"
         }
         console.log(this.props.location.state)

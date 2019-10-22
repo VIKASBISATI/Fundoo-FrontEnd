@@ -71,25 +71,25 @@ class GetAllNoteComponent extends Component {
             this.setState({
                 notes: res.data.data.data
             })
-            try{
+            try {
                 var keyData;
-            let newNote=this.state.notes.map(key=>{
-                if(key.id===this.state.completNotes.id){
-                    console.log("key in map",key);    
-                    keyData=key
-                    return key
-                }
-            })
-            console.log("new note data is ",keyData);
-            this.setState({
-                completNotes:keyData
-            })
-             console.log("updated complete notes with reminder and lot more",this.state.completeNotes);
+                let newNote = this.state.notes.map(key => {
+                    if (key.id === this.state.completNotes.id) {
+                        console.log("key in map", key);
+                        keyData = key
+                        return key
+                    }
+                })
+                console.log("new note data is ", keyData);
+                this.setState({
+                    completNotes: keyData
+                })
+                console.log("updated complete notes with reminder and lot more", this.state.completeNotes);
 
-        }catch(err){
-            console.log("eerr in get all notes",err);
-            
-        }
+            } catch (err) {
+                console.log("eerr in get all notes", err);
+
+            }
             // let c=0;
             // const imageNotes = this.state.notes.map(key => {
             //     if (key.isArchived === false
@@ -327,8 +327,8 @@ class GetAllNoteComponent extends Component {
                         <Card className={list2} style={{
                             backgroundColor: key.color,
                             borderRadius: "10px",
-                            transform: (this.props.menu) ? "translate(80px,0) rotate(360deg)" : (null),
-                            transition: (this.props.menu) ? ("300ms") : (null),
+                            transform: (this.props.menu) ? "translate(80px,0) " : (null),
+                            transition: (this.props.menu) ? ("300ms") : ("300ms"),
                             visibility: this.state.open && this.state.noteId === key.id ? 'hidden' : (null),
                             // transition:this.state.open && this.state.noteId === key.id?'5s':(null)
                         }}

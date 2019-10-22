@@ -10,6 +10,7 @@ import { withRouter } from 'react-router-dom';
 // import firebase from '../services/firebase.config'
 // import { ServiceComponent } from '../components/serviceCardComponent'
 import ClearIcon from '@material-ui/icons/Clear';
+// import undefined from 'firebase/empty-import';
 var Url = "http://fundoonotes.incubation.bridgelabz.com/"
 //class Login extends React.Component or we can use React.createClass
 class Login extends React.Component {
@@ -88,8 +89,13 @@ class Login extends React.Component {
                 localStorage.setItem('userId', res.data.userId);
                 localStorage.setItem('LastName', res.data.lastName);
                 localStorage.setItem('Email', res.data.email);
-                localStorage.setItem('profileimage', Url + res.data.imageUrl)
+                localStorage.setItem('profileimage', Url + res.data.imageUrl);
+                localStorage.setItem('cart',this.props.location.state.cart)
+                if(this.props.location.state!==undefined){
+                    this.props.history.push('/shoppingCart',this.props.location.state.cart)
+                }else{
                 this.props.history.push('/dashboard');
+                }
             }).catch((err) => {
                 console.log(err);
                 this.setState({
