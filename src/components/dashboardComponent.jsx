@@ -65,6 +65,7 @@ class DashboardComponent extends Component {
             bgClr: " #f0f0f0",
             refresh: false,
             name: '',
+            rot: false,
             view: false,
             a: ''
         }
@@ -78,6 +79,7 @@ class DashboardComponent extends Component {
             this.setState({
                 name: name.charAt(0),
                 a: 1,
+                rot: !this.state.rot,
                 dashboardNameVariant: "FundooNotes"
             })
             console.log("the path name is", window.location.pathname);
@@ -151,7 +153,6 @@ class DashboardComponent extends Component {
         })
     }
 
-
     handleClose = () => {
         this.setState({
             bgClr: "#f0f0f0"
@@ -222,7 +223,11 @@ class DashboardComponent extends Component {
                                 <div className="dashboard-logoSearch">
                                     <div className="dashboard-logo">
                                         <Tooltip title="Menu">
-                                            <MenuIcon onClick={this.handleMenu} style={{ cursor: "pointer" }} />
+                                            <MenuIcon onClick={this.handleMenu} style={{
+                                                cursor: "pointer",
+                                                fontWeight: "600", opacity: "0.5"
+                                            }}
+                                            />
                                         </Tooltip>
                                         <DrawerComponent menuSelect={this.state.menu}
                                             changeToNote={this.changeToNote}
@@ -230,7 +235,11 @@ class DashboardComponent extends Component {
                                             changeToArchive={this.changeToArchive}
                                         />
                                         <img src={require("../assets/images/keep.png")} alt="" width="30px"
-                                            height="30px" />
+                                            height="30px" style={{
+                                                padding:"0px 10px 0px 10px",
+                                                transform: (this.state.rot) ? "rotate(360deg) " : (null),
+                                                transition: (this.state.rot) ? ("infinite") : ("infinite"),
+                                            }} />
                                         <p id="blinking">
                                             {/* {this.state.dashboardNameVariant === '' ? "Fundoonotes" :
                                             this.state.dashboardNameVariant} */}
@@ -238,10 +247,16 @@ class DashboardComponent extends Component {
                                                 (
                                                     this.props.location.state !== undefined &&
                                                         !window.location.pathname.startsWith('/quesAns') ?
-                                                        <span style={{ color: "#5F6368", fontSize: "1.5vw" }}>
+                                                        <span style={{
+                                                            color: "#5F6368", fontSize: "1.5vw"
+                                                            , fontWeight: "600", opacity: "0.5"
+                                                        }}>
                                                             {this.props.location.state}
                                                         </span> :
-                                                        <span style={{ color: "#5F6368", fontSize: "1.5vw" }}>
+                                                        <span style={{
+                                                            color: "#5F6368", fontSize: "1.5vw"
+                                                            , fontWeight: "600", opacity: "0.5"
+                                                        }}>
                                                             {"FundooNotes"}</span>)
                                                 //     : (
                                                 // <span style={{ color: "#5F6368", fontSize: "1.5vw" }}>
@@ -257,7 +272,7 @@ class DashboardComponent extends Component {
                                         }}>
                                             <IconButton>
                                                 <Tooltip title="search">
-                                                    <SearchIcon />
+                                                    <SearchIcon style={{padding:"0.5em"}}/>
                                                 </Tooltip>
                                             </IconButton>
                                             <InputBase style={{ width: "100%" }}
@@ -276,9 +291,15 @@ class DashboardComponent extends Component {
                                     </ClickAwayListener>
                                 </div>
                                 <div className="dashboard-refresh">
-                                    <ShoppingCartIcon onClick={this.handleShoppingIcon} />
+                                    <Tooltip title="Cart">
+                                        <ShoppingCartIcon onClick={this.handleShoppingIcon} style=
+                                            {{ fontWeight: "600", opacity: "0.5", cursor: "pointer" }} />
+                                    </Tooltip>
                                     <Tooltip title="Refresh">
-                                        <RefreshIcon onClick={this.handleReload} style={{ cursor: "pointer" }}
+                                        <RefreshIcon onClick={this.handleReload} style={{
+                                            cursor: "pointer"
+                                            , fontWeight: "600", opacity: "0.5"
+                                        }}
                                         // style={{
                                         //     transform: (this.state.refresh) ? " rotate(360deg)" : (null),
                                         //     transition: (this.props.menu) ? ("5s") : (null)
@@ -288,12 +309,19 @@ class DashboardComponent extends Component {
                                     {this.state.view ? (
                                         <Tooltip title="GridView">
                                             <AppsOutlinedIcon onClick={this.handleGridView}
-                                                style={{ cursor: "pointer" }} />
+                                                style={{
+                                                    cursor: "pointer"
+                                                    , fontWeight: "600", opacity: "0.5"
+                                                }} />
                                         </Tooltip>
                                     ) : (
                                             <Tooltip title="ListView">
                                                 <DnsOutlinedIcon onClick={this.handleListView}
-                                                    style={{ cursor: "pointer" }} />
+                                                    style={{
+                                                        cursor: "pointer"
+                                                        , fontWeight: "600", opacity: "0.5"
+                                                    }}
+                                                />
                                             </Tooltip>
                                         )}
                                     <ProfilePicComponent />
@@ -302,7 +330,6 @@ class DashboardComponent extends Component {
                         </div>
                     </AppBar>
                 </MuiThemeProvider>
-
             </div>
         )
     }

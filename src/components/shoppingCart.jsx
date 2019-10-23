@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Divider, Button } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import { myCart, placeOrder } from '../services/cartServices';
@@ -69,7 +69,7 @@ class ShoppingCart extends Component {
         } else {
             this.setState({
                 openSnackBar: 'true',
-                SnackBarMessage: 'failed'
+                SnackBarMessage: 'failed!'
             })
         }
     }
@@ -117,7 +117,7 @@ class ShoppingCart extends Component {
                                 <div className="cart-info1">
                                     <span style={{ fontSize: "1rem", color: "#40a1e2" }}>{this.state.productName} pack details</span>
                                     <li>
-                                        {this.state.desc}
+                                        <span style={{ fontSize: "1rem" }}>{this.state.desc}</span>
                                     </li>
                                 </div>
                                 <div className="cart-info2">
@@ -133,7 +133,7 @@ class ShoppingCart extends Component {
                                         <span style={{ fontSize: "0.9rem" }}>SubTotal(1 item): ${this.state.cartDetails.price}</span>
                                         <p style={{
                                             fontSize: "0.9rem", color: "#fff",
-                                            backgroundColor: "#40a1e2", borderRadius: "2px"
+                                            backgroundColor: "#40a1e2", borderRadius: "2px", cursor: "pointer", padding: "4px"
                                         }} onClick={this.handleProceed}>Proceed to Checkout</p>
                                     </div>
                                 </div>
@@ -149,7 +149,7 @@ class ShoppingCart extends Component {
                                 <div className="cart-info1">
                                     <span style={{ fontSize: "1rem", color: "#40a1e2" }}>{this.state.productName} pack details</span>
                                     <li>
-                                        {this.state.desc}
+                                        <span style={{ fontSize: "1rem" }}>{this.state.desc}</span>
                                     </li>
                                 </div>
                                 <div className="cart-info2">
@@ -160,7 +160,8 @@ class ShoppingCart extends Component {
                                     <div className="total-box">
                                         <p style={{
                                             fontSize: "0.9rem", color: "#fff",
-                                            backgroundColor: "#40a1e2", borderRadius: "2px"
+                                            backgroundColor: "#40a1e2", borderRadius: "2px",
+                                            cursor: "pointer", padding: "4px"
                                         }} onClick={this.handlePlaceOrder}>Place your order</p>
                                         <span style={{ fontSize: "0.9rem" }}>SubTotal(1 item): ${this.state.cartDetails.price}</span>
                                     </div>
@@ -177,7 +178,7 @@ class ShoppingCart extends Component {
                             <div className="cart-info1">
                                 <span style={{ fontSize: "1rem", color: "#40a1e2" }}>{this.state.productName} pack details</span>
                                 <li>
-                                    {this.state.desc}
+                                    <span style={{ fontSize: "1rem" }}>{this.state.desc}</span>
                                 </li>
                             </div>
                             <div className="cart-info2">
@@ -218,7 +219,7 @@ class ShoppingCart extends Component {
                     onClose={this.snackbarClose}
                     message={<span id="messege-id">{this.state.SnackBarMessage}</span>}
                     action={[
-                        <Button onClick={this.snackbarClose} color="secondary" style={{textTransform:"none"}} >
+                        <Button onClick={this.snackbarClose} color="secondary" style={{ textTransform: "none" }} >
                             please enter address
                         </Button>
                     ]}

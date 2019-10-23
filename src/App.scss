@@ -253,7 +253,7 @@ div.DraftEditor-root {
   width: 120px;
   /* height: 10vh; */
   min-height: 3vh;
-  border: 1px solid #a7a7a7;
+  border: 6px solid #fb0;
   border-radius: 5px;
   padding: 0.9em;
   display: flex;
@@ -263,7 +263,11 @@ div.DraftEditor-root {
   height: auto;
 }
 
-.shopping-textArea{
+.shopping-card1:hover{
+  border: 6px solid #a7a7a7  ;
+}
+
+.shopping-textArea {
   width: 200px;
   /* height: 10vh; */
   min-height: 8vh;

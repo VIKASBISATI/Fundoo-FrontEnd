@@ -363,6 +363,7 @@
   display: flex;
   justify-content: space-around;
   width: 40%;
+  transition:  2s;
 }
 
 /* ------------------------------------------------getNotes--------------------------------------------------------------- */
@@ -387,7 +388,6 @@
 .get-card1:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
   /* transform: scale(1.07); */
-
 }
 
 .get-card:hover {
@@ -404,10 +404,12 @@
 }
 
 .get-card1:hover .notes-icon-div1 {
+  transform: transition 2s;
   visibility: visible;
 }
 
 .get-card:hover .notes-icon-div1 {
+  transform: transition 2s;
   visibility: visible;
 }
 
@@ -507,6 +509,8 @@
   display: flex;
   align-content: flex-start;
   align-items: space-around;
+  font-weight: 600;
+  opacity: 0.5;
   /* justify-content: space-between; */
 }
 

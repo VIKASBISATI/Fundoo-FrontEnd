@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Card, InputBase, Tooltip, Button, MuiThemeProvider, createMuiTheme } from '@material-ui/core';
-import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
@@ -10,7 +9,7 @@ import ColorPaletteComponent from './colorPaletteComponent';
 import MoreOptionComponenent from './moreOptionComponenent'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import Checkbox from '@material-ui/core/Checkbox';
-import ReminderComponent from './reminderComponent'
+import ReminderComponent from './reminderComponent';
 // const theme = createMuiTheme({
 //     overrides: {
 //         MuiCard: {
@@ -159,7 +158,6 @@ export default class createNotes extends Component {
         }).catch((err) => {
             console.log(err);
         })
-
     }
     handleColor = async (col) => {
         console.log('col', col);
@@ -390,13 +388,13 @@ export default class createNotes extends Component {
                                                 completeNote={null}
                                                 deleteUp={this.deleteUp}
                                                 moreOptionLabelProps={this.moreOptionLabel}
-                                            />                                       
-                                             </Tooltip>
+                                            />
+                                        </Tooltip>
                                     </div>
                                     <div>
                                         <Button onClick={this.handleCheckClose}>
                                             close
-                            </Button>
+                                        </Button>
                                     </div>
                                 </div>
                             </Card>

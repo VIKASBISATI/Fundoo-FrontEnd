@@ -90,11 +90,11 @@ class Login extends React.Component {
                 localStorage.setItem('LastName', res.data.lastName);
                 localStorage.setItem('Email', res.data.email);
                 localStorage.setItem('profileimage', Url + res.data.imageUrl);
-                localStorage.setItem('cart',this.props.location.state.cart)
-                if(this.props.location.state!==undefined){
-                    this.props.history.push('/shoppingCart',this.props.location.state.cart)
-                }else{
-                this.props.history.push('/dashboard');
+                localStorage.setItem('cart', this.props.location.state.cart)
+                if (this.props.location.state !== undefined) {
+                    this.props.history.push('/shoppingCart', this.props.location.state.cart)
+                } else {
+                    this.props.history.push('/dashboard');
                 }
             }).catch((err) => {
                 console.log(err);

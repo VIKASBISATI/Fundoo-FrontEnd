@@ -40,7 +40,7 @@ class DrawerComponent extends Component {
             trashed: true,
             title: '',
             appTitle: "FundooNotes",
-            bgColor:''
+            bgColor: ''
         }
         this.handleArchive = this.handleArchive.bind(this)
     }
@@ -61,7 +61,7 @@ class DrawerComponent extends Component {
         await this.setState({
             // noted: this.state.noted
             appTitle: "FundooNotes",
-            bgColor:"#f4fec3"
+            bgColor: "#f4fec3"
         })
         // console.log("yes handle trash", this.state.noted);
         // this.props.changeToNote(this.state.noted);
@@ -70,7 +70,7 @@ class DrawerComponent extends Component {
     handleArchive = async () => {
         await this.setState({
             appTitle: "Archive",
-            bgColor:"#f4fec3"
+            bgColor: "#f4fec3"
         })
         // console.log("yes handle trash", this.state.arc);
         // this.props.changeToArchive(this.state.arc);
@@ -80,7 +80,7 @@ class DrawerComponent extends Component {
         console.log("yes handle trash");
         await this.setState({
             appTitle: "Trash",
-            bgColor:"#f4fec3"
+            bgColor: "#f4fec3"
         })
         // console.log("yes handle trash", this.state.trashed);
         // this.props.changeToTrash(this.state.trashed);
@@ -89,7 +89,7 @@ class DrawerComponent extends Component {
     handleReminders = async () => {
         await this.setState({
             appTitle: "Reminders",
-            bgColor:"#f4fec3"
+            bgColor: "#f4fec3"
         })
         this.props.history.push('/getReminders', this.state.appTitle)
     }
@@ -100,26 +100,26 @@ class DrawerComponent extends Component {
                     <Drawer variant="persistent"
                         open={this.props.menuSelect}
                         className="drawer-css">
-                        <MenuItem id="note" onClick={this.handleNotes} style={{backgroundColor:this.state.bgColor }}>
-                            <EmojiObjectsIcon style={{ paddingRight: "15%"}} />
+                        <MenuItem id="note" onClick={this.handleNotes} style={{ backgroundColor: this.state.bgColor }}>
+                            <EmojiObjectsIcon style={{ paddingRight: "15%" }} />
                             Notes
                      </MenuItem>
-                        <MenuItem id="note" onClick={this.handleReminders} 
-                        style={{backgroundColor:this.state.bgColor }}>
+                        <MenuItem id="note" onClick={this.handleReminders}
+                            style={{ backgroundColor: this.state.bgColor }}>
                             <NotificationsNoneOutlinedIcon style={{ paddingRight: "15%" }} />
                             Reminders
                      </MenuItem>
                         <Divider />
                         <div>
-                            <h6 style={{ paddingLeft: "20px" }}>LABLES</h6>
+                            <h6 style={{ paddingLeft: "20px", fontWeight: "600", opacity: "0.5" }} >LABLES</h6>
                             <EditLabelComponent />
                             <Divider />
                         </div>
-                        <MenuItem id="note" onClick={this.handleArchive} style={{backgroundColor:this.state.bgColor }}>
+                        <MenuItem id="note" onClick={this.handleArchive} style={{ backgroundColor: this.state.bgColor }}>
                             <ArchiveIcon style={{ paddingRight: "15%" }} />
                             Archive
                      </MenuItem>
-                        <MenuItem id="note" onClick={this.handleTrash} style={{backgroundColor:this.state.bgColor }}>
+                        <MenuItem id="note" onClick={this.handleTrash} style={{ backgroundColor: this.state.bgColor }}>
                             <DeleteIcon style={{ paddingRight: "15%" }} />
                             Trash
                      </MenuItem>
