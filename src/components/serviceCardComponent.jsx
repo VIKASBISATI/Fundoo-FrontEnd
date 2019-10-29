@@ -41,6 +41,7 @@ class ServiceCard extends Component {
                 console.log('data', res)
                 this.setState({
                     serviceData: res.data.data.data
+                
                 })
             })
             .catch((err) => {

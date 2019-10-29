@@ -181,7 +181,6 @@ class EditLabelComponent extends Component {
     render() {
         const labelMap = this.state.labels.map((key) => {
             console.log('labelid in edit label component', key.id);
-
             return (
                 <div>
                     <MenuItem id="note" onClick={()=>this.handleDisplay(key.label)}>
