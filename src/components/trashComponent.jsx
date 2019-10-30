@@ -11,12 +11,15 @@ class TrashComponent extends Component {
         }
     }
     handleButton = () => {
+        console.log("trash note id in handle button",this.props.trashNoteId);  
         var trashNoteId = this.props.trashProps;
         var data = {
             noteIdList: [trashNoteId],
             isDeleted: true
         }
         console.log('data in trash', data);
+        console.log("");
+        
         trash(data)
             .then((res) => {
                 console.log('res in trash after hitting', res);

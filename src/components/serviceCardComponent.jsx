@@ -208,7 +208,7 @@ class ServiceCard extends Component {
 
                     </div>
                     <div className="serviceLogin" onClick={this.handleSignIn} style={{ color: "blue" }}>Sign in instead</div>
-                </div>
+                </div> 
         )
     }
 }

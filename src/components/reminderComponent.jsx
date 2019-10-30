@@ -43,7 +43,23 @@ class ReminderComponent extends Component {
             anchorEl: this.state.anchorEl ? false : e.target
         })
     }
+    sendRem = async(data) => {
+        console.log("YEs enterd in sendRem",data);   
+       await this.props.remToCreate(data.reminder)
+    }
     handleReminder = () => {
+        console.log("this.props in reminder",this.props.noteId);     
+        if (this.props.noteId === undefined) {
+            console.log("this.state.reminder in reminder",this.state.reminder);    
+            let data = {
+                "reminder": this.state.selectedDate
+            }
+            this.setState({
+                anchorEl: null
+            })
+            this.sendRem(data)
+            console.log("data in reminder is ", data);
+        }else{
         let data = {
             "noteIdList": [this.props.noteId],
             "reminder": this.state.selectedDate
@@ -58,6 +74,7 @@ class ReminderComponent extends Component {
         }).catch((err) => {
             console.log('err in hitting api reminder', err);
         })
+    }
     }
     render() {
         return (

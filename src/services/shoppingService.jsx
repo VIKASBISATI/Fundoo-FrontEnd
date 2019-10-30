@@ -3,13 +3,15 @@ import Firebase from '../services/firebase.config'
 // import firestore from './firebase.config';
 import axios from 'axios';
 require('dotenv').config();
-const baseURL = process.env.REACT_APP_BASE_URL;
+const baseURL ="http://fundoonotes.incubation.bridgelabz.com/api"
 export function userRegister(regDetails) {
     console.log("base" + baseURL);
 
     return axios.post(baseURL + '/user/userSignUp', regDetails)
 }
 export function userLogin(loginData) {
+    console.log("the login data is",loginData);
+    console.log("final url is ",baseURL+'/user/login');
     return axios.post(baseURL + '/user/login', loginData)
 }
 export function userForgotPassword(forgotData) {

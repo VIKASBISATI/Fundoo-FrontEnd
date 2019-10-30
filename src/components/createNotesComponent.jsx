@@ -108,6 +108,7 @@ export default class createNotes extends Component {
             title: this.state.title,
             description: this.state.desc,
             color: this.state.color,
+            reminder:this.state.reminder
         }
         console.log("create notes data", data)
         addNotes(data).then(async (res) => {
@@ -120,7 +121,8 @@ export default class createNotes extends Component {
                 noteClick: false,
                 title: '',
                 desc: '',
-                color: ''
+                color: '',
+                reminder: ''
             })
         }).catch((err) => {
             console.log(err);
@@ -256,6 +258,13 @@ export default class createNotes extends Component {
         })
     }
 
+    handleremToCreate = async (selectedDate) => {
+        console.log("the reminder from create notes", selectedDate);
+        await this.setState({
+            reminder: selectedDate
+        })
+    }
+
     render() {
         return (
             <div className="create-container">
@@ -290,7 +299,9 @@ export default class createNotes extends Component {
                             <div className="notes-icons">
                                 <div className="notes-icon-div">
                                     <Tooltip title="Remind me">
-                                        <ReminderComponent />
+                                        <ReminderComponent
+                                            remToCreate={this.handleremToCreate}
+                                        />
                                     </Tooltip>
                                     <Tooltip title="collaborator">
                                         <PersonAddOutlinedIcon style={{ height: "0.7em" }} />

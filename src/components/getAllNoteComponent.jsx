@@ -162,6 +162,8 @@ class GetAllNoteComponent extends Component {
             completNotes: completKey,
             colorUpdated: colorUpdated
         })
+        console.log("triggerd update",this.state.noteId);
+        
         var data = {
             noteId: this.state.noteId,
             title: this.state.title,
