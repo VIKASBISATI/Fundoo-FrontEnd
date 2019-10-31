@@ -4,9 +4,7 @@ class Register extends Component {
     render() {
         console.log("cardtid==>", this.props);
         return (
-            <div className="register-page">
                 <RegisterComponent/>
-                </div>
         );
     }
 }

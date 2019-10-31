@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Divider, Button } from '@material-ui/core';
+import { Divider, Button, MobileStepper, createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import { myCart, placeOrder } from '../services/cartServices';
+
+const theme = createMuiTheme({
+    overrides: {
+        MuiLinearProgress: {
+            root: {
+                height: "4px",
+                overflow: "hidden",
+                position: "fixed"
+            }
+        }
+    }
+})
 class ShoppingCart extends Component {
     constructor(props) {
         super(props);
@@ -16,6 +28,7 @@ class ShoppingCart extends Component {
             cartId: '',
             openSnackBar: false,
             SnackBarMessage: "",
+            activeStep: 0
         }
     }
     componentDidMount() {
@@ -39,9 +52,11 @@ class ShoppingCart extends Component {
         })
     }
 
-    handleProceed = () => {
-        this.setState({
-            place: false
+    handleProceed = async () => {
+        await this.setState({
+            place: false,
+            openSnackBar: true,
+            SnackBarMessage: "do u really want to proceed"
         })
     }
 
@@ -55,12 +70,13 @@ class ShoppingCart extends Component {
         if (this.state.address !== '') {
             let data = {
                 "cartId": localStorage.getItem('cart'),
-                "address": this.state.address
+                "address": this.state.address,
             }
             placeOrder(data).then(res => {
                 console.log("res after hitting place order is ", res);
                 this.setState({
-                    order: false
+                    order: false,
+                    activeStep: this.state.activeStep + 1
                 })
             }).catch(err => {
                 console.log("err in hitting place order ", err);
@@ -81,12 +97,29 @@ class ShoppingCart extends Component {
         document.getElementById('addr').focus();
     }
 
+    handleOk = async () => {
+        await this.setState({
+            openSnackBar: false,
+            activeStep: this.state.activeStep + 1
+        })
+    }
+
     render() {
         return (
             <div className="shopping-container">
                 <div className="card-container1">
                     <div className="shopping-card1" style={{ backgroundColor: "#fb0" }}>
                         <span style={{ fontSize: "1rem" }}>FundooNotes</span>
+                    </div>
+                    <div>
+                        <MuiThemeProvider theme={theme}>
+                            <MobileStepper
+                                variant="progress"
+                                steps={3}
+                                // position="fixed"
+                                activeStep={this.state.activeStep}
+                            />
+                        </MuiThemeProvider>
                     </div>
                 </div>
                 <div>
@@ -219,9 +252,14 @@ class ShoppingCart extends Component {
                     onClose={this.snackbarClose}
                     message={<span id="messege-id">{this.state.SnackBarMessage}</span>}
                     action={[
-                        <Button onClick={this.snackbarClose} color="secondary" style={{ textTransform: "none" }} >
-                            please enter address
+                        this.state.place !== false ?
+                            <Button onClick={this.snackbarClose} color="secondary" style={{ textTransform: "none" }} >
+                                please enter address
                         </Button>
+                            :
+                            <Button onClick={this.handleOk} color="secondary" style={{ textTransform: "none" }} >
+                                Proceed
+                            </Button>
                     ]}
                 />
             </div>

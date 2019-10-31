@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, InputBase, Tooltip, Button, MuiThemeProvider, createMuiTheme } from '@material-ui/core';
+import { Card, InputBase, Tooltip, Button, MuiThemeProvider, Chip } from '@material-ui/core';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
@@ -10,6 +10,8 @@ import MoreOptionComponenent from './moreOptionComponenent'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import Checkbox from '@material-ui/core/Checkbox';
 import ReminderComponent from './reminderComponent';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+
 // const theme = createMuiTheme({
 //     overrides: {
 //         MuiCard: {
@@ -19,6 +21,7 @@ import ReminderComponent from './reminderComponent';
 //         }
 //     }
 // })
+
 export default class createNotes extends Component {
     constructor(props) {
         super(props);
@@ -39,6 +42,7 @@ export default class createNotes extends Component {
         }
         this.inputRef = React.createRef();
     }
+
     // handleClickAway = () => {
     //     var data = {
     //         title: this.state.title,
@@ -69,6 +73,9 @@ export default class createNotes extends Component {
     //     })
     // }
     componentDidMount() {
+        if (this.state.reminder !== undefined) {
+            console.log("yes", this.state.reminder);
+        }
         this.inputRef.current.focus()
         console.log("this.input current", this.inputRef);
     }
@@ -108,7 +115,7 @@ export default class createNotes extends Component {
             title: this.state.title,
             description: this.state.desc,
             color: this.state.color,
-            reminder:this.state.reminder
+            reminder: this.state.reminder
         }
         console.log("create notes data", data)
         addNotes(data).then(async (res) => {
@@ -122,7 +129,7 @@ export default class createNotes extends Component {
                 title: '',
                 desc: '',
                 color: '',
-                reminder: ''
+                reminder: []
             })
         }).catch((err) => {
             console.log(err);
@@ -257,12 +264,27 @@ export default class createNotes extends Component {
             checkList: updatedItems
         })
     }
-
-    handleremToCreate = async (selectedDate) => {
+    handleremToCreate = (selectedDate) => {
         console.log("the reminder from create notes", selectedDate);
-        await this.setState({
-            reminder: selectedDate
+        let dup = [];
+        dup.push(selectedDate);
+        console.log("dup", dup[0]);
+        this.setState({
+            reminder: dup
         })
+        this.render();
+        console.log("[0] reminder", this.state.reminder);
+    }
+
+    handleDeleteReminder = async () => {
+        console.log("triggered");
+        await this.setState({
+            reminder: ''
+        })
+    }
+
+    handleSet = () => {
+        this.setState()
     }
 
     render() {
@@ -295,6 +317,18 @@ export default class createNotes extends Component {
                                     onChange={this.handleDescription}
                                     value={this.state.desc}
                                 />
+                            </div>
+                            <div>
+                                {
+                                    this.state.reminder !== undefined ?
+                                        (<Chip onDelete={() =>
+                                            this.handleDeleteReminder()}
+                                            icon={<AccessTimeIcon />}
+                                            onChange={this.handleSet}
+                                            label={this.state.reminder}
+                                            size="medium">
+                                        </Chip>) : (null)
+                                }
                             </div>
                             <div className="notes-icons">
                                 <div className="notes-icon-div">
@@ -443,3 +477,5 @@ export default class createNotes extends Component {
         )
     }
 }
+
+

@@ -1,0 +1,134 @@
+
+                        <MuiThemeProvider theme={theme}>
+                            <AppBar position="static" color="primary">
+                                <h2 className='fundooNotes'>Fundoo Notes</h2>
+                            </AppBar>
+                        </MuiThemeProvider>
+<MuiThemeProvider theme={theme}>
+                        <Card className='innerCard' id={cardColor}
+                            style={{
+                                backgroundColor: (this.state.cartId === key.id) ? cardColor : "grey" &&
+                                    (this.props.cartIdd === key.id) ? this.props.changeColor : "grey",
+                            }}>
+                            <Card className='outerCard' onClick={() => this.getRegId(key.id)}
+                                onMouseEnter={(this.props.cartProps) ? null :
+                                    () => this.handleMouseEntry(key.id)} onMouseLeave={(this.props.cartProps) ?
+                                        (null) : this.handleMouseExit}
+                            >
+                                <b>Price : ${key.price} per month</b>
+                                <div style={{ marginLeft: "20px", color: "blue" }}>
+                                    <b>{key.name}</b>
+                                </div>
+                                {/* <ul > */}
+                                <div style={{ maxWidth: "220px" }}>
+                                    <li>
+                                        ${key.price}/month
+                                            </li>
+                                    <li>
+                                        {key.description}
+                                    </li>
+                                </div>
+                                {/* </ul> */}
+                            </Card>
+                            <div>
+                                {(this.props.cartIdd === key.id) ? <b>{this.props.status}</b> : <b>ADD TO CART</b>}
+                            </div>
+                        </Card>
+                    </MuiThemeProvider>
+                </div>
+
+
+
+                 <Card className="register-card">
+                    <div className="register-heading">
+                        <h1 style={{ textAlign: "center" }}><span style={{ color: "blue" }}>F</span>
+                            <span style={{ color: "red" }}>u</span>
+                            <span style={{ color: "green" }}>n</span>
+                            <span style={{ color: "green" }}>d</span>
+                            <span style={{ color: "orange" }}>o</span>
+                            <span style={{ color: "red" }}>o</span></h1>
+                        <Button color="primary" id="sensitivity" onClick={this.handleCart}>
+                            go to cart
+                            </Button>
+                        <h2> Create your Fundoo Account</h2>
+                    </div>
+                    <Snackbar
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        // open={true}
+                        open={this.state.openSnackBar}
+                        autoHideDuration={6000}
+                        onClose={this.snackbarClose}
+                        message={<span id="messege-id">{this.state.SnackBarMessage}</span>}
+                        action={[
+                            <IconButton
+                                key="close"
+                                arial-label="close"
+                                color="inherit"
+                                onClick={this.snackbarClose}
+                            >
+                                <ClearIcon />
+                            </IconButton>
+                        ]}
+                    />
+                    <div className="register-fields1">
+                        <TextField
+                            required
+                            label="FirstName"
+                            variant="outlined"
+                            placeholder="FirstName"
+                            type="text"
+                            id="firstName"
+                            name="firstName"
+                            onChange={this.handleChangeFirstName}
+                            value={this.state.firstName}
+                        />
+                        <TextField
+                            required
+                            label="LastName"
+                            variant="outlined"
+                            placeholder="LastName"
+                            name="lastName"
+                            id="lastName"
+                            onChange={this.handleChangeLastName}
+                            value={this.state.lastName}
+                        />
+                    </div>
+                    <div className="register-fields2">
+                        <TextField
+                            required
+                            label="Email"
+                            variant="outlined"
+                            placeholder="Email"
+                            name="email"
+                            id="email"
+                            onChange={this.handleChangeMail}
+                            value={this.state.email}
+                        />
+                    </div>
+                    <div className="register-fields1">
+                        <TextField
+                            required
+                            id="password"
+                            label="Password"
+                            name="password"
+                            variant="outlined"
+                            placeholder="Password"
+                            type="password"
+                            onChange={this.handleChangePassword}
+                            value={this.state.password}
+                        />
+                        <TextField
+                            required
+                            id="confirmPassword"
+                            label="confirm password"
+                            variant="outlined"
+                            name="confirmPasssword"
+                            placeholder="confirm password"
+                            type="password"
+                            onChange={this.handleChangeConfirmPassword}
+                            value={this.state.confirmPassword}
+                        />
+                    </div>

@@ -50,6 +50,8 @@ class EditLabelComponent extends Component {
         }
     }
     componentDidMount() {
+
+        
         this.getLabels();
     }
 

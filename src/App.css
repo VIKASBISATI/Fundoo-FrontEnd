@@ -31,13 +31,11 @@
 
 #orange {
   background-color: orange;
+  transition: 1s ease-in-out;
 }
 
 #orange:hover {
-  transition: width 1s;
-  transition: height 1s;
-  width: 50%;
-  height: 100%
+  transform: scale(1.2);
 }
 
 .keyDetails1 {
@@ -88,24 +86,33 @@
 }
 
 .register-container {
-  width: 68%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  /* align-items: center; */
+  align-items: center;
   justify-content: center;
-  height: 100%;
+}
+
+.textfield-container > div{
+  margin: 1em;
 }
 
 .register-card {
-  /* padding-top: 5%; */
   display: flex;
-  width: 100%;
-  height: 900px;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  overflow: hidden;
+  height: 600px;
+  width: 450px;
+  flex-direction: column;
 }
 
+.register-card1{
+  display: flex;
+  align-items: center;
+  height: 600px;
+  width: 450px;
+  background: grey;
+}
 .register-fields1 {
   display: flex;
   justify-content: space-around;
@@ -168,6 +175,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   height: 100%;
 }
 
@@ -181,7 +189,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 550px;
+  height: 600px;
   width: 450px;
   flex-direction: column;
 }
@@ -189,7 +197,7 @@
 .login-card2 {
   align-content: center;
   align-items: center;
-  height: 550px;
+  height: 600px;
   width: 450px;
 }
 
