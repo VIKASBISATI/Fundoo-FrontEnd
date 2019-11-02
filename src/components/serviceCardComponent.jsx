@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { service, addToCart } from "../services/userService";
 import { Card } from "@material-ui/core";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
-import AppBar from "@material-ui/core/AppBar";
 import { withRouter } from "react-router-dom";
 const theme = createMuiTheme({
   overrides: {
@@ -10,11 +9,6 @@ const theme = createMuiTheme({
       root: {
         overflow: "visible"
       }
-    },
-    MuiPaper:{
-        elevation1:{
-            boxShadow:"none"
-        }
     }
   }
 });
@@ -144,7 +138,7 @@ class ServiceCard extends Component {
           <span>Fundoo Notes</span>
         </div>
         <div className="fundoo-head">
-          <span>fundooNotes offered. Choose below service to Register.</span>
+          <span style={{fontSize:"3vw",opacity:"0.5"}}>FundooNotes offered. Choose below service to Register.</span>
         </div>
         <div className="service-contents">{serviceArr}</div>
         <div className="service-btn">

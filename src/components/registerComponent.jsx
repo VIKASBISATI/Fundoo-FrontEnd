@@ -1,6 +1,6 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
-import { Card } from "@material-ui/core";
+import { Card, createMuiTheme } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -9,6 +9,15 @@ import ServiceCard from "./serviceCardComponent";
 import { withRouter } from "react-router-dom";
 import ClearIcon from "@material-ui/icons/Clear";
 import { userRegister } from "../services/shoppingService";
+const theme=createMuiTheme({
+  overrides:{
+    MuiCard:{
+      root:{
+        boxShadow:"1px"
+      }
+    }
+  }
+})
 class RegisterComponent extends React.Component {
   constructor(props) {
     super(props);

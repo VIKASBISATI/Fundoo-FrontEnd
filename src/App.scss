@@ -393,10 +393,10 @@ div.DraftEditor-root {
 .service-container {
   width: 100vw;
   height: 100vh;
+  background-image: linear-gradient(360deg, black, transparent);
 }
 
 .service-header {
-  width: 100%;
   height: 8vh;
   display: flex;
   background: orange;

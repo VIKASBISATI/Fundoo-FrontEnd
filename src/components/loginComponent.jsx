@@ -229,7 +229,7 @@ class Login extends React.Component {
                             ForgotPassword?
                          </Button>
                         <Button color="primary" id="sensitivity" onClick={this.handleCreateAccout}>
-                            CreatAccount
+                            CreateAccount
                          </Button>
                     </div>
                 </Card>
