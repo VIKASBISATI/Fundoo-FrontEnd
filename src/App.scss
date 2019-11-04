@@ -378,8 +378,10 @@ div.DraftEditor-root {
   // border-radius: 2px 2px 2px 2px;
   display: flex;
   padding: 2em;
-  height: 160px;
-  width: 180px;
+  min-height: 160px;
+  max-width: 180px;
+  height: auto;
+  width: auto;
   margin: 1em;
   /* align-items: center; */
   /* justify-content: center; */
@@ -415,18 +417,18 @@ div.DraftEditor-root {
   align-items: center;
   margin: 3em;
 }
-.service-contents{
+.service-contents {
   display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
-.fundoo-head{
+.fundoo-head {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin:2em;
+  margin: 2em;
 }
-.service-btn{
-  @extend .fundoo-head
+.service-btn {
+  @extend .fundoo-head;
 }

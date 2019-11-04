@@ -300,7 +300,10 @@
 .create-container {
   /* display: flex;
   justify-content: center; */
-  margin-bottom: 55px
+  margin-bottom: 55px;
+  position: sticky;
+  top: 80px;
+  z-index: 10;
 }
 
 .create-take {
