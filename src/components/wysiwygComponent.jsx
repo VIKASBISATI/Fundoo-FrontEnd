@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import ReplyIcon from "@material-ui/icons/Reply";
+import draftToHtml from "draftjs-to-html";
 import { getQuesAns, like, rate, reply } from "../services/userService";
 import { questionAndAnswer } from "../services/userService";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
@@ -41,7 +42,8 @@ class WysiwygComponent extends Component {
       likes: [],
       msgId: [],
       rating: 0,
-      c: 0
+      c: 0,
+      textValue:""
     };
   }
 
@@ -68,11 +70,19 @@ class WysiwygComponent extends Component {
     }
   }
 
-  onEditorStateChange = editorState => {
+  onEditorStateChange = async editorState => {
     this.setState({
       editorState
     });
-    console.log("this.state.editor", this.state.editorState);
+
+    console.log("this.state.editor", draftToHtml(
+        convertToRaw(this.state.editorState.getCurrentContent())))
+
+    await this.setState({
+      textValue: draftToHtml(
+        convertToRaw(this.state.editorState.getCurrentContent())
+      )
+    });
   };
 
   handleLike = id => {
@@ -106,7 +116,6 @@ class WysiwygComponent extends Component {
       });
       console.log("msg is", this.state.msgId);
       console.log("Res.did", res.data);
-
       this.setState({
         msgArr: res.data
       });
@@ -131,7 +140,7 @@ class WysiwygComponent extends Component {
       // editorState=EditorState.createEmpty()
     });
     let data = {
-      message: this.state.msg,
+      message: this.state.textValue,
       notesId: this.state.id
     };
     console.log("data before hitting api", data);
@@ -241,7 +250,13 @@ class WysiwygComponent extends Component {
               <div className="editor-assignment">
                 <p>Question Asked</p>
                 {this.state.msgArr.map((data, index) => {
-                  return <p key={index}>{data.message}</p>;
+                  return (
+                    <p key={index}>
+                      <div
+                        dangerouslySetInnerHTML={{ __html: data.message }}
+                      ></div>
+                    </p>
+                  );
                 })}
               </div>
               <Divider />

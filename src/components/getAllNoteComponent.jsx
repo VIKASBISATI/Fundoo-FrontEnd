@@ -468,7 +468,7 @@ class GetAllNoteComponent extends Component {
                         <p onClick={() => this.handleSQA(key)}>
                           Question Asked
                         </p>
-                        {data.message}
+                        <div dangerouslySetInnerHTML={{ __html: data.message }}></div>
                       </div>
                     );
                   })}

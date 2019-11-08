@@ -85,7 +85,7 @@ class ShoppingCart extends Component {
         } else {
             this.setState({
                 openSnackBar: 'true',
-                SnackBarMessage: 'failed!'
+                SnackBarMessage: 'failed! enter the address...'
             })
         }
     }
@@ -94,7 +94,6 @@ class ShoppingCart extends Component {
         this.setState({
             openSnackBar: false
         })
-        document.getElementById('addr').focus();
     }
 
     handleOk = async () => {
@@ -102,6 +101,8 @@ class ShoppingCart extends Component {
             openSnackBar: false,
             activeStep: this.state.activeStep + 1
         })
+        document.getElementById('addr').focus();
+
     }
 
     render() {
@@ -112,14 +113,14 @@ class ShoppingCart extends Component {
                         <span style={{ fontSize: "1rem" }}>FundooNotes</span>
                     </div>
                     <div>
-                        <MuiThemeProvider theme={theme}>
+                        {/* <MuiThemeProvider theme={theme}>
                             <MobileStepper
                                 variant="progress"
                                 steps={3}
                                 // position="fixed"
                                 activeStep={this.state.activeStep}
                             />
-                        </MuiThemeProvider>
+                        </MuiThemeProvider> */}
                     </div>
                 </div>
                 <div>

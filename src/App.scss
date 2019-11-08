@@ -395,7 +395,8 @@ div.DraftEditor-root {
 .service-container {
   width: 100vw;
   height: 100vh;
-  background-image: linear-gradient(360deg, black, transparent);
+  overflow-y: scroll;
+  background-image: linear-gradient(#fff, #eaeaea);
 }
 
 .service-header {
