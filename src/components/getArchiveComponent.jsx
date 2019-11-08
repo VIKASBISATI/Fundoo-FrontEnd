@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import { getAllNotes, updateNotes, colorChange } from '../services/userService'
 import { Card, InputBase, Button, createMuiTheme, MuiThemeProvider, Chip } from '@material-ui/core';
 import { Tooltip } from '@material-ui/core';
-import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
-import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import Snackbar from '@material-ui/core/Snackbar'
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -235,17 +233,20 @@ class GetArchiveComponent extends Component {
         const allNotes = this.state.notes.filter(titleDescSearch(this.props.searchText)).map((key) => {
             console.log("count in archive", this.state.count);
             // console.log('    keyid ', key.id);
+            {this.state.count++}
             return (
+                
                 (((key.isArchived === true))
                     && (key.isDeleted === false) &&
                     <div className={list1}>
                         <Card className={list2} style={{
                             backgroundColor: key.color,
                             borderRadius: "10px",
+                            margin:"0.5em",
                             transform: (this.props.menu) ? "translate(80px,0) rotate(360deg)" : (null),
                             transition: (this.props.menu) ? ("300ms") : (null)
                         }}>
-                            {this.state.count++}
+                            
                             <div className="input1">
                                 <InputBase className="get-in2"
                                     multiline

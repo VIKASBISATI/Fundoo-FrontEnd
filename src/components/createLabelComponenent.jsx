@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import SearchIcon from "@material-ui/icons/Search";
 import { withRouter } from "react-router-dom";
 import { Tooltip, InputBase, Button, Menu } from "@material-ui/core";
 import { label } from "../services/userService";
-import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
 import { getLabel } from "../services/userService";
 import { noteLabel } from "../services/userService";
@@ -120,9 +118,7 @@ class CreateLabelComponenent extends Component {
     return (
       <div>
         <div className="label-button">
-          <Button onClick={event => this.handleAddLabel(event)}>
-            Add Label
-          </Button>
+          <div onClick={event => this.handleAddLabel(event)}>Add Label</div>
         </div>
         {this.state.label ? (
           <ClickAwayListener onClickAway={this.handleAway}>
@@ -133,7 +129,7 @@ class CreateLabelComponenent extends Component {
               onKeyDown={this.handleKeyDown}
               onClose={this.handleAway}
             >
-              <Paper className="label-popper">
+              <div className="label-content" style={{padding: "1em"}}>
                 <p>Label Note</p>
                 <InputBase
                   className="get-in2"
@@ -142,9 +138,6 @@ class CreateLabelComponenent extends Component {
                   value={this.state.title}
                   onChange={this.handleLabelText}
                 />
-                <Tooltip title="search">
-                  <SearchIcon />
-                </Tooltip>
                 <div className="trash-checkbox">{labelMap1}</div>
                 {this.state.create ? (
                   <div>
@@ -153,7 +146,7 @@ class CreateLabelComponenent extends Component {
                     </p>
                   </div>
                 ) : null}
-              </Paper>
+              </div>
             </Menu>
           </ClickAwayListener>
         ) : null}

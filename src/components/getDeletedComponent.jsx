@@ -169,6 +169,7 @@ class GetDeletedComponent extends Component {
                         <Card className={list2} style={{
                             backgroundColor: key.color,
                             borderRadius: "10px",
+                            margin:"0.5em",
                             transform: (this.props.menu) ? "translate(80px,0) rotate(360deg)" : (null),
                             transition: (this.props.menu) ? ("300ms") : (null)
                         }}>

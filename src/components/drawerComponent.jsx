@@ -24,7 +24,7 @@ const theme = createMuiTheme({
                 overflowY: 'hidden'
             },
             paperAnchorDockedLeft: {
-                borderColor: "white"
+                borderRight: "1px solid rgba(0, 0, 0, 0)"
             }
         }
     }
@@ -100,12 +100,12 @@ class DrawerComponent extends Component {
                     <Drawer variant="persistent"
                         open={this.props.menuSelect}
                         className="drawer-css">
-                        <MenuItem id="note" onClick={this.handleNotes} style={{ backgroundColor: this.state.bgColor }}>
+                        <MenuItem id="note" onClick={this.handleNotes}>
                             <EmojiObjectsIcon style={{ paddingRight: "15%" }} />
                             Notes
                      </MenuItem>
                         <MenuItem id="note" onClick={this.handleReminders}
-                            style={{ backgroundColor: this.state.bgColor }}>
+                           >
                             <NotificationsNoneOutlinedIcon style={{ paddingRight: "15%" }} />
                             Reminders
                      </MenuItem>
@@ -115,11 +115,11 @@ class DrawerComponent extends Component {
                             <EditLabelComponent />
                             <Divider />
                         </div>
-                        <MenuItem id="note" onClick={this.handleArchive} style={{ backgroundColor: this.state.bgColor }}>
+                        <MenuItem id="note" onClick={this.handleArchive}>
                             <ArchiveIcon style={{ paddingRight: "15%" }} />
                             Archive
                      </MenuItem>
-                        <MenuItem id="note" onClick={this.handleTrash} style={{ backgroundColor: this.state.bgColor }}>
+                        <MenuItem id="note" onClick={this.handleTrash}>
                             <DeleteIcon style={{ paddingRight: "15%" }} />
                             Trash
                      </MenuItem>

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Button } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import { trash, forever } from "../services/userService";
 class TrashComponent extends Component {
@@ -11,7 +10,7 @@ class TrashComponent extends Component {
     };
   }
   handleButton = () => {
-    console.log("trash note id in handle button", this.props.trashNoteId);
+    console.log("trash note id in handle div", this.props.trashNoteId);
     var trashNoteId = this.props.trashProps;
     var data = {
       noteIdList: [trashNoteId],
@@ -74,11 +73,11 @@ class TrashComponent extends Component {
       <div className="trash-del">
         {window.location.pathname === "/getTrash" ? (
           <div>
-            <Button onClick={this.handleForever}>Forever</Button>
-            <Button onClick={this.handleRestore}>Restore</Button>
+            <div onClick={this.handleForever}>Forever</div>
+            <div onClick={this.handleRestore}>Restore</div>
           </div>
         ) : (
-          <Button onClick={this.handleButton}>Delete</Button>
+          <div onClick={this.handlediv}>Delete</div>
         )}
       </div>
     );

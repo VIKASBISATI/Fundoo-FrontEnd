@@ -456,11 +456,10 @@
 }
 
 .get-container {
-  width: 60%;
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  /* flex-direction: column; */
+  justify-content: center;
   flex-wrap: wrap;
 }
 
@@ -523,6 +522,7 @@
   align-items: space-around;
   font-weight: 600;
   opacity: 0.5;
+  margin: 10px 0px 10px 0px;
   /* justify-content: space-between; */
 }
 

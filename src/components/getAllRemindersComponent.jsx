@@ -147,6 +147,7 @@ class GetAllRemindersComponent extends Component {
                     <div className={list1}>
                         <Card className={list2} style={{
                             backgroundColor: key.color,
+                            margin:"0.5em",
                             boxShadow: "5px 5px 5px grey", borderRadius: "10px",
                             transform: (this.props.menu) ? "translate(80px,0) rotate(360deg)" : (null),
                             transition: (this.props.menu) ? ("300ms") : (null)

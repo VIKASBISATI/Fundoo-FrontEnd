@@ -347,6 +347,7 @@ class GetAllNoteComponent extends Component {
               <Card
                 className={list2}
                 style={{
+                  margin:"0.4em",
                   backgroundColor: key.color,
                   borderRadius: "10px",
                   transform: this.props.menu ? "translate(80px,0) " : null,
